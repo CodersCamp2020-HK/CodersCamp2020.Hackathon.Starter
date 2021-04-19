@@ -17,7 +17,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:cov": "npm run test -- --coverage",
-    "test:ci": "npm run test  -- --verbose --silent --colors"
+    "test:ci": "npm run test  -- --verbose --silent --colors",
+    "tools:generate-api": "restful-react import --file \"../server/generated/swagger.json\" --output \"src/api/index.tsx\"",
+    "tools:generate": "npm run tools:generate-api"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.4.0",

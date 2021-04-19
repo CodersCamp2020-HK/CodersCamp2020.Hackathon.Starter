@@ -13,15 +13,26 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prebuild": "shx -R build",
+    "prebuild": "shx rm -R build",
     "preinstall": "npm ci --prefix server && npm ci --prefix client",
     "test:server": "npm run test:ci --prefix server",
     "test:client": "npm run test:ci --prefix client",
     "test": "npm run test:server && npm run test:client",
-    "start": "",
-    "build": "shx echo \"To Do\""
+    "tools:cp:server": "shx cp -R server/dist build",
+    "tools:cp:client": "shx cp -R client/build build/presentation/client",
+    "tools:generate:server": "npm run tools:generate --prefix server",
+    "tools:generate:client": "npm run tools:generate --prefix client",
+    "tools:generate:client:dev": "nodemon --watch server/generated -x npm run tools:generate:client",
+    "build:server": "npm run build --prefix server && npm run tools:generate:server",
+    "build:client": "npm run build --prefix client && npm run tools:generate:client",
+    "build": "npm run build:server && npm tools:cp:server && npm run build:client && npm run tools:cp:client",
+    "start:server": "npm run start:dev --prefix server",
+    "start:client": "npm run start --prefix client",
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\" \"npm run tools:generate:client:dev\" ",
+    "start:prod": "node build/main"
   },
   "dependencies": {
+    "concurrently": "^6.0.2",
     "nodemon": "^2.0.7",
     "shx": "^0.3.3"
   }

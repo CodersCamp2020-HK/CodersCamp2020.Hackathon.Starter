@@ -1,5 +1,6 @@
 import {
   Container,
+  IconButton,
   Link,
   makeStyles,
   Paper,
@@ -50,15 +51,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   personCard: {
-    position: 'relative',
+    position: "relative",
     width: "50%",
     padding: theme.spacing(1),
     marginBottom: theme.spacing(5),
   },
   personLink: {
-    position: 'absolute',
-    top: theme.spacing(2),
-    right: theme.spacing(2),
+    position: "absolute",
+    top: theme.spacing(1),
+    right: theme.spacing(1),
   },
 }));
 
@@ -67,20 +68,30 @@ const About = () => {
   return (
     <Container className={styles.container}>
       <Paper className={styles.projectInfo}>
-        <Typography variant='h5' className={styles.title}>{project.name}</Typography>
-        <Typography variant='body1'>{project.description}</Typography>
+        <Typography variant="h5" className={styles.title}>
+          {project.name}
+        </Typography>
+        <Typography variant="body1">{project.description}</Typography>
         <Link href={project.gitHubLink} target="_blank">
-          <GitHub />
+          <IconButton color="primary">
+            <GitHub fontSize="large" />
+          </IconButton>
         </Link>
       </Paper>
       <div className={styles.people}>
         {project.contributors.map((person, index) => (
           <Paper key={index} className={styles.personCard}>
-            <Typography variant='h6'>{person.name}</Typography>
-            <Typography variant='h6'>{person.surname}</Typography>
-            <Typography variant='body2'>{person.description}</Typography>
-            <Link className={styles.personLink} href={person.gitHubLink} target="_blank">
-              <GitHub />
+            <Typography variant="h6">{person.name}</Typography>
+            <Typography variant="h6">{person.surname}</Typography>
+            <Typography variant="body2">{person.description}</Typography>
+            <Link
+              className={styles.personLink}
+              href={person.gitHubLink}
+              target="_blank"
+            >
+              <IconButton color="primary">
+                <GitHub fontSize="large" />
+              </IconButton>
             </Link>
           </Paper>
         ))}

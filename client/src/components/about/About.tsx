@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   projectInfo: {
     justifyContent: "center",
     textAlign: "center",
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(5),
   },
   title: {
     display: "flex",
@@ -59,8 +59,8 @@ const About = () => {
   return (
     <Container className={styles.container}>
       <Paper className={styles.projectInfo}>
-        <Typography className={styles.title}>{project.name}</Typography>
-        <Typography>{project.description}</Typography>
+        <Typography variant='h5' className={styles.title}>{project.name}</Typography>
+        <Typography variant='body1'>{project.description}</Typography>
         <Link href={project.gitHubLink} target="_blank">
           <GitHub />
         </Link>
@@ -68,9 +68,9 @@ const About = () => {
       <div className={styles.people}>
         {project.contributors.map((person, index) => (
           <Paper key={index} className={styles.personCard}>
-            <Typography>{person.name}</Typography>
-            <Typography>{person.surname}</Typography>
-            <Typography>{person.description}</Typography>
+            <Typography variant='h6'>{person.name}</Typography>
+            <Typography variant='h6'>{person.surname}</Typography>
+            <Typography variant='body2'>{person.description}</Typography>
             <Link href={person.gitHubLink} target="_blank">
               <GitHub />
             </Link>

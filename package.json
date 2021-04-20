@@ -18,8 +18,8 @@
     "test:server": "npm run test:ci --prefix server",
     "test:client": "npm run test:ci --prefix client",
     "test": "npm run test:server && npm run test:client",
-    "tools:cp:server": "shx cp -R server/dist build",
-    "tools:cp:client": "shx cp -R client/build build/presentation/client",
+    "tools:cp:server": "shx cp -R server/dist server/build",
+    "tools:cp:client": "shx cp -R client/build server/build/presentation/client",
     "tools:generate:server": "npm run tools:generate --prefix server",
     "tools:generate:server:dev": "nodemon --watch server/src/presentation/rest -e js,ts -x npm run tools:generate:server",
     "tools:generate:client": "npm run tools:generate --prefix client",
@@ -30,7 +30,7 @@
     "start:server": "npm run start:dev --prefix server",
     "start:client": "npm run start --prefix client",
     "start": "concurrently \"npm run start:server\" \"npm run start:client\" \"npm run tools:generate:client:dev\" \"npm run tools:generate:server:dev\"",
-    "start:prod": "node build/main"
+    "start:prod": "node server/build/main"
   },
   "dependencies": {
     "concurrently": "^6.0.2",

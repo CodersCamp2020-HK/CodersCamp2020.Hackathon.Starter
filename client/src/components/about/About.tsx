@@ -5,6 +5,7 @@ import {
   makeStyles,
   Paper,
   Theme,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import { GitHub } from "@material-ui/icons";
@@ -84,15 +85,17 @@ const About = () => {
             <Typography variant="h6">{person.name}</Typography>
             <Typography variant="h6">{person.surname}</Typography>
             <Typography variant="body2">{person.description}</Typography>
-            <Link
-              className={styles.personLink}
-              href={person.gitHubLink}
-              target="_blank"
-            >
-              <IconButton color="primary">
-                <GitHub fontSize="large" />
-              </IconButton>
-            </Link>
+            <Tooltip title={person.gitHubName} placement="left">
+              <Link
+                className={styles.personLink}
+                href={person.gitHubLink}
+                target="_blank"
+              >
+                <IconButton color="primary">
+                  <GitHub fontSize="large" />
+                </IconButton>
+              </Link>
+            </Tooltip>
           </Paper>
         ))}
       </div>

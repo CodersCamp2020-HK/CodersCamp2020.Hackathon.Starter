@@ -7,6 +7,7 @@ import {
   Theme,
   Tooltip,
   Typography,
+  Divider,
 } from "@material-ui/core";
 import { GitHub } from "@material-ui/icons";
 import React from "react";
@@ -62,6 +63,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     top: theme.spacing(1),
     right: theme.spacing(1),
   },
+  personSurname: {
+    marginLeft: theme.spacing(2),
+  },
 }));
 
 const About = () => {
@@ -83,9 +87,19 @@ const About = () => {
         {project.contributors.map((person, index) => (
           <Paper key={index} className={styles.personCard}>
             <Typography variant="h6">{person.name}</Typography>
-            <Typography variant="h6">{person.surname}</Typography>
-            <Typography variant="body2">{person.description}</Typography>
-            <Tooltip title={person.gitHubName} placement="left">
+            <Typography className={styles.personSurname} variant="h6">
+              {person.surname}
+            </Typography>
+            <Divider />
+            <Typography variant="body1">{person.description}</Typography>
+            <Tooltip
+              title={
+                <React.Fragment>
+                  <Typography variant="body1">{person.gitHubName}</Typography>
+                </React.Fragment>
+              }
+              placement="left"
+            >
               <Link
                 className={styles.personLink}
                 href={person.gitHubLink}

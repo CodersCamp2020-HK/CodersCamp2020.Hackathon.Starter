@@ -42,7 +42,7 @@ const project = {
     {
       name: "Mateusz",
       surname: "Kmieć",
-      description: "lorem ipsum dor si amet",
+      description: "Interesuję się programowaniem na Frontendzie i Backendzie. Lubię psychologię, analizować i próbować nowych rzeczy.",
       gitHubLink: "https://github.com/Haivex",
       gitHubName: "@Haivex",
     },

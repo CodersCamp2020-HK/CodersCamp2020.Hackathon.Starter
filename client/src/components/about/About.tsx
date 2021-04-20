@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   projectInfo: {
     justifyContent: "center",
     textAlign: "center",
+    padding: theme.spacing(1),
     marginBottom: theme.spacing(5),
   },
   title: {
@@ -49,8 +50,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   personCard: {
+    position: 'relative',
     width: "50%",
+    padding: theme.spacing(1),
     marginBottom: theme.spacing(5),
+  },
+  personLink: {
+    position: 'absolute',
+    top: theme.spacing(2),
+    right: theme.spacing(2),
   },
 }));
 
@@ -71,7 +79,7 @@ const About = () => {
             <Typography variant='h6'>{person.name}</Typography>
             <Typography variant='h6'>{person.surname}</Typography>
             <Typography variant='body2'>{person.description}</Typography>
-            <Link href={person.gitHubLink} target="_blank">
+            <Link className={styles.personLink} href={person.gitHubLink} target="_blank">
               <GitHub />
             </Link>
           </Paper>

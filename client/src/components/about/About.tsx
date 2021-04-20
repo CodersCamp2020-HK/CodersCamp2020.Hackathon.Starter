@@ -52,9 +52,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   people: {
     display: "flex",
     flexDirection: "column",
+    padding: theme.spacing(1),
     "& :nth-of-type(odd)": {
       alignSelf: "flex-end",
     },
+  },
+  peopleCard: {
+    padding: theme.spacing(1),
+    marginBottom: theme.spacing(5),
   },
   personCard: {
     position: "relative",
@@ -87,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-  }
+  },
 }));
 
 const About = () => {
@@ -145,8 +150,12 @@ const About = () => {
           <Typography variant="body1">{project.mentor.description}</Typography>
         </Paper>
       </Grow>
-      <div className={styles.people}>
-        {project.contributors.map((person, index) => (
+      <Paper className={styles.peopleCard}>
+      <Typography variant="h5" className={styles.title}>
+            Uczestnicy
+          </Typography>
+          <div className={styles.people}>
+          {project.contributors.map((person, index) => (
           <Slide
             key={index}
             timeout={1000}
@@ -193,7 +202,8 @@ const About = () => {
             </Paper>
           </Slide>
         ))}
-      </div>
+          </div>
+      </Paper>
     </Container>
   );
 };

@@ -1,6 +1,9 @@
 {
   "name": "coderscamp2020.hackathon",
   "version": "1.0.0",
+  "engines": {
+    "node": "15.x"
+  },
   "description": "",
   "contributors": [
     "Hubert Kawałek (https://github.com/htk4)",

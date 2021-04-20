@@ -5,6 +5,7 @@ import {
   Link,
   makeStyles,
   Paper,
+  Slide,
   Theme,
   Tooltip,
   Typography,
@@ -86,42 +87,44 @@ const About = () => {
       </Paper>
       <div className={styles.people}>
         {project.contributors.map((person, index) => (
-          <Paper key={index} className={styles.personCard}>
-            <Typography
-              color="primary"
-              className={styles.personName}
-              variant="h6"
-            >
-              {person.name}
-            </Typography>
-            <Typography
-              color="secondary"
-              className={styles.personSurname}
-              variant="h6"
-            >
-              {person.surname}
-            </Typography>
-            <Divider />
-            <Typography variant="body1">{person.description}</Typography>
-            <Tooltip
-              title={
-                <React.Fragment>
-                  <Typography variant="body1">{person.gitHubName}</Typography>
-                </React.Fragment>
-              }
-              placement="left"
-            >
-              <Link
-                className={styles.personLink}
-                href={person.gitHubLink}
-                target="_blank"
+          <Slide key={index} direction={index % 2 === 0 ? "right" : "left"} in={true} mountOnEnter unmountOnExit>
+            <Paper className={styles.personCard}>
+              <Typography
+                color="primary"
+                className={styles.personName}
+                variant="h6"
               >
-                <IconButton color="primary">
-                  <GitHub fontSize="large" />
-                </IconButton>
-              </Link>
-            </Tooltip>
-          </Paper>
+                {person.name}
+              </Typography>
+              <Typography
+                color="secondary"
+                className={styles.personSurname}
+                variant="h6"
+              >
+                {person.surname}
+              </Typography>
+              <Divider />
+              <Typography variant="body1">{person.description}</Typography>
+              <Tooltip
+                title={
+                  <React.Fragment>
+                    <Typography variant="body1">{person.gitHubName}</Typography>
+                  </React.Fragment>
+                }
+                placement="left"
+              >
+                <Link
+                  className={styles.personLink}
+                  href={person.gitHubLink}
+                  target="_blank"
+                >
+                  <IconButton color="primary">
+                    <GitHub fontSize="large" />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+            </Paper>
+          </Slide>
         ))}
       </div>
     </Container>

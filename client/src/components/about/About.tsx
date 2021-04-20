@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#3f3f3f",
+    width: '50%',
   },
   projectInfo: {
     justifyContent: "center",
@@ -51,11 +52,16 @@ const About = () => {
           <GitHub />
         </Link>
       </Paper>
-      <Paper>
-        <Typography>Imie nazwisko</Typography>
-        <Typography>Opis</Typography>
-        <GitHub />
+      {project.contributors.map((person => (
+        <Paper>
+        <Typography>{person.name}</Typography>
+        <Typography>{person.surname}</Typography>
+        <Typography>{person.description}</Typography>
+        <Link href={person.gitHubLink} target="_blank"> 
+          <GitHub />
+        </Link>
       </Paper>
+      )))}
     </Container>
   );
 };

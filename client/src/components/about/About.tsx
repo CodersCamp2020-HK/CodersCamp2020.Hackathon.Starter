@@ -1,5 +1,6 @@
 import {
   Container,
+  Divider,
   IconButton,
   Link,
   makeStyles,
@@ -7,7 +8,6 @@ import {
   Theme,
   Tooltip,
   Typography,
-  Divider,
 } from "@material-ui/core";
 import { GitHub } from "@material-ui/icons";
 import React from "react";
@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   personSurname: {
     marginLeft: theme.spacing(2),
   },
+  personName: {},
 }));
 
 const About = () => {
@@ -86,8 +87,18 @@ const About = () => {
       <div className={styles.people}>
         {project.contributors.map((person, index) => (
           <Paper key={index} className={styles.personCard}>
-            <Typography variant="h6">{person.name}</Typography>
-            <Typography className={styles.personSurname} variant="h6">
+            <Typography
+              color="primary"
+              className={styles.personName}
+              variant="h6"
+            >
+              {person.name}
+            </Typography>
+            <Typography
+              color="secondary"
+              className={styles.personSurname}
+              variant="h6"
+            >
               {person.surname}
             </Typography>
             <Divider />

@@ -3,6 +3,13 @@ const project = {
   description: "Qui est dolor elit et commodo magna quis anim anim minim nisi. Nostrud sint dolor cupidatat elit tempor minim deserunt id. Deserunt adipisicing veniam deserunt commodo magna consectetur in proident tempor commodo duis ullamco ullamco. Labore minim dolor laboris officia cupidatat nostrud elit ex culpa voluptate Lorem culpa. Et esse esse deserunt irure tempor in veniam labore deserunt labore dolor. Proident anim labore amet non tempor duis laborum quis ipsum pariatur anim voluptate.",
   gitHubLink:
     "https://github.com/CodersCamp2020-HK/CodersCamp2020.Hackathon.Starter",
+    mentor: {
+      name: "Hubert",
+      surname: "Kawałek",
+      description: "Laborum voluptate veniam dolore proident anim dolore qui minim laborum dolor. Et velit nisi Lorem pariatur. Laboris consequat eu ad do ea enim magna irure eu deserunt. Id quis nulla Lorem excepteur qui cillum fugiat ullamco ullamco. Non proident tempor aliqua cupidatat. Magna do laboris nostrud officia adipisicing. Est consequat ad dolore velit veniam commodo non proident qui eu eiusmod.",
+      gitHubLink: "https://github.com/htk4",
+      gitHubName: "@htk4",
+    },
   contributors: [
     {
       name: "Anna",

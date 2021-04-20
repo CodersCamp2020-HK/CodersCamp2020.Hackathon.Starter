@@ -10,7 +10,7 @@ import {
   Slide,
   Theme,
   Tooltip,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import { GitHub } from "@material-ui/icons";
 import React from "react";
@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "50%",
   },
   projectInfo: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     textAlign: "justify",
     padding: theme.spacing(1),
@@ -79,6 +79,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(1),
     alignSelf: "flex-end",
   },
+  mentorCard: {
+    padding: theme.spacing(1),
+    marginBottom: theme.spacing(5),
+  },
+  mentorTitle: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 }));
 
 const About = () => {
@@ -104,6 +113,36 @@ const About = () => {
               Zobacz repozytorium
             </Button>
           </Link>
+        </Paper>
+      </Grow>
+      <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
+        <Paper className={styles.mentorCard}>
+          <Typography variant="h5" className={styles.title}>
+            Mentor
+          </Typography>
+          <div className={styles.mentorTitle}>
+          <Typography variant="h6" color='primary'>
+            {project.mentor.name} {project.mentor.surname}
+          </Typography>
+          <Tooltip
+                title={
+                  <React.Fragment>
+                    <Typography variant="body1">{project.mentor.gitHubName}</Typography>
+                  </React.Fragment>
+                }
+                placement="left"
+              >
+                <Link
+                  href={project.mentor.gitHubLink}
+                  target="_blank"
+                >
+                  <IconButton color="primary">
+                    <GitHub fontSize="large" />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+          </div>
+          <Typography variant="body1">{project.mentor.description}</Typography>
         </Paper>
       </Grow>
       <div className={styles.people}>

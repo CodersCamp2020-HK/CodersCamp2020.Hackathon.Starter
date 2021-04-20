@@ -4,7 +4,7 @@ import {
   makeStyles,
   Paper,
   Theme,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { GitHub } from "@material-ui/icons";
 import React from "react";
@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#3f3f3f",
-    width: '50%',
+    width: "50%",
   },
   projectInfo: {
     justifyContent: "center",
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: theme.spacing(1),
   },
   title: {
@@ -29,15 +29,28 @@ const useStyles = makeStyles((theme: Theme) => ({
     "&::before": {
       content: '""',
       border: "1px solid rgba(0, 0, 0, 0.5)",
-      margin: "0 5px",
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
       flexGrow: 1,
     },
     "&::after": {
       content: '""',
       border: "1px solid rgba(0, 0, 0, 0.5)",
-      margin: "0 5px",
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
       flexGrow: 1,
     },
+  },
+  people: {
+    display: "flex",
+    flexDirection: "column",
+    "& :nth-of-type(odd)": {
+      alignSelf: "flex-end",
+    },
+  },
+  personCard: {
+    width: "50%",
+    marginBottom: theme.spacing(5),
   },
 }));
 
@@ -52,16 +65,18 @@ const About = () => {
           <GitHub />
         </Link>
       </Paper>
-      {project.contributors.map((person => (
-        <Paper>
-        <Typography>{person.name}</Typography>
-        <Typography>{person.surname}</Typography>
-        <Typography>{person.description}</Typography>
-        <Link href={person.gitHubLink} target="_blank"> 
-          <GitHub />
-        </Link>
-      </Paper>
-      )))}
+      <div className={styles.people}>
+        {project.contributors.map((person, index) => (
+          <Paper key={index} className={styles.personCard}>
+            <Typography>{person.name}</Typography>
+            <Typography>{person.surname}</Typography>
+            <Typography>{person.description}</Typography>
+            <Link href={person.gitHubLink} target="_blank">
+              <GitHub />
+            </Link>
+          </Paper>
+        ))}
+      </div>
     </Container>
   );
 };

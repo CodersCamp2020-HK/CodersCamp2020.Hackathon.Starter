@@ -1,6 +1,8 @@
 import {
+  Button,
   Container,
   Divider,
+  Grow,
   IconButton,
   Link,
   makeStyles,
@@ -13,7 +15,6 @@ import {
 import { GitHub } from "@material-ui/icons";
 import React from "react";
 import project from "./AboutContent";
-//tooltip z lewej strony przycisku github imie dwulinijkowee górny napis wyzej niz dolny
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -23,8 +24,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "50%",
   },
   projectInfo: {
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: "center",
-    textAlign: "center",
+    textAlign: "justify",
     padding: theme.spacing(1),
     marginBottom: theme.spacing(5),
   },
@@ -68,26 +71,51 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: theme.spacing(2),
   },
   personName: {},
+  divider: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  repoButton: {
+    marginTop: theme.spacing(1),
+    alignSelf: "flex-end",
+  },
 }));
 
 const About = () => {
   const styles = useStyles();
   return (
     <Container className={styles.container}>
-      <Paper className={styles.projectInfo}>
-        <Typography variant="h5" className={styles.title}>
-          {project.name}
-        </Typography>
-        <Typography variant="body1">{project.description}</Typography>
-        <Link href={project.gitHubLink} target="_blank">
-          <IconButton color="primary">
-            <GitHub fontSize="large" />
-          </IconButton>
-        </Link>
-      </Paper>
+      <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
+        <Paper className={styles.projectInfo}>
+          <Typography variant="h5" className={styles.title}>
+            {project.name}
+          </Typography>
+          <Typography variant="body1">{project.description}</Typography>
+          <Link
+            className={styles.repoButton}
+            href={project.gitHubLink}
+            target="_blank"
+          >
+            <Button
+              variant="contained"
+              startIcon={<GitHub fontSize="large" />}
+              color="primary"
+            >
+              Zobacz repozytorium
+            </Button>
+          </Link>
+        </Paper>
+      </Grow>
       <div className={styles.people}>
         {project.contributors.map((person, index) => (
-          <Slide key={index} direction={index % 2 === 0 ? "right" : "left"} in={true} mountOnEnter unmountOnExit>
+          <Slide
+            key={index}
+            timeout={1000}
+            direction={index % 2 === 0 ? "right" : "left"}
+            in={true}
+            mountOnEnter
+            unmountOnExit
+          >
             <Paper className={styles.personCard}>
               <Typography
                 color="primary"
@@ -103,7 +131,7 @@ const About = () => {
               >
                 {person.surname}
               </Typography>
-              <Divider />
+              <Divider className={styles.divider} />
               <Typography variant="body1">{person.description}</Typography>
               <Tooltip
                 title={

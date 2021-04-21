@@ -6,10 +6,11 @@ type TextInputProps<T extends Record<string, unknown>> = {
     id: string;
     name: Path<T>;
     control: Control<T>;
-    rules?: RegisterOptions<T>;
+    rules?: Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>;
 };
 
 const TextInput = <T extends Record<string, any>>({
+    id,
     name,
     control,
     rules,
@@ -24,6 +25,7 @@ const TextInput = <T extends Record<string, any>>({
         <>
             <TextField
                 {...inputProps}
+                id={id}
                 error={!!error}
                 helperText={error?.message}
                 inputRef={ref}

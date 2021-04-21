@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextInput from '../inputs/textInput/TextInput';
 import { makeStyles } from '@material-ui/core';
 
-interface FormInputs {
+interface LoginFormInputs {
     email: string;
     password: string;
 }
@@ -31,8 +31,8 @@ const useStyles = makeStyles({
 
 const LoginForm = () => {
     const classes = useStyles();
-    const { control, handleSubmit } = useForm<FormInputs>();
-    const onSubmit = (data: FormInputs) => {
+    const { control, handleSubmit } = useForm<LoginFormInputs>();
+    const onSubmit = (data: LoginFormInputs) => {
         console.log(data);
     };
 

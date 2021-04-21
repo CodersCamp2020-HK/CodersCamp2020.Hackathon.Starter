@@ -1,13 +1,12 @@
 import React from 'react'
 import { useController, Control } from 'react-hook-form';
-import TextField from '@material-ui/core/TextField';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { FormInputs } from '../../forms/LoginForm';
 
-interface Props {
+type TextInputProps = {
+    id: string;
     name: string;
     control: Control<FormInputs>;
-    label: string;
-    type?: string;
 }
 
 // function isInObject<T extends { [key: string]: any }, K extends keyof T>(value: string, obj: T): value is K {
@@ -18,12 +17,12 @@ function isKeyOf<T>(value: string | number | symbol, obj: T): value is keyof T &
     return value in obj && typeof value === 'string';
 }
 
-const TextInput = ({ name, control, label, type }: Props) => {
+const TextInput = ({ name, control, ...inputProps }: TextFieldProps & TextInputProps) => {
     if (!isKeyOf<FormInputs>(name, { email: '', repPassword: '', password: '' }))
         throw new Error(`${name} does not exist in inputs interface for form`);
-    const { field: { ref, ...inputProps } } = useController({ name, control, defaultValue: '' });
+    const { field: { ref, ...controlledProps } } = useController({ name, control, defaultValue: '' });
 
-    return <TextField variant="standard" label={label} type={type} inputRef={ref} {...inputProps} />
+    return <TextField {...inputProps} inputRef={ref} {...controlledProps} />
 }
 
 export default TextInput

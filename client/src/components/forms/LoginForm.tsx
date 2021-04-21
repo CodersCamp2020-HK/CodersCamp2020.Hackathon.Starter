@@ -28,8 +28,8 @@ const LoginForm = () => {
 
     return (
         <form noValidate onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-            <TextInput control={control} name="email" label="Email" type="email" />
-            <TextInput control={control} name="password" label="Hasło" type="password" />
+            <TextInput control={control} id="email" name="email" label="Email" type="email" />
+            <TextInput control={control} id="password" name="password" label="Hasło" type="password" />
             <Button type="submit" color="primary">Zaloguj się</Button>
         </form>
     )

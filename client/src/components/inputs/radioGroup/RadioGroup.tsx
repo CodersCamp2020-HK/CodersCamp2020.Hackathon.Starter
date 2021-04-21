@@ -2,9 +2,8 @@ import React from 'react';
 import { useController, Control, RegisterOptions, Path } from 'react-hook-form';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import RadioGroupMui, {
-    RadioGroupProps as RadioGroupPropsMui,
-} from '@material-ui/core/RadioGroup';
+import RadioGroupMui from '@material-ui/core/RadioGroup';
+import { RadioProps } from '@material-ui/core/Radio';
 import SingleRadio, { SingleRadioProps } from '../singleRadio/SingleRadio';
 
 type RadioGroupProps<T extends Record<string, unknown>> = {
@@ -24,8 +23,8 @@ const RadioGroup = <T extends Record<string, any>>({
     control,
     rules,
     formLabel,
-    ...inputProps
-}: RadioGroupProps<T> & RadioGroupPropsMui) => {
+    ...radioProps
+}: RadioGroupProps<T> & RadioProps) => {
     const {
         field: { ...controledProps },
     } = useController({
@@ -38,9 +37,14 @@ const RadioGroup = <T extends Record<string, any>>({
     return (
         <FormControl focused={false} component='fieldset'>
             <FormLabel component='legend'>{formLabel}</FormLabel>
-            <RadioGroupMui {...inputProps} {...controledProps}>
+            <RadioGroupMui {...controledProps}>
                 {radioOptions.map(({ label, value }, index) => (
-                    <SingleRadio key={index} label={label} value={value} />
+                    <SingleRadio
+                        {...radioProps}
+                        key={index}
+                        label={label}
+                        value={value}
+                    />
                 ))}
             </RadioGroupMui>
         </FormControl>

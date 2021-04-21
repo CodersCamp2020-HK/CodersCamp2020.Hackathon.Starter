@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import RadioGroup from '../inputs/radioGroup/RadioGroup';
 
@@ -26,15 +27,32 @@ const radioOptions = [
     },
 ];
 
+const useStyles = makeStyles({
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        padding: '2rem 5rem',
+        boxSizing: 'border-box',
+    },
+});
+
 const Example = () => {
     const { handleSubmit, control } = useForm<ExampleInputs>();
+    const classes = useStyles();
 
     const onSubmit = (data: ExampleInputs) => {
         console.log(data);
     };
 
     return (
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <form
+            className={classes.form}
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+        >
             <RadioGroup
                 control={control}
                 radioOptions={radioOptions}

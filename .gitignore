@@ -48,3 +48,4 @@ logs
 # custom
 server/generated/
 client/src/api/
+server/data/

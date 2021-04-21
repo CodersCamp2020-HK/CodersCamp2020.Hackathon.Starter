@@ -1,18 +1,36 @@
-import React from 'react'
-import { useController, Control } from 'react-hook-form';
+import React from 'react';
+import { useController, Control, RegisterOptions, Path } from 'react-hook-form';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
-import { Path } from 'react-hook-form';
 
-type TextInputProps<T extends Record<string,unknown>> = {
+type TextInputProps<T extends Record<string, unknown>> = {
     id: string;
     name: Path<T>;
     control: Control<T>;
-}
+    rules?: RegisterOptions<T>;
+};
 
-const TextInput = <T extends Record<string, any>>({ name, control, ...inputProps }: TextFieldProps & TextInputProps<T>) => {
-    const { field: { ref, ...controlledProps } } = useController({ name, control, defaultValue: '' });
+const TextInput = <T extends Record<string, any>>({
+    name,
+    control,
+    rules,
+    ...inputProps
+}: TextFieldProps & TextInputProps<T>) => {
+    const {
+        field: { ref, ...controlledProps },
+        fieldState: { error },
+    } = useController({ name, control, defaultValue: '', rules });
 
-    return <TextField {...inputProps} inputRef={ref} {...controlledProps} />
-}
+    return (
+        <>
+            <TextField
+                {...inputProps}
+                error={!!error}
+                helperText={error?.message}
+                inputRef={ref}
+                {...controlledProps}
+            />
+        </>
+    );
+};
 
-export default TextInput
+export default TextInput;

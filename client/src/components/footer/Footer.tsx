@@ -1,13 +1,20 @@
-import { AppBar, makeStyles } from "@material-ui/core";
-const useStyles = makeStyles({
-    footer: {
-        position: 'static',
-        bottom: 0,
-    }
-})
+import { makeStyles, Theme } from "@material-ui/core";
+
+export const FOOTER_HEIGHT = 48;
+
+const useStyles = makeStyles((theme: Theme) => ({
+  footer: {
+    boxSizing: "border-box",
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: FOOTER_HEIGHT,
+    backgroundColor: theme.palette.primary.light,
+  },
+}));
 const Footer = () => {
-    const styles = useStyles();
-  return <AppBar className={styles.footer}>Text</AppBar>;
+  const styles = useStyles();
+  return <footer className={styles.footer}>Text</footer>;
 };
 
 export default Footer;

@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - "**/*.md"
+
+jobs:
+  build:
+    name: "Build production app"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: hackathon_dev
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Installing node modules
+        run: npm ci
+      - name: Building app
+        run: npm run build
+      - name: Server tests
+        run: npm run test:server
+      - name: Client tests
+        run: npm run test:client
+
+  deploy-heroku:
+    name: "Deploy to heroku"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+      - name: Push to heroku
+        run: git push -f https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/$PROJECT_NAME.git origin/main:master
+        env:
+          PROJECT_NAME: coders-camp-hackathon

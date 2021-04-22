@@ -32,7 +32,7 @@ const Select = <T extends Record<string, any>>({
 }: SelectProps<T> & SelectPropsMui) => {
     const labelId = `${label}-label`;
     const {
-        field: { ref, ...controledProps },
+        field: controledProps,
     } = useController({
         name,
         control,
@@ -41,8 +41,8 @@ const Select = <T extends Record<string, any>>({
 
     return (
         <FormControl>
-            <InputLabel id={labelId}></InputLabel>
-            <SelectMui labelId={labelId} id={label} {...controledProps}>
+            <InputLabel ref={controledProps.ref} id={labelId}></InputLabel>
+            <SelectMui labelId={labelId} {...controledProps}>
                 {selectOptions.map(({ label, value }) => (
                     <MenuItem key={label} value={value}>
                         {label}

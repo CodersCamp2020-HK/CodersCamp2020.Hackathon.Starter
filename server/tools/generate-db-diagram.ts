@@ -5,21 +5,26 @@ import * as path from 'path';
 
 const GENERATED_FILENAME = 'diagram.db.svg';
 const GENERATED_PATH = path.join(
-    __dirname,
-    `../generated/${GENERATED_FILENAME}`,
+  __dirname,
+  `../generated/${GENERATED_FILENAME}`,
 );
 
 async function main() {
-    const options = await getConnectionOptions();
-    const connection = await createConnection({ ...options, synchronize: false, logging: false });
-    const flags: Flags = {
-        direction: Direction.LR,
-        format: Format.SVG,
-        handwritten: false
-    };
+  const options = await getConnectionOptions();
+  const connection = await createConnection({
+    ...options,
+    synchronize: false,
+    logging: false,
+    url: process.env.DATABASE_URL,
+  } as any);
+  const flags: Flags = {
+    direction: Direction.LR,
+    format: Format.SVG,
+    handwritten: false,
+  };
 
-    const typeormUml = new TypeormUml();
-    const url = await typeormUml.build(connection, flags);
-    process.stdout.write('[Database] Diagram URL: ' + url + EOL);
+  const typeormUml = new TypeormUml();
+  const url = await typeormUml.build(connection, flags);
+  process.stdout.write('[Database] Diagram URL: ' + url + EOL);
 }
 main();

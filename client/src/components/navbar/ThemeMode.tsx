@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../../App';
-import IconButton from '@material-ui/core/IconButton';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
-import Brightness3Icon from '@material-ui/icons/Brightness3';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext } from "react";
+import { AppContext } from "../../App";
+import IconButton from "@material-ui/core/IconButton";
+import WbSunnyIcon from "@material-ui/icons/WbSunny";
+import Brightness3Icon from "@material-ui/icons/Brightness3";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   iconButtion: {
@@ -13,12 +13,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ThemeMode = () => {
   const classes = useStyles();
-  const { darkTheme, setDarkTheme } = useContext(AppContext);
+  const { darkTheme, toggleTheme } = useContext(AppContext);
 
   return (
-    <IconButton
-      className={classes.iconButtion}
-      onClick={() => setDarkTheme((prevState) => !prevState)}>
+    <IconButton className={classes.iconButtion} onClick={() => toggleTheme()}>
       {darkTheme ? <WbSunnyIcon /> : <Brightness3Icon />}
     </IconButton>
   );

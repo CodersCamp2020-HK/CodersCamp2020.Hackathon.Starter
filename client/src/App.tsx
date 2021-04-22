@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { useGetManyBaseUsersControllerUserDTO } from "./api";
+import { useGetManyBaseUsersControllerUserDTO, UserDTO } from "./api";
 import { RequestQueryBuilder } from "@nestjsx/crud-request";
 
 const useQueryParams = () => {
@@ -9,10 +9,12 @@ const useQueryParams = () => {
   const queryParams = qb.select(['name', 'email', 'projects'])
     .setJoin({ field: 'projects', select: ['name'] })
     .queryObject
-  return useGetManyBaseUsersControllerUserDTO({
+  const { data, ...rest } = useGetManyBaseUsersControllerUserDTO({
     base: "http://localhost:8000",
     queryParams,
   });
+  const data2 = data as UserDTO[];
+  return { data: data2, ...rest }
 }
 
 function App() {

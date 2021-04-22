@@ -5,7 +5,7 @@ import {
   BcryptConfig,
   GlobalConfig,
   GlobalConfigKey,
-} from 'src/configuration/configs/global.config';
+} from '../../configuration/configs/global.config';
 
 @Injectable()
 class BcryptService {

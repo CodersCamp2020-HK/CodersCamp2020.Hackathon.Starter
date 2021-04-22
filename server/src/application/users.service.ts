@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository } from 'typeorm';
-import { User } from 'src/infrastructure/database/entities';
+import { User } from '../infrastructure/database/entities';
 import { CrudRequest } from '@nestjsx/crud';
-import { BcryptService } from 'src/infrastructure/auth/bcrypt.service';
+import { BcryptService } from '../infrastructure/auth/bcrypt.service';
 
 @Injectable()
 class UsersService extends TypeOrmCrudService<User> {

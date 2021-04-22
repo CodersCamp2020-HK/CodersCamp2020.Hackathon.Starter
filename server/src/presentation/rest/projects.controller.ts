@@ -7,9 +7,9 @@ import {
   PickType,
 } from '@nestjs/swagger';
 import { Crud, CrudController } from '@nestjsx/crud';
-import { ProjectsService } from 'src/application/projects.service';
-import { UsersService } from 'src/application/users.service';
-import { Project, User } from 'src/infrastructure/database/entities';
+import { ProjectsService } from '../../application/projects.service';
+import { UsersService } from '../../application/users.service';
+import { Project, User } from '../../infrastructure/database/entities';
 
 @Crud({
   model: {
@@ -22,7 +22,7 @@ import { Project, User } from 'src/infrastructure/database/entities';
 @ApiTags('Project')
 @Controller('projects')
 class ProjectsController implements CrudController<Project> {
-  constructor(public service: ProjectsService) {}
+  constructor(public service: ProjectsService) { }
 }
 
 export { ProjectsController };

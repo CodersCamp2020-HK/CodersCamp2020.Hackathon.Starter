@@ -7,20 +7,20 @@ import {
   PickType,
 } from '@nestjs/swagger';
 import { Crud, CrudController } from '@nestjsx/crud';
-import { UsersService } from 'src/application/users.service';
-import { Project, User } from 'src/infrastructure/database/entities';
-import { propOf } from 'src/shared/propOf';
+import { UsersService } from '../../application/users.service';
+import { Project, User } from '../../infrastructure/database/entities';
+import { propOf } from '../../shared/propOf';
 
-class UserDTO extends PartialType(OmitType(User, ['password'] as const)) {}
+class UserDTO extends PartialType(OmitType(User, ['password'] as const)) { }
 
 class CreateUserDTO extends IntersectionType(
   PickType(User, ['email', 'password'] as const),
   PartialType(PickType(User, ['name', 'surname'] as const)),
-) {}
+) { }
 
 class UpdateUserDTO extends PartialType(
   PickType(User, ['name', 'surname', 'email'] as const),
-) {}
+) { }
 
 @Crud({
   model: {
@@ -46,7 +46,7 @@ class UpdateUserDTO extends PartialType(
 @ApiTags('User')
 @Controller('users')
 class UsersController implements CrudController<User> {
-  constructor(public service: UsersService) {}
+  constructor(public service: UsersService) { }
 }
 
 export { UsersController };

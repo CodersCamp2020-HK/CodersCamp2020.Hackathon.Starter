@@ -1,45 +1,17 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { useGetManyBaseUsersControllerUserDTO, UserDTO, useCreateOneBaseUsersControllerUserDTO } from "./api";
-import { RequestQueryBuilder } from "@nestjsx/crud-request";
+import { RestfulProvider } from 'restful-react';
+import Demo from "./Demo";
 
-const useQueryParams = () => {
-  const qb = RequestQueryBuilder.create();
-  const queryParams = qb.select(['name', 'email', 'projects'])
-    .setJoin({ field: 'projects', select: ['name'] })
-    .queryObject
-  const { data, ...rest } = useGetManyBaseUsersControllerUserDTO({
-    base: "http://localhost:8000",
-    queryParams,
-  });
-  const data2 = data as UserDTO[];
-  return { data: data2, ...rest }
-}
+const isProductionEnv = process.env.NODE_ENV === 'production';
+const devApiUrl = 'http://localhost:8000';
+const baseApiUrl = isProductionEnv ? process.env.REACT_APP_PRODUCTION_API_URL ?? devApiUrl : devApiUrl;
 
 function App() {
-  const { data } = useQueryParams()
-  const { mutate } = useCreateOneBaseUsersControllerUserDTO({});
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>{JSON.stringify(data)}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={() => mutate({ email: 'elo@elo.elo', password: 'eloeloelo' })}>Załóż konto</button>
-      </header>
-    </div>
+    <RestfulProvider base={baseApiUrl}>
+      <Demo />
+    </RestfulProvider>
   );
 }
 

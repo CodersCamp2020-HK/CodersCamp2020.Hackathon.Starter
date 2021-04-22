@@ -1,17 +1,26 @@
 import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
-import { HealthcheckController } from './presentation/rest/healthcheck.controller';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import * as path from 'path';
+import { ProjectsService } from './application/projects.service';
+import { UsersService } from './application/users.service';
+import {
+  DatabaseModule,
+  GlobalConfigModule,
+  ServeClientModule,
+} from './configuration';
+import { AuthModule } from './configuration/auth.module';
+import { BcryptService } from './infrastructure/auth/bcrypt.service';
+import * as Services from './application';
+import * as RestControllers from './presentation/rest';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, 'presentation', 'client'),
-    }),
-    TerminusModule
+    GlobalConfigModule,
+    ServeClientModule,
+    DatabaseModule,
+    AuthModule,
+    TerminusModule,
   ],
-  controllers: [HealthcheckController],
-  providers: [],
+  controllers: [...Object.values(RestControllers)],
+  providers: [...Object.values(Services), BcryptService],
 })
-export class AppModule { }
+export class AppModule {}

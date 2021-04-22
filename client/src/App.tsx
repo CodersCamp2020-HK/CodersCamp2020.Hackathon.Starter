@@ -5,6 +5,12 @@ import Navbar from './components/navbar/Navbar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
+const isProductionEnv = process.env.NODE_ENV === 'production';
+const devApiUrl = 'http://localhost:8000';
+const baseApiUrl = isProductionEnv
+  ? process.env.REACT_APP_PRODUCTION_API_URL ?? devApiUrl
+  : devApiUrl;
+
 interface IAppContext {
   darkTheme: boolean;
   setDarkTheme: React.Dispatch<React.SetStateAction<boolean>>;

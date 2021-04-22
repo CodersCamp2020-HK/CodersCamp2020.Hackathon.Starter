@@ -1,10 +1,15 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { useHealthcheckControllerCheck } from "./api";
+import { useGetManyBaseUsersControllerUser } from "./api";
 
 function App() {
-  const { data } = useHealthcheckControllerCheck({});
+  const { data } = useGetManyBaseUsersControllerUser({
+    base: "http://localhost:8000",
+    queryParams: {
+      fields: ["email"],
+    },
+  });
   return (
     <div className="App">
       <header className="App-header">

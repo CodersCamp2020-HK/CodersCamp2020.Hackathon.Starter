@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import TextInput from '../inputs/textInput/TextInput';
+import TextInput from '../../inputs/textInput/TextInput';
 
 interface RegisterFormInputs {
     name: string;

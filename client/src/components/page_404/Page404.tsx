@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   photo: {
     width: "100vw",
     minHeight: "100vh",
-
     backgroundImage: `url(${Kermit})`,
     backgroundRepeat: 'norepeat',
     backgroundSize: 'cover',

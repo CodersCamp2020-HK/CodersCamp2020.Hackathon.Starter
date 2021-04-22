@@ -28,7 +28,10 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:ci": "npm run test:cov -- --verbose --silent --colors && npm run test:e2e -- --verbose --silent --colors",
     "tools:generate-swagger": "ts-node -r tsconfig-paths/register tools/generate-swagger.ts",
-    "tools:generate": "npm run tools:generate-swagger"
+    "tools:generate-db-diagram": "ts-node -r tsconfig-paths/register tools/generate-db-diagram.ts",
+    "tools:generate": "npm run tools:generate-swagger && tools:generate-db-diagram",
+    "tools:seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "tools:seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -42,6 +45,7 @@
     "@nestjs/typeorm": "^7.1.5",
     "@nestjsx/crud": "^4.6.2",
     "@nestjsx/crud-typeorm": "^4.6.2",
+    "@types/faker": "^5.5.3",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.13.1",
@@ -50,7 +54,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
     "swagger-ui-express": "^4.1.6",
-    "typeorm": "^0.2.32"
+    "typeorm": "^0.2.32",
+    "typeorm-seeding": "^1.6.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
@@ -73,6 +78,7 @@
     "ts-loader": "^8.0.18",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
+    "typeorm-uml": "^1.6.2",
     "typescript": "^4.2.3"
   },
   "jest": {

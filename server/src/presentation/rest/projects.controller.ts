@@ -22,7 +22,7 @@ import { Project, User } from '../../infrastructure/database/entities';
 @ApiTags('Project')
 @Controller('projects')
 class ProjectsController implements CrudController<Project> {
-  constructor(public service: ProjectsService) { }
+  constructor(public service: ProjectsService) {}
 }
 
 export { ProjectsController };

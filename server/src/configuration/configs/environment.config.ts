@@ -46,6 +46,8 @@ class EnvironmentVariables {
 
   @IsString()
   readonly TYPEORM_MIGRATIONS_DIR: string;
+
+  readonly DATABASE_URL?: string;
 }
 
 export { EnvironmentVariables, Environment };

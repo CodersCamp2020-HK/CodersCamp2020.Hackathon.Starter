@@ -29,7 +29,7 @@
     "test:ci": "npm run test:cov -- --verbose --silent --colors && npm run test:e2e -- --verbose --silent --colors",
     "tools:generate-swagger": "ts-node -r tsconfig-paths/register tools/generate-swagger.ts",
     "tools:generate-db-diagram": "ts-node -r tsconfig-paths/register tools/generate-db-diagram.ts",
-    "tools:generate": "npm run tools:generate-swagger && tools:generate-db-diagram",
+    "tools:generate": "npm run tools:generate-swagger && npm run tools:generate-db-diagram",
     "tools:seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "tools:seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
   },

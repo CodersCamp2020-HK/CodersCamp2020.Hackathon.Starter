@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.js
 
@@ -46,6 +46,7 @@ logs
 !.vscode/extensions.json
 
 # custom
-server/generated/
-client/src/api/
-server/data/
+app//server/generated/
+app/client/src/api/
+app/server/data/
+data/

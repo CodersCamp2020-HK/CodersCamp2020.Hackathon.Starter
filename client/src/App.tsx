@@ -2,14 +2,21 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { useGetManyBaseUsersControllerUserDTO } from "./api";
+import { RequestQueryBuilder } from "@nestjsx/crud-request";
+
+const useQueryParams = () => {
+  const qb = RequestQueryBuilder.create();
+  const queryParams = qb.select(['name', 'email', 'projects'])
+    .setJoin({ field: 'projects', select: ['name'] })
+    .queryObject
+  return useGetManyBaseUsersControllerUserDTO({
+    base: "http://localhost:8000",
+    queryParams,
+  });
+}
 
 function App() {
-  const { data } = useGetManyBaseUsersControllerUserDTO({
-    base: "http://localhost:8000",
-    queryParams: {
-      join: ["projects"],
-    },
-  });
+  const { data } = useQueryParams()
   return (
     <div className="App">
       <header className="App-header">

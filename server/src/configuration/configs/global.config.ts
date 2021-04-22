@@ -1,11 +1,18 @@
-import { registerAs } from "@nestjs/config";
-import { plainToClass, Type } from "class-transformer";
-import { IsNumber, IsString, IsUrl, ValidateNested } from "class-validator";
-import { Environment, EnvironmentVariables } from "./environment.config";
-import { validateConfig } from "../utils/validateConfig";
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { ServeStaticModuleOptions } from "@nestjs/serve-static";
-import * as path from "path";
+import { registerAs } from '@nestjs/config';
+import { plainToClass, Type } from 'class-transformer';
+import {
+  IsDefined,
+  IsNumber,
+  IsString,
+  IsUrl,
+  ValidateNested,
+} from 'class-validator';
+import { Environment, EnvironmentVariables } from './environment.config';
+import { validateConfig } from '../shared/validateConfig';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { ServeStaticModuleOptions } from '@nestjs/serve-static';
+import * as path from 'path';
+import { Logger } from '@nestjs/common';
 
 class SwaggerConfig {
   @IsString()
@@ -28,6 +35,27 @@ class HttpConfig {
   @IsUrl({ require_tld: false })
   readonly url: string;
 }
+class JwtConfig {
+  @IsString()
+  secret: string;
+}
+
+class BcryptConfig {
+  @IsNumber()
+  rounds: number;
+}
+
+class AuthConfig {
+  @IsDefined()
+  @ValidateNested()
+  @Type(() => JwtConfig)
+  jwt: JwtConfig;
+
+  @IsDefined()
+  @ValidateNested()
+  @Type(() => BcryptConfig)
+  bcrypt: BcryptConfig;
+}
 
 class GlobalConfig {
   @ValidateNested()
@@ -37,6 +65,10 @@ class GlobalConfig {
   @ValidateNested()
   @Type(() => SwaggerConfig)
   readonly swagger: SwaggerConfig;
+
+  @ValidateNested()
+  @Type(() => AuthConfig)
+  readonly auth: AuthConfig;
 
   readonly static: ServeStaticModuleOptions[];
 
@@ -50,11 +82,11 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
   const env = plainToClass(EnvironmentVariables, process.env);
   const entitiesDir = path.join(
     srcPath,
-    env.TYPEORM_ENTITIES_DIR.replace(/^\/src/, "")
+    env.TYPEORM_ENTITIES_DIR.replace(/^src/, ''),
   );
   const migrationsDir = path.join(
     srcPath,
-    env.TYPEORM_MIGRATIONS_DIR.replace(/^\/src/, "")
+    env.TYPEORM_MIGRATIONS_DIR.replace(/^src/, ''),
   );
   const globalConfig: GlobalConfig = {
     http: {
@@ -77,6 +109,7 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
         entitiesDir,
       },
       synchronize: env.TYPEORM_SYNCHRONIZE,
+      autoLoadEntities: true,
     },
     static: [
       {
@@ -89,7 +122,16 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
       version: "1.0.0",
       path: "api",
     },
+    auth: {
+      jwt: {
+        secret: env.JWT_KEY,
+      },
+      bcrypt: {
+        rounds: 10,
+      },
+    },
   };
+  Logger.verbose(globalConfig, 'GlobalConfig');
   return validateConfig(GlobalConfig, globalConfig);
 });
 
@@ -98,5 +140,6 @@ export {
   GlobalConfigKey,
   GlobalConfig,
   SwaggerConfig,
+  BcryptConfig,
   HttpConfig,
 };

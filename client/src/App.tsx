@@ -1,18 +1,23 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { useHealthcheckControllerCheck } from "./api";
+import { useGetManyBaseUsersControllerUserDTO } from "./api";
 
 function App() {
-  const { data } = useHealthcheckControllerCheck({});
+  const { data } = useGetManyBaseUsersControllerUserDTO({
+    base: "http://localhost:8000",
+    queryParams: {
+      join: ["projects"],
+    },
+  });
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
-          {JSON.stringify(data)}
         </p>
+        <p>{JSON.stringify(data)}</p>
         <a
           className="App-link"
           href="https://reactjs.org"

@@ -75,9 +75,9 @@ class GlobalConfig {
   readonly database: TypeOrmModuleOptions;
 }
 
-const srcPath = path.join(__dirname, '../../');
+const srcPath = path.join(__dirname, "../../");
 
-const GlobalConfigKey = 'GLOBAL_CONFIG';
+const GlobalConfigKey = "GLOBAL_CONFIG";
 const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
   const env = plainToClass(EnvironmentVariables, process.env);
   const entitiesDir = path.join(
@@ -94,17 +94,16 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
       url:
         env.NODE_ENV !== Environment.Production
           ? `http://localhost:${env.PORT}`
-          : 'https://hackathon.herokuapp.com/',
+          : "https://hackathon.herokuapp.com/",
     },
     database: {
       type: env.TYPEORM_CONNECTION,
-      host: env.TYPEORM_HOST,
-      port: env.TYPEORM_PORT,
-      username: env.TYPEORM_USERNAME,
-      password: env.TYPEORM_PASSWORD,
-      database: env.TYPEORM_DATABASE,
-      entities: [path.join(entitiesDir, '/**/*')],
-      migrations: [path.join(migrationsDir, '/**/*')],
+      url:
+        env.DATABASE_URL ??
+        `postgres://${env.TYPEORM_USERNAME}:${env.TYPEORM_PASSWORD}@${env.TYPEORM_HOST}:${env.TYPEORM_PORT}/${env.TYPEORM_DATABASE}`,
+      ssl: env.DATABASE_URL ? { rejectUnauthorized: false } : false,
+      entities: [path.join(entitiesDir, "/**/*")],
+      migrations: [path.join(migrationsDir, "/**/*")],
       cli: {
         migrationsDir,
         entitiesDir,
@@ -114,14 +113,14 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
     },
     static: [
       {
-        rootPath: path.join(srcPath, '/presentation/client'),
+        rootPath: path.join(srcPath, "/presentation/client"),
       },
     ],
     swagger: {
-      title: 'App example',
-      description: 'The app API description',
-      version: '1.0.0',
-      path: 'api',
+      title: "App example",
+      description: "The app API description",
+      version: "1.0.0",
+      path: "api",
     },
     auth: {
       jwt: {

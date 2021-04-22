@@ -3,5 +3,11 @@ import { AppModule } from './app.module';
 import { setupSwagger } from './configuration';
 
 export function appFactory() {
-  return NestFactory.create(AppModule).then((app) => setupSwagger(app));
+  return NestFactory.create(AppModule, {
+    cors: process.env.NODE_ENV === 'development',
+    logger:
+      process.env.NODE_ENV === 'development'
+        ? ['log', 'debug', 'error', 'verbose', 'warn']
+        : ['error', 'warn'],
+  }).then((app) => setupSwagger(app));
 }

@@ -27,9 +27,10 @@ function setupSwagger(
     .get(ConfigService)
     .get<GlobalConfig>(GlobalConfigKey).swagger,
 ) {
+  app.setGlobalPrefix(options.path);
   const document = createSwaggerDocument(app, options);
   SwaggerModule.setup(options.path, app, document);
-  return app.setGlobalPrefix(options.path);
+  return app;
 }
 
 export { setupSwagger, createSwaggerDocument };

@@ -1,8 +1,9 @@
-import { ClassConstructor, plainToClass } from 'class-transformer';
+import { plainToClass } from 'class-transformer';
+import { ClassType } from 'class-transformer/ClassTransformer';
 import { validateSync } from 'class-validator';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-function validateConfig<T extends object>(cls: ClassConstructor<T>, config: T) {
+function validateConfig<T extends object>(cls: ClassType<T>, config: T) {
   const validatedConfig = plainToClass(cls, config, {
     enableImplicitConversion: true,
   });

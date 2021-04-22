@@ -15,8 +15,7 @@ async function main() {
     ...options,
     synchronize: false,
     logging: false,
-    url: process.env.DATABASE_URL,
-  } as any);
+  });
   const flags: Flags = {
     direction: Direction.LR,
     format: Format.SVG,
@@ -27,4 +26,8 @@ async function main() {
   const url = await typeormUml.build(connection, flags);
   process.stdout.write('[Database] Diagram URL: ' + url + EOL);
 }
-main();
+if (process.env.NODE_ENV === 'production') {
+  process.stdout.write('Skip' + EOL);
+} else {
+  main();
+}

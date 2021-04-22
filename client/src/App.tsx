@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { useGetManyBaseUsersControllerUserDTO, UserDTO } from "./api";
+import { useGetManyBaseUsersControllerUserDTO, UserDTO, useCreateOneBaseUsersControllerUserDTO } from "./api";
 import { RequestQueryBuilder } from "@nestjsx/crud-request";
 
 const useQueryParams = () => {
@@ -19,6 +19,8 @@ const useQueryParams = () => {
 
 function App() {
   const { data } = useQueryParams()
+  const { mutate } = useCreateOneBaseUsersControllerUserDTO({});
+
   return (
     <div className="App">
       <header className="App-header">
@@ -35,6 +37,7 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={() => mutate({ email: 'elo@elo.elo', password: 'eloeloelo' })}>Załóż konto</button>
       </header>
     </div>
   );

@@ -1,9 +1,10 @@
-import { Toolbar, Button } from '@material-ui/core';
+import { Toolbar } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import { RestfulProvider } from 'restful-react';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -31,14 +32,16 @@ function App() {
   }, [matches]);
 
   return (
-    <AppContext.Provider
-      value={{ darkTheme, setDarkTheme, hamburger, setHamburger }}>
-      <div className='App'>
-        <Navbar />
-        <Toolbar />
-        Hello
-      </div>
-    </AppContext.Provider>
+    <RestfulProvider base={baseApiUrl}>
+      <AppContext.Provider
+        value={{ darkTheme, setDarkTheme, hamburger, setHamburger }}>
+        <div className='App'>
+          <Navbar />
+          <Toolbar />
+          Hello
+        </div>
+      </AppContext.Provider>
+    </RestfulProvider>
   );
 }
 

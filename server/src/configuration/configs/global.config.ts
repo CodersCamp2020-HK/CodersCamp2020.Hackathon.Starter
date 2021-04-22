@@ -67,8 +67,9 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
     database: {
       type: env.TYPEORM_CONNECTION,
       url:
-        env.DATABASE_URL ||
+        env.DATABASE_URL ??
         `postgres://${env.TYPEORM_USERNAME}:${env.TYPEORM_PASSWORD}@${env.TYPEORM_HOST}:${env.TYPEORM_PORT}/${env.TYPEORM_DATABASE}`,
+      ssl: env.DATABASE_URL ? { rejectUnauthorized: false } : false,
       entities: [path.join(entitiesDir, "/**/*")],
       migrations: [path.join(migrationsDir, "/**/*")],
       cli: {

@@ -3,7 +3,9 @@ import { plainToClass, Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDefined,
+  IsEmail,
   IsNumber,
+  IsOptional,
   IsString,
   IsUrl,
   ValidateNested,
@@ -61,6 +63,26 @@ class AuthConfig {
   bcrypt: BcryptConfig;
 }
 
+class EmailAuthConfig {
+  @IsEmail()
+  @IsOptional()
+  user: string;
+
+  @IsString()
+  @IsOptional()
+  password: string;
+}
+
+class EmailConfig {
+  @IsString()
+  readonly sender: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => EmailAuthConfig)
+  readonly auth?: EmailAuthConfig;
+}
+
 class GlobalConfig {
   @ValidateNested()
   @Type(() => HttpConfig)
@@ -73,6 +95,10 @@ class GlobalConfig {
   @ValidateNested()
   @Type(() => AuthConfig)
   readonly auth: AuthConfig;
+
+  @ValidateNested()
+  @Type(() => EmailConfig)
+  readonly email: EmailConfig;
 
   readonly static: ServeStaticModuleOptions[];
 
@@ -96,7 +122,15 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
     srcPath,
     env.TYPEORM_MIGRATIONS_DIR.replace(/^src/, ''),
   );
+  const emailAuthConfig =
+    env.GOOGLE_EMAIL_PASSWORD && env.GOOGLE_EMAIL_USER
+      ? {
+          user: env.GOOGLE_EMAIL_USER,
+          password: env.GOOGLE_EMAIL_PASSWORD,
+        }
+      : undefined;
   const globalConfig: GlobalConfig = {
+    env,
     http: {
       port: env.PORT,
       url:
@@ -139,7 +173,10 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
         rounds: 10,
       },
     },
-    env,
+    email: {
+      sender: 'Hackathon <hackathon@coderscamp.com>',
+      auth: emailAuthConfig,
+    },
   };
   if (env.NODE_ENV !== Environment.Production) {
     Logger.verbose(globalConfig, 'GlobalConfig');
@@ -154,4 +191,6 @@ export {
   SwaggerConfig,
   BcryptConfig,
   HttpConfig,
+  EmailConfig,
+  EmailAuthConfig,
 };

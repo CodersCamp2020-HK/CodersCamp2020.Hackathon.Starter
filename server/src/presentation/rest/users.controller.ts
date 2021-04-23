@@ -32,6 +32,11 @@ class UpdateUserDTO extends PartialType(
         eager: false,
         exclude: [propOf<Project>('userId')],
       },
+      'projects.user': {
+        eager: false,
+        exclude: [propOf<User>('password')],
+        alias: 'projects_user',
+      },
     },
   },
   dto: {

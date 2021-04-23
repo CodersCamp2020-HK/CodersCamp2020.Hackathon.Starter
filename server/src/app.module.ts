@@ -9,6 +9,7 @@ import {
 import { BcryptService } from './infrastructure/auth/bcrypt.service';
 import * as Services from './application';
 import * as RestControllers from './presentation/rest';
+import { EmailService } from './infrastructure/email/email.service';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import * as RestControllers from './presentation/rest';
     TerminusModule,
   ],
   controllers: [...Object.values(RestControllers)],
-  providers: [...Object.values(Services), BcryptService],
+  providers: [...Object.values(Services), BcryptService, EmailService],
 })
 export class AppModule {}

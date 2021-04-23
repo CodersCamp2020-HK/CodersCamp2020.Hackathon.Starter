@@ -25,7 +25,7 @@ import { Project, User } from '../../infrastructure/database/entities';
 @CrudAuth({
   property: 'user',
   filter: (user: User) => {
-    return { id: user.id };
+    return { userId: user.id };
   },
 })
 @ApiBearerAuth()

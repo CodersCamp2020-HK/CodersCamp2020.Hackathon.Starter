@@ -8,6 +8,7 @@ import { RestfulProvider } from 'restful-react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { DarkTheme } from './themes/DarkTheme';
 import { LightTheme } from './themes/LightTheme';
+import { EventsProvider, useEvents } from './events/Events';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -25,6 +26,18 @@ interface IAppContext {
 export const AppContext = React.createContext<IAppContext>(null!);
 
 const StorageThemeKey = 'darkTheme';
+
+function DemoEvents() {
+  const { emitEvents } = useEvents();
+  return (
+    <button
+      onClick={() => {
+        emitEvents();
+      }}>
+      Click
+    </button>
+  );
+}
 
 function App() {
   useEffect(() => {
@@ -60,18 +73,22 @@ function App() {
   }, [matches]);
 
   return (
-    <RestfulProvider base={baseApiUrl}>
-      <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
-        <AppContext.Provider
-          value={{ darkTheme, toggleTheme, hamburger, setHamburger }}>
-          <div className='App'>
-            <Navbar />
-            <Toolbar />
-            <span id='meet'></span>
-          </div>
-        </AppContext.Provider>
-      </ThemeProvider>
-    </RestfulProvider>
+    <EventsProvider endpoint={baseApiUrl}>
+      <RestfulProvider base={baseApiUrl}>
+        <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
+          <AppContext.Provider
+            value={{ darkTheme, toggleTheme, hamburger, setHamburger }}>
+            <div className='App'>
+              <Navbar />
+              <Toolbar />
+              <span id='meet'></span>
+              Hello
+              <DemoEvents />
+            </div>
+          </AppContext.Provider>
+        </ThemeProvider>
+      </RestfulProvider>
+    </EventsProvider>
   );
 }
 

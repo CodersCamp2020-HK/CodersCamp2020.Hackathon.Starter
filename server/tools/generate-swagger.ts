@@ -13,5 +13,6 @@ async function main() {
   const app = await appFactory();
   const document = createSwaggerDocument(app);
   await fs.writeFile(GENERATED_PATH, JSON.stringify(document));
+  console.log('Swagger API generated !!!');
 }
 main();

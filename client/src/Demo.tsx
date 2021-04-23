@@ -1,22 +1,28 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { useGetManyBaseUsersControllerUserDTO, UserDTO, useCreateOneBaseUsersControllerUserDTO } from "./api";
+import {
+  useGetManyBaseUsersControllerUserDTO,
+  UserDTO,
+  useAuthControllerRegister,
+} from "./api";
 import { RequestQueryBuilder } from "@nestjsx/crud-request";
 
 const useQueryParams = () => {
   const qb = RequestQueryBuilder.create();
-  const queryParams = qb.select(['name', 'email', 'projects'])
-    .setJoin({ field: 'projects', select: ['name'] })
-    .queryObject
-  const { data, ...rest } = useGetManyBaseUsersControllerUserDTO({ queryParams });
+  const queryParams = qb
+    .select(["name", "email", "projects"])
+    .setJoin({ field: "projects", select: ["name"] }).queryObject;
+  const { data, ...rest } = useGetManyBaseUsersControllerUserDTO({
+    queryParams,
+  });
   const data2 = data as UserDTO[];
-  return { data: data2, ...rest }
-}
+  return { data: data2, ...rest };
+};
 
 function Demo() {
-  const { data } = useQueryParams()
-  const { mutate } = useCreateOneBaseUsersControllerUserDTO({});
+  const { data } = useQueryParams();
+  const { mutate } = useAuthControllerRegister({});
 
   return (
     <div className="App">
@@ -34,7 +40,13 @@ function Demo() {
         >
           Learn React
         </a>
-        <button onClick={() => mutate({ email: 'elo@elo.elo', password: 'eloeloelo' })}>Załóż konto</button>
+        <button
+          onClick={() =>
+            mutate({ email: "elo@elo.elo", password: "eloeloelo" })
+          }
+        >
+          Załóż konto
+        </button>
       </header>
     </div>
   );

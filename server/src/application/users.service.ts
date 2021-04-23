@@ -15,11 +15,6 @@ class UsersService extends TypeOrmCrudService<User> {
     super(usersRepository);
   }
 
-  async createOne(crudRequest: CrudRequest, dto: User) {
-    dto.password = await this.bcryptService.hash(dto.password);
-    return await super.createOne(crudRequest, dto);
-  }
-
   async updateOne(crudRequest: CrudRequest, dto: DeepPartial<User>) {
     if (dto.password !== undefined) {
       super.throwBadRequestException(

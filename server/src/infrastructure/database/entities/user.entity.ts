@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CrudValidationGroups } from '@nestjsx/crud';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude } from 'class-transformer';
 import {
   IsEmail,
   IsNotEmpty,
@@ -18,14 +18,24 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserRole } from '../../../domain/userRole';
 import { Project } from './project.entity';
 
 const { CREATE, UPDATE } = CrudValidationGroups;
 
 @Entity()
 class User {
+  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: string;
+
+  @Exclude()
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.NORMAL,
+  })
+  role: UserRole;
 
   @ApiProperty()
   @Column({

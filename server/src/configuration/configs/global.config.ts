@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config';
 import { plainToClass, Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsDefined,
   IsNumber,
   IsString,
@@ -38,6 +39,9 @@ class HttpConfig {
 class JwtConfig {
   @IsString()
   secret: string;
+
+  @IsBoolean()
+  ignoreExpiration: boolean;
 }
 
 class BcryptConfig {
@@ -73,6 +77,10 @@ class GlobalConfig {
   readonly static: ServeStaticModuleOptions[];
 
   readonly database: TypeOrmModuleOptions;
+
+  @ValidateNested()
+  @Type(() => EnvironmentVariables)
+  readonly env: EnvironmentVariables;
 }
 
 const srcPath = path.join(__dirname, '../../');
@@ -125,11 +133,13 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
     auth: {
       jwt: {
         secret: env.JWT_KEY,
+        ignoreExpiration: env.NODE_ENV !== Environment.Production,
       },
       bcrypt: {
         rounds: 10,
       },
     },
+    env,
   };
   if (env.NODE_ENV !== Environment.Production) {
     Logger.verbose(globalConfig, 'GlobalConfig');

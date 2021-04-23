@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
-import { ProjectsService } from './application/projects.service';
-import { UsersService } from './application/users.service';
 import {
+  AuthModule,
   DatabaseModule,
   GlobalConfigModule,
   ServeClientModule,
 } from './configuration';
-import { AuthModule } from './configuration/auth.module';
 import { BcryptService } from './infrastructure/auth/bcrypt.service';
 import * as Services from './application';
 import * as RestControllers from './presentation/rest';
+import { EmailService } from './infrastructure/email/email.service';
 
 @Module({
   imports: [
@@ -21,6 +20,6 @@ import * as RestControllers from './presentation/rest';
     TerminusModule,
   ],
   controllers: [...Object.values(RestControllers)],
-  providers: [...Object.values(Services), BcryptService],
+  providers: [...Object.values(Services), BcryptService, EmailService],
 })
 export class AppModule {}

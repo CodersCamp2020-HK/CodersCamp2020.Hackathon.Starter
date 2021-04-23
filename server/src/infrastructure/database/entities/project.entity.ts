@@ -25,6 +25,7 @@ const { CREATE, UPDATE } = CrudValidationGroups;
 
 @Entity()
 export class Project {
+  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: string;
 

@@ -1,8 +1,11 @@
 import { registerAs } from '@nestjs/config';
 import { plainToClass, Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsDefined,
+  IsEmail,
   IsNumber,
+  IsOptional,
   IsString,
   IsUrl,
   ValidateNested,
@@ -38,6 +41,9 @@ class HttpConfig {
 class JwtConfig {
   @IsString()
   secret: string;
+
+  @IsBoolean()
+  ignoreExpiration: boolean;
 }
 
 class BcryptConfig {
@@ -57,6 +63,26 @@ class AuthConfig {
   bcrypt: BcryptConfig;
 }
 
+class EmailAuthConfig {
+  @IsEmail()
+  @IsOptional()
+  user: string;
+
+  @IsString()
+  @IsOptional()
+  password: string;
+}
+
+class EmailConfig {
+  @IsString()
+  readonly sender: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => EmailAuthConfig)
+  readonly auth?: EmailAuthConfig;
+}
+
 class GlobalConfig {
   @ValidateNested()
   @Type(() => HttpConfig)
@@ -70,14 +96,22 @@ class GlobalConfig {
   @Type(() => AuthConfig)
   readonly auth: AuthConfig;
 
+  @ValidateNested()
+  @Type(() => EmailConfig)
+  readonly email: EmailConfig;
+
   readonly static: ServeStaticModuleOptions[];
 
   readonly database: TypeOrmModuleOptions;
+
+  @ValidateNested()
+  @Type(() => EnvironmentVariables)
+  readonly env: EnvironmentVariables;
 }
 
-const srcPath = path.join(__dirname, "../../");
+const srcPath = path.join(__dirname, '../../');
 
-const GlobalConfigKey = "GLOBAL_CONFIG";
+const GlobalConfigKey = 'GLOBAL_CONFIG';
 const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
   const env = plainToClass(EnvironmentVariables, process.env);
   const entitiesDir = path.join(
@@ -88,13 +122,21 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
     srcPath,
     env.TYPEORM_MIGRATIONS_DIR.replace(/^src/, ''),
   );
+  const emailAuthConfig =
+    env.GOOGLE_EMAIL_PASSWORD && env.GOOGLE_EMAIL_USER
+      ? {
+          user: env.GOOGLE_EMAIL_USER,
+          password: env.GOOGLE_EMAIL_PASSWORD,
+        }
+      : undefined;
   const globalConfig: GlobalConfig = {
+    env,
     http: {
       port: env.PORT,
       url:
         env.NODE_ENV !== Environment.Production
           ? `http://localhost:${env.PORT}`
-          : "https://hackathon.herokuapp.com/",
+          : 'https://hackathon.herokuapp.com/',
     },
     database: {
       type: env.TYPEORM_CONNECTION,
@@ -102,8 +144,8 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
         env.DATABASE_URL ??
         `postgres://${env.TYPEORM_USERNAME}:${env.TYPEORM_PASSWORD}@${env.TYPEORM_HOST}:${env.TYPEORM_PORT}/${env.TYPEORM_DATABASE}`,
       ssl: env.DATABASE_URL ? { rejectUnauthorized: false } : false,
-      entities: [path.join(entitiesDir, "/**/*")],
-      migrations: [path.join(migrationsDir, "/**/*")],
+      entities: [path.join(entitiesDir, '/**/*')],
+      migrations: [path.join(migrationsDir, '/**/*')],
       cli: {
         migrationsDir,
         entitiesDir,
@@ -113,25 +155,32 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
     },
     static: [
       {
-        rootPath: path.join(srcPath, "/presentation/client"),
+        rootPath: path.join(srcPath, '/presentation/client'),
       },
     ],
     swagger: {
-      title: "App example",
-      description: "The app API description",
-      version: "1.0.0",
-      path: "api",
+      title: 'App example',
+      description: 'The app API description',
+      version: '1.0.0',
+      path: 'api',
     },
     auth: {
       jwt: {
         secret: env.JWT_KEY,
+        ignoreExpiration: env.NODE_ENV !== Environment.Production,
       },
       bcrypt: {
         rounds: 10,
       },
     },
+    email: {
+      sender: 'Hackathon <hackathon@coderscamp.com>',
+      auth: emailAuthConfig,
+    },
   };
-  Logger.verbose(globalConfig, 'GlobalConfig');
+  if (env.NODE_ENV !== Environment.Production) {
+    Logger.verbose(globalConfig, 'GlobalConfig');
+  }
   return validateConfig(GlobalConfig, globalConfig);
 });
 
@@ -142,4 +191,6 @@ export {
   SwaggerConfig,
   BcryptConfig,
   HttpConfig,
+  EmailConfig,
+  EmailAuthConfig,
 };

@@ -1,15 +1,7 @@
 import { Controller, UseGuards } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiTags,
-  IntersectionType,
-  OmitType,
-  PartialType,
-  PickType,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudAuth, CrudController } from '@nestjsx/crud';
 import { ProjectsService } from '../../application/projects.service';
-import { UsersService } from '../../application/users.service';
 import { JwtAuthGuard } from '../../configuration/auth/jwt.guard';
 import { Project, User } from '../../infrastructure/database/entities';
 

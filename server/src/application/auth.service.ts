@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BcryptService } from '../infrastructure/auth/bcrypt.service';
 import { User } from '../infrastructure/database/entities';
+import { EmailService } from '../infrastructure/email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,7 @@ export class AuthService {
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
     private readonly jwtService: JwtService,
     private readonly bcryptService: BcryptService,
+    private readonly emailService: EmailService,
   ) {}
 
   async signin(email: string, password: string) {
@@ -34,6 +36,8 @@ export class AuthService {
     if (user)
       throw new BadRequestException('User with this email already exists');
     userDto.password = await this.bcryptService.hash(userDto.password);
-    return this.usersRepository.save(userDto);
+    const createdUser = await this.usersRepository.save(userDto);
+    await this.emailService.sendWelcomeEmail(createdUser.email);
+    return createdUser;
   }
 }

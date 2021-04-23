@@ -1,5 +1,12 @@
 import { Exclude, Expose } from 'class-transformer';
-import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 enum Environment {
   Development = 'development',
@@ -63,6 +70,14 @@ class EnvironmentVariables {
   readonly TYPEORM_MIGRATIONS_DIR: string;
 
   readonly DATABASE_URL?: string;
+
+  @IsEmail()
+  @IsOptional()
+  readonly GOOGLE_EMAIL_USER?: string;
+
+  @IsString()
+  @IsOptional()
+  readonly GOOGLE_EMAIL_PASSWORD?: string;
 }
 
 export { EnvironmentVariables, Environment };

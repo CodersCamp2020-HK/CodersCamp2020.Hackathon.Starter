@@ -26,42 +26,58 @@ export const AppContext = React.createContext<IAppContext>(null!);
 
 const StorageThemeKey = "darkTheme";
 
+function Loader() {
+  return <span>Loading...</span>;
+}
+
 function App() {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  const [darkTheme, setDarkTheme] = useState<boolean>(() => {
-    return localStorage.getItem(StorageThemeKey) ? true : false;
-  });
-  const [hamburger, setHamburger] = useState(false);
-
-  const toggleTheme = () => {
-    if (darkTheme) {
-      localStorage.removeItem(StorageThemeKey);
-    } else {
-      localStorage.setItem(StorageThemeKey, "1");
-    }
-    setDarkTheme(!darkTheme);
-  };
-
   useEffect(() => {
-    matches && setHamburger(false);
-  }, [matches]);
+    const domain = "meet.jit.si";
+    const options = {
+      roomName: "PickAnAppropriateMeetingNameHere",
+      width: 700,
+      height: 700,
+      parentNode: document.querySelector("#meet"),
+    };
+    const api = new JitsiMeetExternalAPI(domain, options);
+  }, []);
 
-  return (
-    <RestfulProvider base={baseApiUrl}>
-      <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
-        <AppContext.Provider
-          value={{ darkTheme, toggleTheme, hamburger, setHamburger }}
-        >
-          <div className="App">
-            <Navbar />
-            <Toolbar />
-            Hello
-          </div>
-        </AppContext.Provider>
-      </ThemeProvider>
-    </RestfulProvider>
-  );
+  return <span id="meet"></span>;
+  // const theme = useTheme();
+  // const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  // const [darkTheme, setDarkTheme] = useState<boolean>(() => {
+  //   return localStorage.getItem(StorageThemeKey) ? true : false;
+  // });
+  // const [hamburger, setHamburger] = useState(false);
+
+  // const toggleTheme = () => {
+  //   if (darkTheme) {
+  //     localStorage.removeItem(StorageThemeKey);
+  //   } else {
+  //     localStorage.setItem(StorageThemeKey, "1");
+  //   }
+  //   setDarkTheme(!darkTheme);
+  // };
+
+  // useEffect(() => {
+  //   matches && setHamburger(false);
+  // }, [matches]);
+
+  // return (
+  //   <RestfulProvider base={baseApiUrl}>
+  //     <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
+  //       <AppContext.Provider
+  //         value={{ darkTheme, toggleTheme, hamburger, setHamburger }}
+  //       >
+  //         <div className="App">
+  //           <Navbar />
+  //           <Toolbar />
+  //           Hello
+  //         </div>
+  //       </AppContext.Provider>
+  //     </ThemeProvider>
+  //   </RestfulProvider>
+  // );
 }
 
 export default App;

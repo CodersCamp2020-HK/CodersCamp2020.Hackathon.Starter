@@ -5,8 +5,8 @@ const useStyles = makeStyles({
   column: {
     display: "flex",
     flexDirection: "column",
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
@@ -15,7 +15,7 @@ const HomePage = () => {
   return (
     <div className={styles.column}>
       <Typography variant="h5">Ile będzie trwało spotkanie?</Typography>
-      <TextField variant='contained' size="medium" />
+      <TextField variant="outlined" size="medium" />
       <Button variant="outlined" size="medium">
         Dodaj prezentacje
       </Button>

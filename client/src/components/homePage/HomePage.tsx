@@ -1,6 +1,5 @@
 import { Button, makeStyles, TextField, Typography } from "@material-ui/core";
-import React from "react";
-
+import React, { useState } from "react";
 const useStyles = makeStyles({
   column: {
     display: "flex",
@@ -11,15 +10,21 @@ const useStyles = makeStyles({
 });
 
 const HomePage = () => {
+    const [meetTime, setMeetTime] = useState<string>('0');
   const styles = useStyles();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMeetTime(event.target.value);
+  };
+
   return (
     <div className={styles.column}>
       <Typography variant="h5">Ile będzie trwało spotkanie?</Typography>
-      <TextField variant="outlined" size="medium" color="primary" />
+      <TextField type='number' value={meetTime}  onChange={handleChange} variant="outlined" size="medium" color="primary" />
       <Button variant="outlined" size="medium" color="primary">
         Dodaj prezentacje
       </Button>
-      <Button variant="contained" size="medium" color="primary">
+      <Button onClick={} variant="contained" size="medium" color="primary">
         Utwórz spotkanie
       </Button>
     </div>

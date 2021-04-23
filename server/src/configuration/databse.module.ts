@@ -12,9 +12,11 @@ const DatabaseConnection = TypeOrmModule.forRootAsync({
   inject: [ConfigService],
 });
 const DatabaseFeatures = TypeOrmModule.forFeature(Object.values(entities));
+
+const imports = [DatabaseConnection, DatabaseFeatures];
 @Module({
-  imports: [DatabaseConnection, DatabaseFeatures],
-  exports: [DatabaseConnection, DatabaseFeatures],
+  imports,
+  exports: imports,
 })
 class DatabaseModule {}
 

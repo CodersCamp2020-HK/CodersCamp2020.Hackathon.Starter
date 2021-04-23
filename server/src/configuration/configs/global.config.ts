@@ -123,7 +123,10 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
     env.TYPEORM_MIGRATIONS_DIR.replace(/^src/, ''),
   );
   const emailAuthConfig =
-    env.GOOGLE_EMAIL_PASSWORD && env.GOOGLE_EMAIL_USER
+    env.GOOGLE_EMAIL_PASSWORD &&
+    env.GOOGLE_EMAIL_USER &&
+    env.GOOGLE_EMAIL_PASSWORD !== 'undefined' &&
+    env.GOOGLE_EMAIL_USER !== 'undefined'
       ? {
           user: env.GOOGLE_EMAIL_USER,
           password: env.GOOGLE_EMAIL_PASSWORD,
@@ -141,9 +144,13 @@ const GlobalConfigFactory = registerAs(GlobalConfigKey, () => {
     database: {
       type: env.TYPEORM_CONNECTION,
       url:
-        env.DATABASE_URL ??
-        `postgres://${env.TYPEORM_USERNAME}:${env.TYPEORM_PASSWORD}@${env.TYPEORM_HOST}:${env.TYPEORM_PORT}/${env.TYPEORM_DATABASE}`,
-      ssl: env.DATABASE_URL ? { rejectUnauthorized: false } : false,
+        env.NODE_ENV !== Environment.Production
+          ? `postgres://${env.TYPEORM_USERNAME}:${env.TYPEORM_PASSWORD}@${env.TYPEORM_HOST}:${env.TYPEORM_PORT}/${env.TYPEORM_DATABASE}`
+          : env.DATABASE_URL,
+      ssl:
+        env.NODE_ENV === Environment.Production
+          ? { rejectUnauthorized: false }
+          : false,
       entities: [path.join(entitiesDir, '/**/*')],
       migrations: [path.join(migrationsDir, '/**/*')],
       cli: {

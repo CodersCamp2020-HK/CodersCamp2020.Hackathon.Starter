@@ -69,14 +69,13 @@ class EnvironmentVariables {
   @IsString()
   readonly TYPEORM_MIGRATIONS_DIR: string;
 
+  @Expose()
   readonly DATABASE_URL?: string;
 
-  @IsEmail()
-  @IsOptional()
+  @Expose()
   readonly GOOGLE_EMAIL_USER?: string;
 
-  @IsString()
-  @IsOptional()
+  @Expose()
   readonly GOOGLE_EMAIL_PASSWORD?: string;
 }
 

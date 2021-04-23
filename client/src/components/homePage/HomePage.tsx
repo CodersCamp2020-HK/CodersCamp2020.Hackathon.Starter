@@ -15,11 +15,11 @@ const HomePage = () => {
   return (
     <div className={styles.column}>
       <Typography variant="h5">Ile będzie trwało spotkanie?</Typography>
-      <TextField variant="outlined" size="medium" />
-      <Button variant="outlined" size="medium">
+      <TextField variant="outlined" size="medium" color="primary" />
+      <Button variant="outlined" size="medium" color="primary">
         Dodaj prezentacje
       </Button>
-      <Button variant="contained" size="medium">
+      <Button variant="contained" size="medium" color="primary">
         Utwórz spotkanie
       </Button>
     </div>

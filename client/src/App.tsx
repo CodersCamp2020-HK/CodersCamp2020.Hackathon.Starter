@@ -26,10 +26,6 @@ export const AppContext = React.createContext<IAppContext>(null!);
 
 const StorageThemeKey = "darkTheme";
 
-function Loader() {
-  return <span>Loading...</span>;
-}
-
 function App() {
   useEffect(() => {
     const domain = "meet.jit.si";
@@ -39,45 +35,46 @@ function App() {
       height: 700,
       parentNode: document.querySelector("#meet"),
     };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const api = new JitsiMeetExternalAPI(domain, options);
   }, []);
 
-  return <span id="meet"></span>;
-  // const theme = useTheme();
-  // const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  // const [darkTheme, setDarkTheme] = useState<boolean>(() => {
-  //   return localStorage.getItem(StorageThemeKey) ? true : false;
-  // });
-  // const [hamburger, setHamburger] = useState(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const [darkTheme, setDarkTheme] = useState<boolean>(() => {
+    return localStorage.getItem(StorageThemeKey) ? true : false;
+  });
+  const [hamburger, setHamburger] = useState(false);
 
-  // const toggleTheme = () => {
-  //   if (darkTheme) {
-  //     localStorage.removeItem(StorageThemeKey);
-  //   } else {
-  //     localStorage.setItem(StorageThemeKey, "1");
-  //   }
-  //   setDarkTheme(!darkTheme);
-  // };
+  const toggleTheme = () => {
+    if (darkTheme) {
+      localStorage.removeItem(StorageThemeKey);
+    } else {
+      localStorage.setItem(StorageThemeKey, "1");
+    }
+    setDarkTheme(!darkTheme);
+  };
 
-  // useEffect(() => {
-  //   matches && setHamburger(false);
-  // }, [matches]);
+  useEffect(() => {
+    matches && setHamburger(false);
+  }, [matches]);
 
-  // return (
-  //   <RestfulProvider base={baseApiUrl}>
-  //     <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
-  //       <AppContext.Provider
-  //         value={{ darkTheme, toggleTheme, hamburger, setHamburger }}
-  //       >
-  //         <div className="App">
-  //           <Navbar />
-  //           <Toolbar />
-  //           Hello
-  //         </div>
-  //       </AppContext.Provider>
-  //     </ThemeProvider>
-  //   </RestfulProvider>
-  // );
+  return (
+    <RestfulProvider base={baseApiUrl}>
+      <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
+        <AppContext.Provider
+          value={{ darkTheme, toggleTheme, hamburger, setHamburger }}
+        >
+          <div className="App">
+            <Navbar />
+            <Toolbar />
+            <span id="meet"></span>
+            Hello
+          </div>
+        </AppContext.Provider>
+      </ThemeProvider>
+    </RestfulProvider>
+  );
 }
 
 export default App;

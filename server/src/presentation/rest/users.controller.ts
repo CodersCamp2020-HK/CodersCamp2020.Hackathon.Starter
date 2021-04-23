@@ -1,22 +1,18 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseGuards } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiTags,
-  IntersectionType,
   OmitType,
   PartialType,
   PickType,
 } from '@nestjs/swagger';
-import { Crud, CrudController } from '@nestjsx/crud';
+import { Crud, CrudAuth, CrudController } from '@nestjsx/crud';
+import { JwtAuthGuard } from '../../configuration/auth/jwt.guard';
 import { UsersService } from '../../application/users.service';
 import { Project, User } from '../../infrastructure/database/entities';
 import { propOf } from '../../shared/propOf';
 
 class UserDTO extends PartialType(OmitType(User, ['password'] as const)) {}
-
-class CreateUserDTO extends IntersectionType(
-  PickType(User, ['email', 'password'] as const),
-  PartialType(PickType(User, ['name', 'surname'] as const)),
-) {}
 
 class UpdateUserDTO extends PartialType(
   PickType(User, ['name', 'surname', 'email'] as const),
@@ -27,7 +23,7 @@ class UpdateUserDTO extends PartialType(
     type: UserDTO,
   },
   routes: {
-    exclude: ['createManyBase', 'replaceOneBase'],
+    exclude: ['createManyBase', 'replaceOneBase', 'createOneBase'],
   },
   query: {
     exclude: [propOf<User>('password')],
@@ -39,10 +35,17 @@ class UpdateUserDTO extends PartialType(
     },
   },
   dto: {
-    create: CreateUserDTO,
     update: UpdateUserDTO,
   },
 })
+@UseGuards(JwtAuthGuard)
+@CrudAuth({
+  property: 'user',
+  filter: (user: User) => {
+    return { id: user.id };
+  },
+})
+@ApiBearerAuth()
 @ApiTags('User')
 @Controller('users')
 class UsersController implements CrudController<User> {

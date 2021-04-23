@@ -14,6 +14,7 @@ function createSwaggerDocument(
     .get<GlobalConfig>(GlobalConfigKey).swagger,
 ) {
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle(options.title)
     .setDescription(options.description)
     .setVersion(options.version)

@@ -1,11 +1,11 @@
 import { Toolbar } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import { ThemeProvider, useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Jitsi from "jitsi-meet";
+import React, { useEffect, useState } from "react";
+import { RestfulProvider } from "restful-react";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
-import { RestfulProvider } from "restful-react";
-import { ThemeProvider } from "@material-ui/core/styles";
 import { DarkTheme } from "./themes/DarkTheme";
 import { LightTheme } from "./themes/LightTheme";
 
@@ -27,6 +27,7 @@ export const AppContext = React.createContext<IAppContext>(null!);
 const StorageThemeKey = "darkTheme";
 
 function App() {
+  const [apiState, setApi] = useState<Jitsi.JitsiMeetExternalAPI>(null!);
   useEffect(() => {
     const domain = "meet.jit.si";
     const options = {
@@ -37,6 +38,7 @@ function App() {
     };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const api = new JitsiMeetExternalAPI(domain, options);
+    setApi(api);
   }, []);
 
   const theme = useTheme();
@@ -70,6 +72,24 @@ function App() {
             <Toolbar />
             <span id="meet"></span>
             Hello
+            <button
+              onClick={() => console.log(apiState?.getParticipantsInfo())}
+            >
+              Participants
+            </button>
+            <button onClick={() => apiState.executeCommand("hangup")}>
+              Hangup
+            </button>
+            <button
+              onClick={() => {
+                // @ts-ignore
+                apiState.addListener("participantLeft", (person: {id: string;}) => {
+                  console.log(person.id);
+                });
+              }}
+            >
+              Add Listener Participant Left
+            </button>
           </div>
         </AppContext.Provider>
       </ThemeProvider>

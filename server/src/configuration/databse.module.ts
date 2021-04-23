@@ -13,10 +13,7 @@ const DatabaseConnection = TypeOrmModule.forRootAsync({
 });
 const DatabaseFeatures = TypeOrmModule.forFeature(Object.values(entities));
 
-const imports =
-  process.env.NODE_ENV === 'production' && !process.env.DATABASE_URL
-    ? []
-    : [DatabaseConnection, DatabaseFeatures];
+const imports = [DatabaseConnection, DatabaseFeatures];
 @Module({
   imports,
   exports: imports,

@@ -10,15 +10,19 @@ import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 const useStyles = makeStyles((theme) => ({
   action: {
     display: 'flex',
+    justifyContent: 'space-around',
+    alignItem: 'center',
   },
   icon: {
     color: theme.palette.secondary.main,
+    margin: '0.1rem',
   },
 }));
 
 const ActionsParticipant = () => {
   const classes = useStyles();
   return (
+
     <div className={classes.action}>
       <BtnWrapper name='Abreak'>
         <LocalCafeIcon className={classes.icon} />

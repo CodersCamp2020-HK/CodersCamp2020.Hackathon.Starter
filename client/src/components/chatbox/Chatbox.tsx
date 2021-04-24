@@ -73,13 +73,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-interface Props {
+interface SingleCommentProps {
     name: string;
     time: string;
     textMessage: string;
 }
 
-const Chatbox: React.FC<Props> = ({ name, time, textMessage }) => {
+const Chatbox = (comments: SingleCommentProps[]) => {
     const classes = useStyles();
     return (
         <div className={classes.mainWrapper}>
@@ -87,16 +87,18 @@ const Chatbox: React.FC<Props> = ({ name, time, textMessage }) => {
                 <div className={classes.typographyWrapper}>
                     <Typography className={classes.typographyHeader} variant="body1">Zapis spotkania</Typography>
                 </div>
-                <div className={classes.singleCommentWrapper}>
-                    <div className={classes.singleComment}>
-                        <div>{time}</div>
-                        <div className={classes.freeSpace}></div>
-                        <div>{name}</div>
+                {comments.map(({ time, name, textMessage }) => {
+                    <div className={classes.singleCommentWrapper}>
+                        <div className={classes.singleComment}>
+                            <div>{time}</div>
+                            <div className={classes.freeSpace}></div>
+                            <div>{name}</div>
+                        </div>
+                        <div className={classes.commentTextBackground}>
+                            {textMessage}
+                        </div>
                     </div>
-                    <div className={classes.commentTextBackground}>
-                        {textMessage}
-                    </div>
-                </div>
+                }})
                 <Button className={classes.firstButton} variant="outlined" size="medium" color="primary">WYGENERUJ RAPORT PDF</Button>
             </div>
             <TextField className={classes.textField} variant="outlined" color="primary" id="x" label="Wpisz swój komentarz" size="medium" />

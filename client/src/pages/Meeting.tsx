@@ -3,8 +3,8 @@ import { Route, useRouteMatch, Redirect, Switch } from "react-router-dom";
 import Actions from "../components/actions/Actions";
 import Timer from "../components/common/timer/Timer";
 import NotificationWrapper from "../components/notifications/NotificationWrapper";
-import { Toolbar } from "@material-ui/core";
 import Nav from "../components/nav/Nav";
+import { DemoEvents } from "../events/DemoEvents";
 
 const Meeting = () => {
   const { path } = useRouteMatch();
@@ -13,7 +13,7 @@ const Meeting = () => {
     <Switch>
       <Route exact path={`${path}/:name`}>
         <Nav />
-        <Toolbar />
+        <DemoEvents />
         <Timer timeInSeconds={120} />
         Hello
         <Actions />

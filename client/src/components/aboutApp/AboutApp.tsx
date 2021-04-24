@@ -1,17 +1,17 @@
-import { Container, Typography, makeStyles } from "@material-ui/core";
+import { Container, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import 'react-perfect-scrollbar/dist/css/styles.css';
+import "react-perfect-scrollbar/dist/css/styles.css";
 const useStyles = makeStyles({
-    container: {
-        height: '100vh',
-    }
-})
+  container: {
+    height: "100vh",
+  },
+});
 const AboutApp = () => {
-    const styles = useStyles()
+  const styles = useStyles();
   return (
-    <Container className={styles.container}>
-      <PerfectScrollbar>
+    <PerfectScrollbar>
+      <Container className={styles.container}>
         <Typography variant="body1">
           Reprehenderit mollit laboris ea eiusmod Lorem commodo aute cupidatat
           duis id voluptate sit. Ipsum eu ad dolore ea officia cupidatat.
@@ -61,8 +61,8 @@ const AboutApp = () => {
           Cillum dolor id adipisicing duis ex proident anim non. Pariatur
           proident reprehenderit labore nulla laborum aute.
         </Typography>
-      </PerfectScrollbar>
-    </Container>
+      </Container>
+    </PerfectScrollbar>
   );
 };
 

@@ -1,5 +1,11 @@
+import { InformationNotification } from "./InformEvents";
 import { MeetingParticipant } from "./MeetingParticipant";
+import { TimeEvent } from "./TimeEvents";
 
+interface InitialSate {
+    informationNotifications: InformationNotification[];
+    currentTimeEvent?: TimeEvent["type"];
+}
 interface JoinMeetingDTO {
     meetingName: string;
     name: string;
@@ -12,6 +18,7 @@ interface JoinMeetingRespDTO {
     meetingName: string;
     participant: MeetingParticipant;
     jitsiName: string;
+    initialState?: InitialSate;
 }
 
 interface BroadcastDTO {
@@ -37,4 +44,4 @@ interface WsMeetingException {
     message: string;
 }
 
-export type { CreateMeetingDTO, JoinMeetingDTO, JoinMeetingRespDTO, BroadcastDTO, BroadcastRespDTO, WsMeetingException };
+export type { CreateMeetingDTO, JoinMeetingDTO, JoinMeetingRespDTO, BroadcastDTO, BroadcastRespDTO, WsMeetingException, InitialSate };

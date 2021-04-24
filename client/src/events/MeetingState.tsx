@@ -26,15 +26,15 @@ const MeetingStateContext = React.createContext<
 function MeetingStateProvider({
   children,
 }: React.PropsWithChildren<Record<string, unknown>>) {
-  const { socket } = useMeetingEvents();
+  const { socket, initialState } = useMeetingEvents();
   const [informationNotifications, setInformationNotifications] = useState<
     InformationNotification[]
-  >([]);
+  >(initialState?.informationNotifications ?? []);
 
   const [notes, setNotes] = useState<Note[]>([]);
   const [currentTimeEvent, setCurrentTimeEvent] = useState<
     TimeEvent["type"] | undefined
-  >(undefined);
+  >(initialState?.currentTimeEvent);
 
   useEffect(() => {
     const onInformationNotification = (resp: InformationNotification) => {

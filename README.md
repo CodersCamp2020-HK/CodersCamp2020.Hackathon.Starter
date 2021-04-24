@@ -8,7 +8,7 @@
 ## Zespół projektowy
 
 Zespół pracował w ramach kursu [CodersCamp](https://coderscamp.pl/).
-Aplikację wykonali uczestnicy kursu przy pomocy mentora.
+Aplikację wykonali uczestnicy przy pomocy mentora.
 Zachęcamy do odwiedzenia profili członków zespołu, w celu zapoznania się z ich portfolio.
 
 **Mentor**: [Hubert Kawałek](https://github.com/htk4)

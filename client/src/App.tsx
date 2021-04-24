@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import Unauth from './pages/Unauth';
 import NotFound from './pages/404';
 import Meeting from './pages/Meeting';
-import { Container, makeStyles } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import Nav from './components/nav/Nav';
 import MyContainer from './components/myContainer/MyContainer';
 
@@ -35,14 +35,8 @@ export const AppContext = React.createContext<IAppContext>(null!);
 const StorageThemeKey = 'darkTheme';
 
 type Iframe = 'yt' | 'music' | 'quiz' | 'cafe' | 'video';
-const useStyles = makeStyles(() => ({
-  basic: {
-    height: '100vh',
-  },
-}));
 
 function App() {
-  const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [darkTheme, setDarkTheme] = useState<boolean>(() => {
@@ -80,7 +74,7 @@ function App() {
             <MyContainer>
               <>
                 <Nav />
-                <Container className={classes.basic} maxWidth='lg'>
+                <Container maxWidth='lg'>
                   <Router>
                     <Switch>
                       <Route path='/unauth'>

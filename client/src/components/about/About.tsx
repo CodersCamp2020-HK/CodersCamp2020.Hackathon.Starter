@@ -10,13 +10,13 @@ import {
   Slide,
   Theme,
   Tooltip,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { GitHub } from "@material-ui/icons";
-import React from "react";
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import project from "./AboutContent";
+import React, { useContext } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import { AppContext } from "../../App";
+import project from "./AboutContent";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -143,117 +143,119 @@ const About = () => {
   const styles = useStyles();
   const { darkTheme } = useContext(AppContext);
   return (
-    <PerfectScrollbar className={darkTheme ? styles.scrollbarDark : styles.scrollbarLight}>
-    <Container maxWidth="md" className={styles.container}>
-      <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
-        <Paper className={styles.projectInfo}>
-          <Typography variant="h5" className={styles.title}>
-            {project.name}
-          </Typography>
-          <Typography variant="body1">{project.description}</Typography>
-          <Link
-            className={styles.repoButton}
-            href={project.gitHubLink}
-            target="_blank"
-          >
-            <Button
-              variant="contained"
-              startIcon={<GitHub fontSize="large" />}
-              color="primary"
-            >
-              Github
-            </Button>
-          </Link>
-        </Paper>
-      </Grow>
-      <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
-        <Paper className={styles.mentorCard}>
-          <Typography variant="h5" className={styles.title}>
-            Mentor
-          </Typography>
-          <div className={styles.mentorTitle}>
-            <Typography variant="h6" color="primary">
-              {project.mentor.name} {project.mentor.surname}
+    <PerfectScrollbar
+      className={darkTheme ? styles.scrollbarDark : styles.scrollbarLight}
+    >
+      <Container maxWidth="md" className={styles.container}>
+        <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
+          <Paper className={styles.projectInfo}>
+            <Typography variant="h5" className={styles.title}>
+              {project.name}
             </Typography>
-            <Tooltip
-              title={
-                <React.Fragment>
-                  <Typography variant="body1">
-                    {project.mentor.gitHubName}
-                  </Typography>
-                </React.Fragment>
-              }
-              placement="left"
+            <Typography variant="body1">{project.description}</Typography>
+            <Link
+              className={styles.repoButton}
+              href={project.gitHubLink}
+              target="_blank"
             >
-              <Link href={project.mentor.gitHubLink} target="_blank">
-                <IconButton color="primary">
-                  <GitHub fontSize="large" />
-                </IconButton>
-              </Link>
-            </Tooltip>
-          </div>
-          <Typography variant="body1">{project.mentor.description}</Typography>
-        </Paper>
-      </Grow>
-      <Paper className={styles.peopleCard}>
-        <Typography variant="h5" className={styles.title}>
-          Uczestnicy
-        </Typography>
-        <div className={styles.peopleMobile}>
-          {project.contributors.map((person, index) => (
-            <Slide
-              key={index}
-              timeout={1000}
-              direction={index % 2 === 0 ? "right" : "left"}
-              in={true}
-              mountOnEnter
-              unmountOnExit
-            >
-              <Paper
-                className={styles.personCardMobile}
+              <Button
+                variant="contained"
+                startIcon={<GitHub fontSize="large" />}
+                color="primary"
               >
-                <Typography
-                  color="primary"
-                  className={styles.personName}
-                  variant="h6"
-                >
-                  {person.name}
-                </Typography>
-                <Typography
-                  color="secondary"
-                  className={styles.personSurname}
-                  variant="h6"
-                >
-                  {person.surname}
-                </Typography>
-                <Divider className={styles.divider} />
-                <Typography variant="body1">{person.description}</Typography>
-                <Tooltip
-                  title={
-                    <React.Fragment>
-                      <Typography variant="body1">
-                        {person.gitHubName}
-                      </Typography>
-                    </React.Fragment>
-                  }
-                  placement="left"
-                >
-                  <Link
-                    className={styles.personLink}
-                    href={person.gitHubLink}
-                    target="_blank"
+                Github
+              </Button>
+            </Link>
+          </Paper>
+        </Grow>
+        <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
+          <Paper className={styles.mentorCard}>
+            <Typography variant="h5" className={styles.title}>
+              Mentor
+            </Typography>
+            <div className={styles.mentorTitle}>
+              <Typography variant="h6" color="primary">
+                {project.mentor.name} {project.mentor.surname}
+              </Typography>
+              <Tooltip
+                title={
+                  <React.Fragment>
+                    <Typography variant="body1">
+                      {project.mentor.gitHubName}
+                    </Typography>
+                  </React.Fragment>
+                }
+                placement="left"
+              >
+                <Link href={project.mentor.gitHubLink} target="_blank">
+                  <IconButton color="primary">
+                    <GitHub fontSize="large" />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+            </div>
+            <Typography variant="body1">
+              {project.mentor.description}
+            </Typography>
+          </Paper>
+        </Grow>
+        <Paper className={styles.peopleCard}>
+          <Typography variant="h5" className={styles.title}>
+            Uczestnicy
+          </Typography>
+          <div className={styles.peopleMobile}>
+            {project.contributors.map((person, index) => (
+              <Slide
+                key={index}
+                timeout={1000}
+                direction={index % 2 === 0 ? "right" : "left"}
+                in={true}
+                mountOnEnter
+                unmountOnExit
+              >
+                <Paper className={styles.personCardMobile}>
+                  <Typography
+                    color="primary"
+                    className={styles.personName}
+                    variant="h6"
                   >
-                    <IconButton color="primary">
-                      <GitHub fontSize="large" />
-                    </IconButton>
-                  </Link>
-                </Tooltip>
-              </Paper>
-            </Slide>
-          ))}
-        </div>
-      </Paper>
-    </Container>
+                    {person.name}
+                  </Typography>
+                  <Typography
+                    color="secondary"
+                    className={styles.personSurname}
+                    variant="h6"
+                  >
+                    {person.surname}
+                  </Typography>
+                  <Divider className={styles.divider} />
+                  <Typography variant="body1">{person.description}</Typography>
+                  <Tooltip
+                    title={
+                      <React.Fragment>
+                        <Typography variant="body1">
+                          {person.gitHubName}
+                        </Typography>
+                      </React.Fragment>
+                    }
+                    placement="left"
+                  >
+                    <Link
+                      className={styles.personLink}
+                      href={person.gitHubLink}
+                      target="_blank"
+                    >
+                      <IconButton color="primary">
+                        <GitHub fontSize="large" />
+                      </IconButton>
+                    </Link>
+                  </Tooltip>
+                </Paper>
+              </Slide>
+            ))}
+          </div>
+        </Paper>
+      </Container>
     </PerfectScrollbar>
   );
 };

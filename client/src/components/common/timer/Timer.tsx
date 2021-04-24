@@ -7,10 +7,15 @@ type TimerProps = {
     timeInSeconds: number;
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     linearProgress: {
         height: 15,
-        marginRight: 20,
+        "& .MuiLinearProgress-barColorPrimary": {
+            backgroundColor: (time) =>
+                time <= 0
+                    ? theme.palette.error.main
+                    : theme.palette.primary.main,
+        },
     },
     textWrapper: {
         width: "100%",
@@ -18,7 +23,15 @@ const useStyles = makeStyles({
         justifyContent: "space-between",
         alignItems: "center",
     },
-});
+    timerWrapper: {
+        width: "100%",
+    },
+    contentWrapper: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+}));
 
 export const convertSeconds = (sec: number) => {
     const minutes: number = Math.floor(sec / 60);
@@ -31,11 +44,11 @@ export const convertSeconds = (sec: number) => {
 };
 
 export default function LinearDeterminate({ timeInSeconds }: TimerProps) {
-    const classes = useStyles();
     const [progress, setProgress] = useState(0);
     const [time, setTime] = useState(timeInSeconds);
     const [totalTime, setTotalTime] = useState(0);
     const [countProgress, setCountProgress] = useState(0);
+    const classes = useStyles(time);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -53,8 +66,8 @@ export default function LinearDeterminate({ timeInSeconds }: TimerProps) {
                 }
                 if (time >= 1) {
                     return oldProgress === 100
-                    ? 0
-                    : oldProgress + 100 / timeInSeconds;
+                        ? 0
+                        : oldProgress + 100 / timeInSeconds;
                 }
                 return 100;
             });
@@ -65,32 +78,37 @@ export default function LinearDeterminate({ timeInSeconds }: TimerProps) {
     }, [time]);
 
     return (
-        <>
-            <div className={classes.textWrapper}>
-                <p>{`Do końca pozostało: ${time < 0 ? "+" : ""} ${
-                    convertSeconds(Math.abs(time)).minutes
-                }:${convertSeconds(Math.abs(time)).seconds}`}</p>
-                <p>{`Czas spotkania: ${
-                    convertSeconds(Math.abs(totalTime)).minutes
-                }:${convertSeconds(Math.abs(totalTime)).seconds}`}</p>
+        <div className={classes.contentWrapper}>
+            <div className={classes.timerWrapper}>
+                <div className={classes.textWrapper}>
+                    <p>{`Do końca pozostało: ${time < 0 ? "+" : ""} ${
+                        convertSeconds(Math.abs(time)).minutes
+                    }:${convertSeconds(Math.abs(time)).seconds}`}</p>
+                    <p>{`Czas spotkania: ${
+                        convertSeconds(Math.abs(totalTime)).minutes
+                    }:${convertSeconds(Math.abs(totalTime)).seconds}`}</p>
+                </div>
+                <LinearProgress
+                    className={classes.linearProgress}
+                    color="primary"
+                    variant="determinate"
+                    value={progress}
+                />
             </div>
-            <LinearProgress
-                className={classes.linearProgress}
-                variant="determinate"
-                value={progress}
-            />
-            {time <= 0 && countProgress === 0 && (
-                <Button
-                    variant="contained"
-                    onClick={() => {
-                        setTime((oldTime) => 1 * 10);
-                        setProgress(0);
-                        setCountProgress(1);
-                    }}
-                >
-                    + 15 minut
-                </Button>
-            )}
-        </>
+            <Button
+                variant="contained"
+                style={{
+                    visibility:
+                        time <= 0 && countProgress === 0 ? "visible" : "hidden",
+                }}
+                onClick={() => {
+                    setTime(() => 1 * 10);
+                    setProgress(0);
+                    setCountProgress(1);
+                }}
+            >
+                + 15 minut
+            </Button>
+        </div>
     );
 }

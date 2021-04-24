@@ -1,4 +1,4 @@
-import { UsePipes, ValidationPipe } from '@nestjs/common';
+import { Logger, UsePipes, ValidationPipe } from '@nestjs/common';
 import {
   ConnectedSocket,
   MessageBody,
@@ -25,7 +25,7 @@ class MeetingGateway {
     @MessageBody() body: JoinMeetingDTO,
     @ConnectedSocket() client: Socket,
   ): WsResponse<unknown> {
-    console.log(body);
+    Logger.verbose(body, 'WebSocketServer[joinMeeting]');
     const resp = this.meetingService.joinMeeting(body, client);
     return { event: 'connected', data: resp };
   }
@@ -33,6 +33,7 @@ class MeetingGateway {
   @UsePipes(new ValidationPipe())
   @SubscribeMessage('broadcast')
   broadcast(@MessageBody() body: BroadcastDTO) {
+    Logger.verbose(body, 'WebSocketServer[broadcast]');
     this.meetingService.broadcast(body);
   }
 }

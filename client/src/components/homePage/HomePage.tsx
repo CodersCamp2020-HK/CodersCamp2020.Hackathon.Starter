@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useMeetingEvents } from "../../events/Meeting";
 import { useHistory } from "react-router-dom";
 import { WsMeetingException } from "../../events/Meeting.dto";
+import Aside from "../aside/Aside";
 
 type HomePageInputs = {
   meetingName: string;
@@ -71,6 +72,7 @@ const HomePage = () => {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
+      <Aside />
       <Typography variant="h5">Ile minut będzie trwało spotkanie?</Typography>
       <TextInput
         className={styles.textInput}

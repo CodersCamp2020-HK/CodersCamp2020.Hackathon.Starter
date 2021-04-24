@@ -128,7 +128,7 @@ const About = () => {
               startIcon={<GitHub fontSize="large" />}
               color="primary"
             >
-              Zobacz repozytorium
+              Github
             </Button>
           </Link>
         </Paper>

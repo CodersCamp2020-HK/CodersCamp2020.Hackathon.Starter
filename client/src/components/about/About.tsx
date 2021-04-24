@@ -14,7 +14,9 @@ import {
 } from "@material-ui/core";
 import { GitHub } from "@material-ui/icons";
 import React from "react";
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import project from "./AboutContent";
+import { AppContext } from "../../App";
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -103,11 +105,45 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  scrollbarLight: {
+    "& ::-webkit-scrollbar": {
+      width: 12,
+      backgroundColor: " #F5F5F5",
+    },
+
+    "& .ps__rail-y:hover > .ps__thumb-y, .ps__rail-y:focus > .ps__thumb-y, .ps__rail-y.ps--clicking .ps__thumb-y": {
+      backgroundColor: theme.palette.primary.light,
+    },
+
+    "& .ps__thumb-y": {
+      borderRadius: 10,
+      boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.1)",
+      backgroundColor: theme.palette.primary.light,
+    },
+  },
+  scrollbarDark: {
+    "& ::-webkit-scrollbar": {
+      width: 12,
+      backgroundColor: " #F5F5F5",
+    },
+    //Po najechaniu/klikniecu paska scrollowania
+    "& .ps__rail-y:hover > .ps__thumb-y, .ps__rail-y:focus > .ps__thumb-y, .ps__rail-y.ps--clicking .ps__thumb-y": {
+      backgroundColor: theme.palette.primary.dark,
+    },
+    //Zwykły
+    "& .ps__thumb-y": {
+      borderRadius: 10,
+      boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.1)",
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
 }));
 
 const About = () => {
   const styles = useStyles();
+  const { darkTheme } = useContext(AppContext);
   return (
+    <PerfectScrollbar className={darkTheme ? styles.scrollbarDark : styles.scrollbarLight}>
     <Container maxWidth="md" className={styles.container}>
       <Grow in={true} timeout={1000} mountOnEnter unmountOnExit>
         <Paper className={styles.projectInfo}>
@@ -218,6 +254,7 @@ const About = () => {
         </div>
       </Paper>
     </Container>
+    </PerfectScrollbar>
   );
 };
 

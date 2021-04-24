@@ -124,12 +124,12 @@ const HomePage = () => {
       <TextInput
         className={styles.textInput}
         control={control}
-        id='meetingName'
-        name='meetingName'
-        label='Meeting name'
-        variant='outlined'
-        size='medium'
-        color='primary'
+        id="numberOfMins"
+        name="numberOfMins"
+        label="How long the meeting will take?"
+        variant="outlined"
+        size="medium"
+        color="primary"
         required
         rules={{
           required: 'Enter meeting name',

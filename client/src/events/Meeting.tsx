@@ -14,12 +14,16 @@ import {
 } from "./Meeting.dto";
 import { MeetingParticipant } from "./MeetingParticipant";
 import { JitsiMeetExternalAPI } from "jitsi-meet";
+import { CreateMeetingDTO } from "../api";
 
 type BroadcastHandler = (resp: BroadcastRespDTO) => void;
 
 interface MeetingEventsProviderState {
+  readonly emitCreateMeeting: (req: CreateMeetingDTO) => void;
   readonly emitJoinMeeting: (req: JoinMeetingDTO) => void;
-  readonly emitJoinMeetingAsOwner: (req: JoinMeetingDTO) => void;
+  readonly emitJoinMeetingAsOwner: (
+    req: JoinMeetingDTO & { ownerID: string }
+  ) => void;
   readonly emitBroadcastMessage: (payload: string) => void;
   readonly jitsiName?: string;
   readonly participant?: MeetingParticipant;
@@ -108,6 +112,11 @@ function MeetingEventsProvider({
     socket?.emit("joinMeeting", req);
   };
 
+  const emitCreateMeeting = (req: CreateMeetingDTO) => {
+    console.log("Send [createMeeting]", req);
+    socket?.emit("createMeeting", req);
+  };
+
   const emitBroadcastMessage = (payload: string) => {
     if (!meetingName) {
       return console.log("Not participating in meeting");
@@ -155,6 +164,7 @@ function MeetingEventsProvider({
         meetingName,
         reqisterToBroadcast,
         unregisterFromBroadcast,
+        emitCreateMeeting,
       }}
     >
       {children}

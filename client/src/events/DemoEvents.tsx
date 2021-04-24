@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useMeetingControllerCreateMeeting } from "../api";
 import { JitsiFrame } from "../components/jitsi/JitsiFrame";
 import { useMeetingEvents } from "./Meeting";
 import { BroadcastRespDTO } from "./Meeting.dto";
 
 function DemoEvents() {
-  const [ownerId, setOwnerId] = useState<string | undefined>(undefined);
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<BroadcastRespDTO[]>([]);
-  const { mutate } = useMeetingControllerCreateMeeting({});
   const {
     participant,
-    emitJoinMeetingAsOwner,
     emitJoinMeeting,
     setMeetingName,
     reqisterToBroadcast,
     emitBroadcastMessage,
     unregisterFromBroadcast,
+    emitCreateMeeting,
   } = useMeetingEvents();
 
   useEffect(() => {
@@ -34,17 +31,6 @@ function DemoEvents() {
     setMeetingName("name");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (ownerId && !participant) {
-      emitJoinMeetingAsOwner({
-        email: "user@email.com",
-        name: "My name",
-        meetingName: "name",
-        ownerId: ownerId,
-      });
-    }
-  }, [ownerId, participant, emitJoinMeetingAsOwner]);
 
   useEffect(() => {
     if (!participant && window.location.href.match(/meetings\/name/)) {
@@ -83,12 +69,10 @@ function DemoEvents() {
   ) : (
     <button
       onClick={() => {
-        mutate({
+        emitCreateMeeting({
           meetingName: "name",
           email: "user@email.com",
           name: "My name",
-        }).then((resp) => {
-          setOwnerId(resp.ownerId);
         });
       }}
     >

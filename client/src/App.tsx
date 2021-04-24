@@ -11,7 +11,6 @@ import Home from './pages/Home';
 import Unauth from './pages/Unauth';
 import NotFound from './pages/404';
 import Meeting from './pages/Meeting';
-import { DemoEvents } from './events/DemoEvents';
 import { Container } from '@material-ui/core';
 import Nav from './components/nav/Nav';
 import MyContainer from './components/myContainer/MyContainer';
@@ -69,7 +68,7 @@ function App() {
                       <Route path='/unauth'>
                         <Unauth />
                       </Route>
-                      <Route path='/meeting'>
+                      <Route path='/meetings'>
                         <Meeting />
                       </Route>
                       <Route exact path='/'>

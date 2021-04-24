@@ -1,51 +1,52 @@
-import React from 'react';
-import { Route, useRouteMatch, Redirect, Switch } from 'react-router-dom';
-import Actions from '../components/actions/Actions';
-import Timer from '../components/common/timer/Timer';
-import NotificationWrapper from '../components/notifications/NotificationWrapper';
-import { DemoEvents } from '../events/DemoEvents';
-import Chatbox, { SingleComment } from '../components/chatbox/Chatbox';
-import { Grid } from '@material-ui/core';
+import React from "react";
+import { Route, useRouteMatch, Redirect, Switch } from "react-router-dom";
+import Actions from "../components/actions/Actions";
+import Timer from "../components/common/timer/Timer";
+import NotificationWrapper from "../components/notifications/NotificationWrapper";
+import Chatbox, { SingleComment } from "../components/chatbox/Chatbox";
+import { useMeetingEvents } from "../events/Meeting";
+import EnterMeeting from "../components/enterMeeting/EnterMeeting";
+import { JitsiFrame } from "../components/jitsi/JitsiFrame";
 
 const comments: SingleComment[] = [
   {
-    name: 'Mateusz',
-    textMessage: 'Elo',
-    time: '12:52',
+    name: "Mateusz",
+    textMessage: "Elo",
+    time: "12:52",
   },
   {
-    name: 'Mateusz',
-    textMessage: 'EloELo',
-    time: '12:53',
+    name: "Mateusz",
+    textMessage: "EloELo",
+    time: "12:53",
   },
   {
-    name: 'Mateusz',
-    textMessage: 'EloEloElo',
-    time: '12:54',
+    name: "Mateusz",
+    textMessage: "EloEloElo",
+    time: "12:54",
   },
 ];
 
 const Meeting = () => {
   const { path } = useRouteMatch();
+  const { participant } = useMeetingEvents();
 
   return (
     <Switch>
       <Route exact path={`${path}/:name`}>
-        <DemoEvents />
-        <Grid container spacing={2}>
-          <Grid item xs={7}>
+        {!participant ? (
+          <EnterMeeting />
+        ) : (
+          <>
+            <JitsiFrame />
             <Timer timeInSeconds={120} />
+            Hello
             <Actions />
-          </Grid>
-          <Grid item xs={2}>
             <NotificationWrapper />
-          </Grid>
-          <Grid item xs={3}>
             <Chatbox comments={comments} />
-          </Grid>
-        </Grid>
+          </>
+        )}
       </Route>
-      <Redirect to={`/404${path}`} />
+      <Redirect to={`/404/${path}`} />
     </Switch>
   );
 };

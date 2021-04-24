@@ -8,7 +8,7 @@ import { RestfulProvider } from 'restful-react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { DarkTheme } from './themes/DarkTheme';
 import { LightTheme } from './themes/LightTheme';
-import { EventsProvider, useEvents } from './events/Events';
+import { MeetingEventsProvider, useMeetingEvents } from './events/Meeting';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -28,11 +28,11 @@ export const AppContext = React.createContext<IAppContext>(null!);
 const StorageThemeKey = 'darkTheme';
 
 function DemoEvents() {
-  const { emitEvents } = useEvents();
+  const { emitMeetingEvents } = useMeetingEvents();
   return (
     <button
       onClick={() => {
-        emitEvents();
+        emitMeetingEvents();
       }}>
       Click
     </button>
@@ -73,7 +73,7 @@ function App() {
   }, [matches]);
 
   return (
-    <EventsProvider endpoint={baseApiUrl}>
+    <MeetingEventsProvider endpoint={baseApiUrl}>
       <RestfulProvider base={baseApiUrl}>
         <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
           <AppContext.Provider
@@ -88,7 +88,7 @@ function App() {
           </AppContext.Provider>
         </ThemeProvider>
       </RestfulProvider>
-    </EventsProvider>
+    </MeetingEventsProvider>
   );
 }
 

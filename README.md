@@ -57,7 +57,7 @@ Aplikacja została wykonana wg dostarczonych przez organizatorów CodersCamp wym
 Aby wykonać ruch należy umieścić kursor na wybranej bierce. Następnie kliknać w celu wyświetlenia możliwych ruchów bierki. Na koniec wybrać jedno z podświetlonych pól, by przesunięcia bierki.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/56504859/108079996-b416b580-706f-11eb-9793-8c93d8f5d4ea.gif" alt="gif" />
+  <img src="GIF" alt="gif" />
 </p>
 
 ### Zmiany wprowadzone w wymaganiach

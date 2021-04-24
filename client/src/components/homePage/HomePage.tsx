@@ -19,8 +19,9 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    minHeight: 'calc(100vh - 60px)',
-    justifyContent: "space-around",
+    // minHeight: 'calc(100vh - 60px)',
+    justifyContent: "center",
+    height: '80vh',
   },
   textInput: {
     position: 'relative',

@@ -8,9 +8,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     color: theme.palette.secondary.main,
     textAlign: 'center',
+    height: 742,
   },
   title: {
     borderBottom: `1px solid ${theme.palette.secondary.main}`,
+    padding: 10,
   },
 }));
 

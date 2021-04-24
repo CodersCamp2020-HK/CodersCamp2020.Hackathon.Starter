@@ -7,6 +7,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     height: "100vh",
   },
+  image: {
+      width: '100%',
+      height: 'auto',
+  },
   scrollbarLight: {
     "& ::-webkit-scrollbar": {
       width: 12,
@@ -64,8 +68,15 @@ const AboutApp = () => {
         <Typography variant="h6">
             Time control
         </Typography>
+        <img className={styles.image} alt='placeholder' src='https://via.placeholder.com/468x60' />
         <Typography variant='body1'>
             Each user has a preview of the time allocated to the meeting, how much time is left to the end, it is visualized in the form of a moving slider.
+        </Typography>
+        <Typography variant='h6'>
+            Record of the meeting 
+        </Typography>
+        <Typography variant='body1'>
+           Description
         </Typography>
       </Container>
     </PerfectScrollbar>

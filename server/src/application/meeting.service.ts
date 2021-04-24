@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JoinMeetingDTO } from '../domain/joinMeeting.dto';
 import { Socket } from 'socket.io';
 import { Meeting } from '../domain/meeting';
@@ -74,6 +74,7 @@ class MeetingService {
             from: participant.name,
             payload: dto.payload,
           });
+        } else {
         }
       }
     }

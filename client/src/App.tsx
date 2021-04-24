@@ -26,11 +26,15 @@ interface IAppContext {
   toggleTheme: () => void;
   hamburger: boolean;
   setHamburger: React.Dispatch<React.SetStateAction<boolean>>;
+  iframe: Iframe;
+  setIframe: React.Dispatch<React.SetStateAction<Iframe>>;
 }
 
 export const AppContext = React.createContext<IAppContext>(null!);
 
 const StorageThemeKey = 'darkTheme';
+
+type Iframe = 'yt' | 'music' | 'quiz' | 'cafe' | 'video';
 
 function App() {
   const theme = useTheme();
@@ -38,6 +42,7 @@ function App() {
   const [darkTheme, setDarkTheme] = useState<boolean>(() => {
     return localStorage.getItem(StorageThemeKey) ? true : false;
   });
+  const [iframe, setIframe] = useState<Iframe>('video');
   const [hamburger, setHamburger] = useState(false);
 
   const toggleTheme = () => {
@@ -58,7 +63,14 @@ function App() {
       <RestfulProvider base={baseApiUrl}>
         <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
           <AppContext.Provider
-            value={{ darkTheme, toggleTheme, hamburger, setHamburger }}>
+            value={{
+              darkTheme,
+              toggleTheme,
+              hamburger,
+              setHamburger,
+              iframe,
+              setIframe,
+            }}>
             <MyContainer>
               <>
                 <Nav />

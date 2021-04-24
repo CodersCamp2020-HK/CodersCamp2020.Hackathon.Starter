@@ -24,26 +24,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type Iframe = 'yt' | 'music' | 'quiz' | 'cafe' | 'video';
 interface Props {
   children: React.ReactNode;
-  name: string;
+  name: Iframe;
   time?: string;
 }
-const BtnWrapper: React.FC<Props> = ({ children, name, time }) => {
+const BtnWrapperIframe: React.FC<Props> = ({ children, name, time }) => {
   const classes = useStyles();
-  const { setIframe, iframe } = useContext(AppContext);
+  const { setIframe } = useContext(AppContext);
   return (
     <div className={classes.btnWrapper}>
       <p className={classes.name}>{name}</p>
-      {time && <p className={classes.time}>{`${time} min`}</p>}
-
+      <p className={classes.time}>{`${time} min`}</p>
       <IconButton
         className={classes.iconButton}
-        onClick={() => console.log('kawa')}>
+        onClick={() => setIframe(name)}>
         {children}
       </IconButton>
     </div>
   );
 };
 
-export default BtnWrapper;
+export default BtnWrapperIframe;

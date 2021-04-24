@@ -35,11 +35,6 @@ export const AppContext = React.createContext<IAppContext>(null!);
 const StorageThemeKey = 'darkTheme';
 
 type Iframe = 'yt' | 'music' | 'quiz' | 'cafe' | 'video';
-const useStyles = makeStyles(() => ({
-  // basic: {
-  //   height: '100vh',
-  // },
-}));
 
 function App() {
   const theme = useTheme();

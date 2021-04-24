@@ -1,5 +1,4 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import { green, lightBlue } from "@material-ui/core/colors";
 
 const LightTheme = responsiveFontSizes(
   createMuiTheme({
@@ -38,13 +37,6 @@ const LightTheme = responsiveFontSizes(
           borderRadius: 21,
         },
       },
-      // MuiTextField: {
-      //   root: {
-      //     '& fieldset': {
-      //       // borderRadius: 18,
-      //     },
-      //   },
-      // },
     }
   })
 );

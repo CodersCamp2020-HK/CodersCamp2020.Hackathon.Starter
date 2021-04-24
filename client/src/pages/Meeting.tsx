@@ -12,6 +12,7 @@ import { Grid } from "@material-ui/core";
 import Chodakowska from "../components/chodakowska/Chodakowska";
 import { AppContext } from "../App";
 import Chess from "../components/chess/Chess";
+import Break from "../components/break/Break";
 
 const comments: SingleComment[] = [
   {
@@ -47,6 +48,7 @@ const Meeting = () => {
               <JitsiFrame />
               {iframe === "yt" && <Chodakowska />}
               {iframe === "quiz" && <Chess />}
+              {iframe === "cafe" && <Break />}
               <Timer timeInSeconds={120} />
               <Actions />
             </Grid>

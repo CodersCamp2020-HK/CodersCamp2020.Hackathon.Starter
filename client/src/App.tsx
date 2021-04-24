@@ -9,6 +9,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { DarkTheme } from "./themes/DarkTheme";
 import { LightTheme } from "./themes/LightTheme";
 import { EventsProvider, useEvents } from "./events/Events";
+import Chatbox from "./components/chatbox/Chatbox";
 
 const isProductionEnv = process.env.NODE_ENV === "production";
 const devApiUrl = "http://localhost:8000";
@@ -86,6 +87,7 @@ function App() {
               <span id="meet"></span>
               Hello
               <DemoEvents />
+              <Chatbox name="Tomek" time="16:32" textMessage="dsajdhas" />
             </div>
           </AppContext.Provider>
         </ThemeProvider>

@@ -45,6 +45,9 @@ class MeetingService {
       if (dto.ownerId !== meeting.owner.id)
         throw new BadRequestException('Invalid ownerId');
       this.sockets.set(dto.ownerId, socket);
+      socket.on('disconnect', () => {
+        this.cleanupConnection(meeting, dto.ownerId);
+      });
       return { participant: meeting.owner, jitsiName: meeting.jitsiName };
     }
     const participant = new MeetingParticipant(
@@ -55,7 +58,18 @@ class MeetingService {
     );
     meeting.addParticipant(participant);
     this.sockets.set(participant.id, socket);
+    socket.on('disconnect', () => {
+      this.cleanupConnection(meeting, participant.id);
+    });
     return { participant, jitsiName: meeting.jitsiName };
+  }
+
+  cleanupConnection(meeting: Meeting, participantId: string) {
+    meeting.removeParticipantId(participantId);
+    this.sockets.delete(participantId);
+    if (meeting.empty()) {
+      this.meetings.delete(meeting.name);
+    }
   }
 
   broadcast(dto: BroadcastDTO) {

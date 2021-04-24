@@ -39,10 +39,3 @@ const Page404 = () => {
   );
 };
 export default Page404;
-
-{/* <img
-className={styles.photo}
-title="Work in progress!"
-alt="Work in progress. From clipartmax under licence Personal Use: https://cdn.pixabay.com/photo/2016/10/22/13/28/not-hear-1760750_960_720.jpg"
-src={Kermit}
-/> */}

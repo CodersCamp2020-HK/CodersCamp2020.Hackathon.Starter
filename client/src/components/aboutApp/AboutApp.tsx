@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     height: "100vh",
   },
+  title: {
+    marginTop: theme.spacing(2),
+  },
   image: {
       width: '100%',
       height: 'auto',
@@ -69,14 +72,14 @@ const AboutApp = () => {
                 <li>It makes meetings not a boring necessity, and becomes an opportunity for integration, exchange of ideas and quick problem solving</li>
             </ul>
         </Typography>
-        <Typography variant="h5">
+        <Typography className={styles.title} variant="h5">
             Time control
         </Typography>
         <img className={styles.image} alt='placeholder' src='https://via.placeholder.com/468x60' />
         <Typography variant='body1'>
             Each participant has a preview of the time allocated to the meeting, how much time is left to the end, it is visualized in the form of a moving slider.
         </Typography>
-        <Typography variant='h5'>
+        <Typography className={styles.title} variant='h5'>
             Record of the meeting 
         </Typography>
         <Typography variant='body1'>
@@ -85,7 +88,7 @@ const AboutApp = () => {
         <Typography variant='body1'>
             All comments can be generated as a report to a PDF file for later review.
         </Typography>
-        <Typography variant='h5'>
+        <Typography className={styles.title} variant='h5'>
             For participant
         </Typography>
         <img className={styles.image} alt='placeholder' src='https://via.placeholder.com/468x60' />
@@ -113,13 +116,13 @@ const AboutApp = () => {
         <Typography variant='body1'>
             During the brainstorming session, participants can express their position (consent or against ) by clicking on a thumb button.
         </Typography>
-        <Typography variant='h5'>
+        <Typography className={styles.title} variant='h5'>
             Notifications
         </Typography>
         <Typography variant='body1'>
             All the actions described above are signaled in this field. An appropriate icon is displayed along with the date and name of the participant.
         </Typography>
-        <Typography variant='h5'>
+        <Typography className={styles.title} variant='h5'>
             For meeting organizer
         </Typography>
         <img className={styles.image} alt='placeholder' src='https://via.placeholder.com/468x60' />
@@ -150,7 +153,7 @@ const AboutApp = () => {
          <Typography variant='body1'>
              He can also play music :) Everyone loves music!
          </Typography>
-         <Typography variant="h5">
+         <Typography className={styles.title} variant="h5">
             Choose a theme
         </Typography>
         <Typography variant="body1">

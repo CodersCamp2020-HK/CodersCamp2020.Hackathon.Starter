@@ -1,8 +1,7 @@
-import { Body, Controller, Post, Redirect, Res } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { MeetingService } from '../../application/meeting.service';
 import { CreateMeetingDTO } from '../../domain/createMeeting.dto';
-import { Response as ExResponse } from 'express';
 import { ConfigService } from '@nestjs/config';
 import {
   GlobalConfig,

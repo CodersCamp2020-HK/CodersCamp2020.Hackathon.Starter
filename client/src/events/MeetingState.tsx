@@ -2,9 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { InformationNotification } from "./InformEvents";
 import { useMeetingEvents } from "./Meeting";
 
+interface Note {
+  time: Date;
+  description: string;
+}
+
 interface MeetingStateProviderState {
   readonly informationNotifications: InformationNotification[];
   readonly emitInformationNotification: (req: InformationNotification) => void;
+  readonly notes: Note[];
+  readonly addNote: (note: Note) => void;
+  readonly editNote: (note: Note, desc: string) => void;
+  readonly removeNote: (note: Note) => void;
 }
 
 const MeetingStateContext = React.createContext<
@@ -18,6 +27,9 @@ function MeetingStateProvider({
   const [informationNotifications, setInformationNotifications] = useState<
     InformationNotification[]
   >([]);
+
+  const [notes, setNotes] = useState<Note[]>([]);
+
   useEffect(() => {
     const onInformationNotification = (resp: InformationNotification) => {
       console.log("[onInformationNotification]", resp);
@@ -33,9 +45,32 @@ function MeetingStateProvider({
     socket?.emit("information_event", req);
   };
 
+  const addNote = (note: Note) => {
+    setNotes((prev) => [...prev, note]);
+  };
+
+  const editNote = (note: Note, desc: string) => {
+    setNotes((prev) => {
+      const idx = prev.findIndex((x) => x === note);
+      if (idx !== -1) prev[idx] = { time: new Date(), description: desc };
+      return prev;
+    });
+  };
+
+  const removeNote = (note: Note) => {
+    setNotes((prev) => prev.filter((x) => x !== note));
+  };
+
   return (
     <MeetingStateContext.Provider
-      value={{ informationNotifications, emitInformationNotification }}
+      value={{
+        informationNotifications,
+        emitInformationNotification,
+        notes,
+        addNote,
+        editNote,
+        removeNote,
+      }}
     >
       {children}
     </MeetingStateContext.Provider>

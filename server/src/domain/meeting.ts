@@ -1,6 +1,14 @@
 import { MeetingParticipant } from './meetingParticipant';
 
 class Meeting {
+  removeParticipantId(participantId: string) {
+    const idx = this.participants.findIndex((x) => x.id === participantId);
+    this.participants.splice(idx);
+  }
+
+  empty(): boolean {
+    return this.participants.length === 0;
+  }
   constructor(
     public readonly name: string,
     public readonly jitsiName: string,

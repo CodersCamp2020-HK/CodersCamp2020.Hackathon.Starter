@@ -39,7 +39,7 @@ const LightTheme = responsiveFontSizes(
       },
       MuiTooltip: {
         tooltip: {
-          backgroundColor: "#e54819",
+          backgroundColor: "#e5e4e2",
         },
       },
     },

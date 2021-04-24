@@ -13,6 +13,7 @@ import { BroadcastDTO } from '../../domain/broadcast.dto';
 import { CreateMeetingDTO } from '../../domain/createMeeting.dto';
 import { InformationNotification } from '../../domain/information.dto';
 import { JoinMeetingDTO } from '../../domain/joinMeeting.dto';
+import { TimeEvent } from '../../domain/timeEvent.dto';
 
 @WebSocketGateway()
 class MeetingGateway {
@@ -55,6 +56,13 @@ class MeetingGateway {
   onInformationEvent(@MessageBody() body: InformationNotification) {
     Logger.verbose(body, 'WebSocketServer[onInformationEvent]');
     this.meetingService.onInformationEvent(body);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @SubscribeMessage('time_event')
+  onTimeEvent(@MessageBody() body: TimeEvent) {
+    Logger.verbose(body, 'WebSocketServer[onTimeEvent]');
+    this.meetingService.onTimeEvent(body);
   }
 }
 

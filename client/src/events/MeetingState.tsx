@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { InformationNotification } from "./InformEvents";
 import { useMeetingEvents } from "./Meeting";
+import { TimeEvent } from "./TimeEvents";
 
 interface Note {
   time: Date;
@@ -14,6 +15,8 @@ interface MeetingStateProviderState {
   readonly addNote: (note: Note) => void;
   readonly editNote: (note: Note, desc: string) => void;
   readonly removeNote: (note: Note) => void;
+  readonly currentTimeEvent?: TimeEvent["type"];
+  readonly emitTimeEvent: (req: TimeEvent) => void;
 }
 
 const MeetingStateContext = React.createContext<
@@ -29,15 +32,32 @@ function MeetingStateProvider({
   >([]);
 
   const [notes, setNotes] = useState<Note[]>([]);
+  const [currentTimeEvent, setCurrentTimeEvent] = useState<
+    TimeEvent["type"] | undefined
+  >(undefined);
 
   useEffect(() => {
     const onInformationNotification = (resp: InformationNotification) => {
       console.log("[onInformationNotification]", resp);
       setInformationNotifications((prev) => [...prev, resp]);
     };
+
+    const onTimeEventStart = (resp: TimeEvent) => {
+      setCurrentTimeEvent(resp.type);
+    };
+
+    const onTimeEventEnd = () => {
+      setCurrentTimeEvent(undefined);
+    };
+
     socket?.on("on_information_event", onInformationNotification);
+    socket?.on("on_start_time_event", onTimeEventStart);
+    socket?.on("on_end_time_event", onTimeEventEnd);
+
     return () => {
       socket?.off("on_information_event", onInformationNotification);
+      socket?.off("on_start_time_event", onTimeEventStart);
+      socket?.off("on_end_time_event", onTimeEventEnd);
     };
   }, [socket]);
 
@@ -52,13 +72,17 @@ function MeetingStateProvider({
   const editNote = (note: Note, desc: string) => {
     setNotes((prev) => {
       const idx = prev.findIndex((x) => x === note);
-      if (idx !== -1) prev[idx] = { time: new Date(), description: desc };
+      if (idx !== -1) prev[idx] = { time: note.time, description: desc };
       return prev;
     });
   };
 
   const removeNote = (note: Note) => {
     setNotes((prev) => prev.filter((x) => x !== note));
+  };
+
+  const emitTimeEvent = (data: TimeEvent) => {
+    if (!currentTimeEvent) socket?.emit("time_event", data);
   };
 
   return (
@@ -70,6 +94,8 @@ function MeetingStateProvider({
         addNote,
         editNote,
         removeNote,
+        currentTimeEvent,
+        emitTimeEvent,
       }}
     >
       {children}

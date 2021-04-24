@@ -10,6 +10,7 @@ import { BroadcastDTO } from '../domain/broadcast.dto';
 import { WsException } from '@nestjs/websockets';
 import { InformationNotification } from '../domain/information.dto';
 import { MeetingState } from '../domain/meetingState';
+import { TimeEvent } from '../domain/timeEvent.dto';
 
 @Injectable()
 class MeetingService {
@@ -138,6 +139,26 @@ class MeetingService {
   onInformationEvent(body: InformationNotification) {
     const { meeting } = this.getParticipantAndMeeting(body);
     this.broadcastEvent('on_information_event', meeting, body);
+  }
+
+  onTimeEvent(body: TimeEvent) {
+    const { meeting, participant } = this.getParticipantAndMeeting(body);
+    if (participant.id !== meeting.owner.id) {
+      throw new WsException({
+        code: 6,
+        message: 'Only owner can invoked this action',
+      });
+    }
+    if (meeting.meetingState.currentAction) {
+      throw new WsException({
+        code: 7,
+        message: 'Only one action can be active',
+      });
+    }
+    this.broadcastEvent('on_start_time_event', meeting, body);
+    setInterval(() => {
+      this.broadcastEvent('on_end_time_event', meeting, {});
+    }, body.interval * 1000);
   }
 }
 

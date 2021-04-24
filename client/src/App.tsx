@@ -42,7 +42,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 function App() {
-  const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [darkTheme, setDarkTheme] = useState<boolean>(() => {

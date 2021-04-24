@@ -10,6 +10,7 @@ import {
 import { Server, Socket } from 'socket.io';
 import { MeetingService } from '../../application/meeting.service';
 import { BroadcastDTO } from '../../domain/broadcast.dto';
+import { CreateMeetingDTO } from '../../domain/createMeeting.dto';
 import { JoinMeetingDTO } from '../../domain/joinMeeting.dto';
 
 @WebSocketGateway()
@@ -18,6 +19,17 @@ class MeetingGateway {
 
   @WebSocketServer()
   server: Server;
+
+  @UsePipes(new ValidationPipe())
+  @SubscribeMessage('createMeeting')
+  createMeeting(
+    @MessageBody() body: CreateMeetingDTO,
+    @ConnectedSocket() client: Socket,
+  ): WsResponse<unknown> {
+    Logger.verbose(body, 'WebSocketServer[createMeeting]');
+    const resp = this.meetingService.createMeeting(body, client);
+    return { event: 'connected', data: resp };
+  }
 
   @UsePipes(new ValidationPipe())
   @SubscribeMessage('joinMeeting')

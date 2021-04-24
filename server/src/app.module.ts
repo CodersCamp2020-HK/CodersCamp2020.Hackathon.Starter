@@ -10,6 +10,7 @@ import { BcryptService } from './infrastructure/auth/bcrypt.service';
 import * as Services from './application';
 import * as RestControllers from './presentation/rest';
 import { EmailService } from './infrastructure/email/email.service';
+import { MeetingGateway } from './presentation/ws/meeting.gateway';
 
 @Module({
   imports: [
@@ -20,6 +21,11 @@ import { EmailService } from './infrastructure/email/email.service';
     TerminusModule,
   ],
   controllers: [...Object.values(RestControllers)],
-  providers: [...Object.values(Services), BcryptService, EmailService],
+  providers: [
+    ...Object.values(Services),
+    BcryptService,
+    EmailService,
+    MeetingGateway,
+  ],
 })
 export class AppModule {}

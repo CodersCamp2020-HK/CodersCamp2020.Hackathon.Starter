@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-import { RestfulProvider } from 'restful-react';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { DarkTheme } from './themes/DarkTheme';
-import { LightTheme } from './themes/LightTheme';
-import { MeetingEventsProvider } from './events/Meeting';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
-import Unauth from './pages/Unauth';
-import NotFound from './pages/404';
-import Meeting from './pages/Meeting';
-import { Container } from '@material-ui/core';
-import Nav from './components/nav/Nav';
-import MyContainer from './components/myContainer/MyContainer';
+import React, { useState, useEffect } from "react";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
+import { RestfulProvider } from "restful-react";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { DarkTheme } from "./themes/DarkTheme";
+import { LightTheme } from "./themes/LightTheme";
+import { MeetingEventsProvider } from "./events/Meeting";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home";
+import Unauth from "./pages/Unauth";
+import NotFound from "./pages/404";
+import Meeting from "./pages/Meeting";
+import { Container, makeStyles } from "@material-ui/core";
+import Nav from "./components/nav/Nav";
+import MyContainer from "./components/myContainer/MyContainer";
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -32,7 +32,14 @@ export const AppContext = React.createContext<IAppContext>(null!);
 
 const StorageThemeKey = 'darkTheme';
 
+const useStyles = makeStyles(() => ({
+  basic: {
+    height: '100vh',
+  }
+}))
+
 function App() {
+  const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [darkTheme, setDarkTheme] = useState<boolean>(() => {
@@ -62,7 +69,7 @@ function App() {
             <MyContainer>
               <>
                 <Nav />
-                <Container maxWidth='lg'>
+                <Container className={classes.basic} maxWidth="lg">
                   <Router>
                     <Switch>
                       <Route path='/unauth'>

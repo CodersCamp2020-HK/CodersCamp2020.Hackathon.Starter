@@ -7,20 +7,24 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   nav: {
     display: 'flex',
+    padding: '0.5rem',
   },
   freeSpace: {
     flex: 1,
   },
+  logo: {
+    alignSelf: 'center',
+    flex: 1,
+  }
 });
 
 const Nav = () => {
   const classes = useStyles();
   return (
     <nav className={classes.nav}>
-      <Button>
+      <Button className={classes.logo}>
         <Logo />
       </Button>
-      <div className={classes.freeSpace}></div>
       <ThemeMode />
     </nav>
   );

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, Typography } from '@material-ui/core';
-import TextInput from '../inputs/textInput/TextInput';
-import { useForm } from 'react-hook-form';
-import { useMeetingEvents } from '../../events/Meeting';
-import { useHistory } from 'react-router-dom';
-import { WsMeetingException } from '../../events/Meeting.dto';
-import Aside from '../aside/Aside';
+import React, { useEffect, useState } from "react";
+import { Button, makeStyles, Typography } from "@material-ui/core";
+import TextInput from "../inputs/textInput/TextInput";
+import { useForm } from "react-hook-form";
+import { useMeetingEvents } from "../../events/Meeting";
+import { useHistory } from "react-router-dom";
+import { WsMeetingException } from "../../events/Meeting.dto";
+import Aside from "../aside/Aside";
+import classes from "*.module.css";
 
 type HomePageInputs = {
   meetingName: string;
@@ -18,12 +19,17 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
     minHeight: 'calc(100vh - 60px)',
+    justifyContent: "space-around",
   },
   textInput: {
     position: 'relative',
     paddingBottom: 35,
+    width: '25rem',
+    borderRadius: 19,
+    '& fieldset': {
+      borderRadius: 19,
+    }
   },
   helperText: {
     position: 'absolute',
@@ -31,6 +37,9 @@ const useStyles = makeStyles({
   },
   titile: {
     marginBottom: 20,
+  },
+  button: {
+    width: '25rem',
   },
 });
 
@@ -77,9 +86,6 @@ const HomePage = () => {
       noValidate
       onSubmit={handleSubmit(onSubmit)}>
       <Aside />
-      <Typography className={classes.titile} variant='h5'>
-        Ile minut będzie trwało spotkanie?
-      </Typography>
       <TextInput
         className={styles.textInput}
         control={control}
@@ -134,8 +140,7 @@ const HomePage = () => {
         }}
         FormHelperTextProps={{ className: styles.helperText }}
       />
-
-      <Button type='submit' variant='contained' size='medium' color='primary'>
+      <Button className={styles.button} type="submit" variant="contained" size="medium" color="primary">
         Utwórz spotkanie
       </Button>
       {errorMsg && (

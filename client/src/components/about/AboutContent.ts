@@ -1,6 +1,6 @@
 const project = {
-  name: "Project name",
-  description: "Qui est dolor elit et commodo magna quis anim anim minim nisi. Nostrud sint dolor cupidatat elit tempor minim deserunt id. Deserunt adipisicing veniam deserunt commodo magna consectetur in proident tempor commodo duis ullamco ullamco. Labore minim dolor laboris officia cupidatat nostrud elit ex culpa voluptate Lorem culpa. Et esse esse deserunt irure tempor in veniam labore deserunt labore dolor. Proident anim labore amet non tempor duis laborum quis ipsum pariatur anim voluptate.",
+  name: "MeetByte",
+  description: "Celem projektu było napisanie aplikacji wykorzystującej dotychczas nabytą wiedzę z następujących technologi: html, css, javascript, typescript, react, restful api. Tematem przewodnim było przygotowanie przez uczestników aplikacje usprawniająca codzienną pracę zespołów online.",
   gitHubLink:
     "https://github.com/CodersCamp2020-HK/CodersCamp2020.Hackathon.Starter",
     mentor: {

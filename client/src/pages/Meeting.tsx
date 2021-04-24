@@ -41,9 +41,9 @@ const Meeting = () => {
     <Switch>
       <Route exact path={`${path}/:name`}>
         {!participant ? (
-          <MeetingStateProvider>
+          <>
             <EnterMeeting />
-          </MeetingStateProvider>
+          </>
         ) : participant.role === 'owner' ? (
           <MeetingStateProvider>
             <Grid container spacing={2}>

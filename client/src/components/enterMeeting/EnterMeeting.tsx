@@ -21,13 +21,20 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   textInput: {
-    borderRadius: 15,
     position: "relative",
     paddingBottom: 35,
+    borderRadius: 19,
+    '& fieldset': {
+      borderRadius: 19,
+    },
+    width: '25rem',
   },
   helperText: {
     position: "absolute",
     bottom: 10,
+  },
+  button: {
+    width: '25rem',
   },
 });
 
@@ -62,7 +69,6 @@ const EnterMeeting = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Aside />
-      <Typography variant="h5">What's your name?</Typography>
       <TextInput
         className={styles.textInput}
         control={control}
@@ -82,7 +88,7 @@ const EnterMeeting = () => {
         }}
         FormHelperTextProps={{ className: styles.helperText }}
       />
-      <Button
+      <Button className={styles.button}
         type="submit"
         variant="contained"
         size="medium"

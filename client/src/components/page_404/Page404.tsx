@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: "uppercase",
     color: theme.palette.primary.light,
     minHeight: "100%"
+  },
+  bottomText: {
+    color: theme.palette.primary.dark,
+    textAlign: 'end'
   }
 }));
 const Page404 = () => {
@@ -168,6 +172,11 @@ const Page404 = () => {
 <path d="m287.29 127.24 8.822-17.076 5.979 10.957-16.935 9.677 2.134-3.558z" fill="#4F9A94"/>
 <path d="m377.11 36.228-59.662 23.437c-9.948 3.9073-18.095 11.36-22.871 20.922-4.775 9.5609-5.84 20.552-2.989 30.852 6.608 23.868 31.866 37.324 55.363 29.47l59.692-19.932" fill="#80CBC4"/>
 </svg>
+    <Typography className={styles.bottomText} variant="body2">
+      Grafika została pobrana ze strony veectezy.com
+
+    </Typography>
+
       </Card>
     </Grid>
   );

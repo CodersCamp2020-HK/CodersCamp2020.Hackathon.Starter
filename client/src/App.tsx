@@ -63,7 +63,7 @@ function App() {
                 <Route path="/unauth">
                   <Unauth />
                 </Route>
-                <Route path="/meeting">
+                <Route path="/meetings">
                   <Meeting />
                 </Route>
                 <Route exact path="/">

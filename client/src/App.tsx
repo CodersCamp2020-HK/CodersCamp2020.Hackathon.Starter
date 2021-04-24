@@ -9,6 +9,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { DarkTheme } from './themes/DarkTheme';
 import { LightTheme } from './themes/LightTheme';
 import { MeetingEventsProvider, useMeetingEvents } from './events/Meeting';
+import Nav from './components/nav/Nav';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -79,7 +80,7 @@ function App() {
           <AppContext.Provider
             value={{ darkTheme, toggleTheme, hamburger, setHamburger }}>
             <div className='App'>
-              <Navbar />
+              <Nav />
               <Toolbar />
               <span id='meet'></span>
               Hello

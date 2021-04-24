@@ -14,8 +14,9 @@ import { TimeEvent } from '../domain/timeEvent.dto';
 
 @Injectable()
 class MeetingService {
-  private readonly meetings: Map<string, Meeting> = new Map();
-  private readonly sockets: Map<string, Socket> = new Map();
+  private readonly meetings = new Map<string, Meeting>();
+  private readonly sockets = new Map<string, Socket>();
+  private readonly informationNotitificationLock = new Set<string>();
 
   private getMeeting(name: string) {
     const meeting = this.meetings.get(name);
@@ -25,6 +26,19 @@ class MeetingService {
         message: "Meeting with this id doesn't exists",
       });
     return meeting;
+  }
+
+  private timeoutGuard<T>(store: Set<T>, id: T, time_s: number) {
+    if (store.has(id)) {
+      throw new WsException({
+        code: 11,
+        message: 'You reached time limit of concurrent notifications',
+      });
+    }
+    store.add(id);
+    setTimeout(() => {
+      store.delete(id);
+    }, time_s * 60 * 1000);
   }
 
   private connectParticipantToMeeting(
@@ -137,7 +151,8 @@ class MeetingService {
   }
 
   onInformationEvent(body: InformationNotification) {
-    const { meeting } = this.getParticipantAndMeeting(body);
+    const { participant, meeting } = this.getParticipantAndMeeting(body);
+    this.timeoutGuard(this.informationNotitificationLock, participant.id, 30);
     this.broadcastEvent('on_information_event', meeting, body);
   }
 

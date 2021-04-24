@@ -13,6 +13,9 @@ import Photo7 from "./photos/Screenshot_7.png";
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
     height: "100vh",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   title: {
     marginTop: theme.spacing(2),
@@ -21,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "100%",
     height: "auto",
   },
+  columnImage: { width: "50%" },
   list: {
     listStyleType: "circle",
     listStylePosition: "inside",
@@ -94,23 +98,14 @@ const AboutApp = () => {
           Record of the meeting
         </Typography>
         <Typography variant="body1">
-          Participants can post comments during the meeting. 
+          Participants can post comments during the meeting.
         </Typography>
-        <img
-          className={styles.image}
-          alt="placeholder"
-          src={Photo6}
-        />
+        <img className={styles.image} alt="placeholder" src={Photo6} />
         <Typography variant="body1">
-          This field shows
-          all comments written by them (along with the date of sending and them
-          name).
+          This field shows all comments written by them (along with the date of
+          sending and them name).
         </Typography>
-        <img
-          className={styles.image}
-          alt="placeholder"
-          src={Photo5}
-        />
+        <img className={styles.columnImage} alt="placeholder" src={Photo5} />
         <Typography variant="body1">
           All comments can be generated as a report to a PDF file for later
           review.
@@ -118,22 +113,14 @@ const AboutApp = () => {
         <Typography className={styles.title} variant="h5">
           For participant
         </Typography>
-        <img
-          className={styles.image}
-          alt="placeholder"
-          src={Photo3}
-        />
+        <img className={styles.image} alt="placeholder" src={Photo3} />
         <Typography variant="h6">Ask for a break</Typography>
         <Typography variant="body1">
           If the participant feels tired, they can click this button to request
           a break. The organizer can then accept the request and the meeting
           window changes to the corresponding image
         </Typography>
-        <img
-          className={styles.image}
-          alt="placeholder"
-          src={Photo2}
-        />
+        <img className={styles.image} alt="placeholder" src={Photo2} />
         <Typography variant="h6">I don't understand :(</Typography>
         <Typography variant="body1">
           If the participant does not understand the issue, he can click this
@@ -152,7 +139,7 @@ const AboutApp = () => {
         <Typography className={styles.title} variant="h5">
           Notifications
         </Typography>
-        <img className={styles.image} alt="placeholder" src={Photo4} />
+        <img className={styles.columnImage} alt="placeholder" src={Photo4} />
         <Typography variant="body1">
           All the actions described above are signaled in this field. An
           appropriate icon is displayed along with the date and name of the
@@ -161,11 +148,7 @@ const AboutApp = () => {
         <Typography className={styles.title} variant="h5">
           For meeting organizer
         </Typography>
-        <img
-          className={styles.image}
-          alt="placeholder"
-          src={Photo7}
-        />
+        <img className={styles.image} alt="placeholder" src={Photo7} />
         <Typography variant="body1">
           All the actions described below are signaled in the meeting window. It
           changes to the corresponding image.

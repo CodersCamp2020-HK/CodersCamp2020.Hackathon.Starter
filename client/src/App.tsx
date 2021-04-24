@@ -64,7 +64,6 @@ function App() {
               <>
                 <Nav />
                 <Container maxWidth='lg'>
-                  <DemoEvents />
                   <Router>
                     <Switch>
                       <Route path='/unauth'>

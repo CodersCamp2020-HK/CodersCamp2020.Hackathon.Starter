@@ -1,9 +1,9 @@
-import { Container, makeStyles, Typography } from "@material-ui/core";
+import { Container, makeStyles, Theme, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { AppContext } from "../../App";
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     height: "100vh",
   },
@@ -14,13 +14,13 @@ const useStyles = makeStyles({
     },
 
     "& .ps__rail-y:hover > .ps__thumb-y, .ps__rail-y:focus > .ps__thumb-y, .ps__rail-y.ps--clicking .ps__thumb-y": {
-      backgroundColor: "red",
+      backgroundColor: theme.palette.primary.light,
     },
 
     "& .ps__thumb-y": {
       borderRadius: 10,
       boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.1)",
-      backgroundColor: "red",
+      backgroundColor: theme.palette.primary.light,
     },
   },
   scrollbarDark: {
@@ -30,16 +30,16 @@ const useStyles = makeStyles({
     },
     //Po najechaniu/klikniecu paska scrollowania
     "& .ps__rail-y:hover > .ps__thumb-y, .ps__rail-y:focus > .ps__thumb-y, .ps__rail-y.ps--clicking .ps__thumb-y": {
-      backgroundColor: "green",
+      backgroundColor: theme.palette.primary.dark,
     },
     //Zwykły
     "& .ps__thumb-y": {
       borderRadius: 10,
       boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.1)",
-      backgroundColor: "green",
+      backgroundColor: theme.palette.primary.dark,
     },
   },
-});
+}));
 const AboutApp = () => {
   const styles = useStyles();
   const { darkTheme } = useContext(AppContext);

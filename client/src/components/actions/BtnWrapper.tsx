@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   children: React.ReactNode;
   name: string;
-  time: string;
+  time?: string;
 }
 const BtnWrapper: React.FC<Props> = ({ children, name, time }) => {
   const classes = useStyles();

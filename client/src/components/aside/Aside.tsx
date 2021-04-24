@@ -106,7 +106,7 @@ function PersistentDrawer() {
                 className={classes.buttonL}
                 endIcon={<ChevronRightIcon />}
             >
-                O aplikacji
+                About the app
             </Button>
           </IconButton>
         </Toolbar>

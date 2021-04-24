@@ -53,7 +53,7 @@ Zespół projektowy zdecydował się na stworzenie aplikacji umożliwiającej ro
 - Możliwość wykonania treningu fitness w trakcie spotkania
 - Możliwość zrobienia własnych notatek w trakcie spotkania i wyeksportowanie ich w formacie PDF
 
-#### Menu Główne
+#### Szablon aplikacji
 
 Utowrzony został szablon graficzny aplikacji w programie Figma. 
 
@@ -74,6 +74,7 @@ Utowrzony został szablon graficzny aplikacji w programie Figma.
 9. Użytkownik ma możliwość wyboru długości spotkania na początku spotkania
 10. Użytkownik ma możliwość wybrania godziny spotkania z wyprzedeniem
 11. Użytkownik ma możliwość grania w gry w trakcie spotkania 
+12. Użytkownik ma możliwość aktynwego przerywnika w trakcie spotkania w celu podnienie koncentracji rozmówców.
 
 ## Wykorzystywane technologie
 

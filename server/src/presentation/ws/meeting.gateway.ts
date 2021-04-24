@@ -11,6 +11,7 @@ import { Server, Socket } from 'socket.io';
 import { MeetingService } from '../../application/meeting.service';
 import { BroadcastDTO } from '../../domain/broadcast.dto';
 import { CreateMeetingDTO } from '../../domain/createMeeting.dto';
+import { InformationNotification } from '../../domain/information.dto';
 import { JoinMeetingDTO } from '../../domain/joinMeeting.dto';
 
 @WebSocketGateway()
@@ -47,6 +48,13 @@ class MeetingGateway {
   broadcast(@MessageBody() body: BroadcastDTO) {
     Logger.verbose(body, 'WebSocketServer[broadcast]');
     this.meetingService.broadcast(body);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @SubscribeMessage('information_event')
+  onInformationEvent(@MessageBody() body: InformationNotification) {
+    Logger.verbose(body, 'WebSocketServer[onInformationEvent]');
+    this.meetingService.onInformationEvent(body);
   }
 }
 

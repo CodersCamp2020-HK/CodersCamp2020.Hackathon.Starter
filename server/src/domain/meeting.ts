@@ -1,4 +1,5 @@
 import { MeetingParticipant } from './meetingParticipant';
+import { MeetingState } from './meetingState';
 
 class Meeting {
   removeParticipantId(participantId: string) {
@@ -14,6 +15,7 @@ class Meeting {
     public readonly jitsiName: string,
     public readonly owner: MeetingParticipant,
     public participants: MeetingParticipant[],
+    public meetingState: MeetingState,
     public password?: string,
   ) {}
 

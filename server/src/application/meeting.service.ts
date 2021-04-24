@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JoinMeetingDTO } from '../domain/joinMeeting.dto';
 import { Socket } from 'socket.io';
 import { Meeting } from '../domain/meeting';
@@ -12,6 +8,8 @@ import { MeetingRole } from '../domain/meetingRole';
 import { CreateMeetingDTO } from '../domain/createMeeting.dto';
 import { BroadcastDTO } from '../domain/broadcast.dto';
 import { WsException } from '@nestjs/websockets';
+import { InformationNotification } from '../domain/information.dto';
+import { MeetingState } from '../domain/meetingState';
 
 @Injectable()
 class MeetingService {
@@ -40,6 +38,32 @@ class MeetingService {
     });
   }
 
+  private broadcastEvent<T>(endpoint: string, meeting: Meeting, event: T) {
+    const participantIds = meeting.participants.map((x) => x.id);
+    for (const id of participantIds) {
+      const socket = this.sockets.get(id);
+      if (socket && socket.connected) {
+        socket.emit(endpoint, event);
+      }
+    }
+  }
+
+  private getParticipantAndMeeting({
+    meetingName,
+    participantId,
+  }: {
+    meetingName: string;
+    participantId: string;
+  }) {
+    const meeting = this.getMeeting(meetingName);
+    if (!meeting.containsParticipant(participantId))
+      throw new WsException({ code: 5, message: 'Invalid participantId' });
+    const participant = meeting.participants.find(
+      (x) => x.id === participantId,
+    );
+    return { meeting, participant };
+  }
+
   createMeeting(dto: CreateMeetingDTO, socket: Socket) {
     const meeting = this.meetings.get(dto.meetingName);
     if (meeting)
@@ -58,6 +82,7 @@ class MeetingService {
       uuid(),
       meetingOwner,
       [],
+      new MeetingState([]),
       dto.password,
     );
     this.meetings.set(dto.meetingName, newMeeting);
@@ -103,22 +128,16 @@ class MeetingService {
   }
 
   broadcast(dto: BroadcastDTO) {
-    const meeting = this.getMeeting(dto.meetingName);
-    if (!meeting.containsParticipant(dto.participantId))
-      throw new WsException({ code: 5, message: 'Invalid participantId' });
-    const participant = meeting.participants.find(
-      (x) => x.id === dto.participantId,
-    );
-    const participantIds = meeting.participants.map((x) => x.id);
-    for (const id of participantIds) {
-      const socket = this.sockets.get(id);
-      if (socket && socket.connected) {
-        socket.emit('broadcast', {
-          from: participant.name,
-          payload: dto.payload,
-        });
-      }
-    }
+    const { participant, meeting } = this.getParticipantAndMeeting(dto);
+    this.broadcastEvent('broadcast', meeting, {
+      from: participant.name,
+      payload: dto.payload,
+    });
+  }
+
+  onInformationEvent(body: InformationNotification) {
+    const { meeting } = this.getParticipantAndMeeting(body);
+    this.broadcastEvent('on_information_event', meeting, body);
   }
 }
 

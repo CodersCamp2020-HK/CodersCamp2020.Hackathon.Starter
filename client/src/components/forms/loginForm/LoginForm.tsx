@@ -21,11 +21,10 @@ const useStyles = makeStyles({
     },
     textInput: {
         position: 'relative',
-        paddingBottom: 35,
+        paddingBottom: 25,
     },
     helperText: {
         position: 'absolute',
-        bottom: 10,
     },
 });
 

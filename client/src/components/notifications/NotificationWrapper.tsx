@@ -4,14 +4,14 @@ import Notification from './Notifications';
 
 const useStyles = makeStyles((theme) => ({
   notificationWrapper: {
-    border: `1px solid ${theme.palette.secondary.main}`,
+    border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 15,
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     textAlign: 'center',
-    height: 742,
+    maxHeight: 742,
   },
   title: {
-    borderBottom: `1px solid ${theme.palette.secondary.main}`,
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
     padding: 10,
   },
 }));

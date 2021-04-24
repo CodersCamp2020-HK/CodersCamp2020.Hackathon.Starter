@@ -11,26 +11,38 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles((theme: Theme) => ({
   svgIcon: {
-    fontSize: 60,
-    width: '100%',
+    fontSize: 80,
+    border: `2px solid ${theme.palette.secondary.main}`,
+    borderRadius: '50%',
+    padding: 10,
   },
   name: {
     borderRadius: 20,
     padding: 10,
     backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
   },
   time: {
     borderRadius: 20,
     padding: 10,
     backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
   },
   notification: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexDirection: 'column',
     padding: 10,
   },
+  miniWraper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  icon: {},
 }));
 
 type IconName =
@@ -55,45 +67,46 @@ const Notifications: React.FC<Props> = ({ name, iconName }) => {
     <div className={classes.notification}>
       {iconName === 'Cafe' && (
         <SvgIcon className={classes.svgIcon}>
-          <LocalCafeIcon />
+          <LocalCafeIcon color='secondary' />
         </SvgIcon>
       )}
       {iconName === 'Fitness' && (
         <SvgIcon className={classes.svgIcon}>
-          <FitnessCenterIcon />
+          <FitnessCenterIcon color='secondary' />
         </SvgIcon>
       )}
       {iconName === 'Quiz' && (
         <SvgIcon className={classes.svgIcon}>
-          <AssignmentTurnedInIcon />
+          <AssignmentTurnedInIcon color='secondary' />
         </SvgIcon>
       )}
       {iconName === 'Music' && (
         <SvgIcon className={classes.svgIcon}>
-          <MusicNoteIcon />
+          <MusicNoteIcon color='secondary' />
         </SvgIcon>
       )}
       {iconName === 'Meme' && (
         <SvgIcon className={classes.svgIcon}>
-          <AddCircleIcon />
+          <AddCircleIcon color='secondary' />
         </SvgIcon>
       )}
       {iconName === 'Topic' && (
         <SvgIcon className={classes.svgIcon}>
-          <CachedIcon />
+          <CachedIcon color='secondary' />
         </SvgIcon>
       )}
       {iconName === 'Idk' && (
         <SvgIcon className={classes.svgIcon}>
-          <LiveHelpIcon />
+          <LiveHelpIcon color='secondary' />
         </SvgIcon>
       )}
-
-      <div
-        className={
-          classes.time
-        }>{`${date.getHours()}:${date.getMinutes()}`}</div>
-      <div className={classes.name}>{name}</div>
+      <div className={classes.miniWraper}>
+        <div
+          className={
+            classes.time
+          }>{`${date.getHours()}:${date.getMinutes()}`}</div>
+        <div className={classes.name}>{name}</div>
+      </div>
     </div>
   );
 };

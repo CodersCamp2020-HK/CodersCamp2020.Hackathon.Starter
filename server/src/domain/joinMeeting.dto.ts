@@ -6,7 +6,7 @@ class JoinMeetingDTO {
   name: string;
 
   // @IsEmail()
-  email: string;
+  email?: string;
 
   password?: string;
 

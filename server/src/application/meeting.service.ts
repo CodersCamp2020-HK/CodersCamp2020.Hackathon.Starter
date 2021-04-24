@@ -11,6 +11,7 @@ import { MeetingParticipant } from '../domain/meetingParticipant';
 import { MeetingRole } from '../domain/meetingRole';
 import { CreateMeetingDTO } from '../domain/createMeeting.dto';
 import { BroadcastDTO } from '../domain/broadcast.dto';
+import { WsException } from '@nestjs/websockets';
 
 @Injectable()
 class MeetingService {
@@ -20,7 +21,10 @@ class MeetingService {
   private getMeeting(name: string) {
     const meeting = this.meetings.get(name);
     if (!meeting)
-      throw new BadRequestException("Meeting with this id doesn't exists");
+      throw new WsException({
+        code: 1,
+        message: "Meeting with this id doesn't exists",
+      });
     return meeting;
   }
 
@@ -38,7 +42,11 @@ class MeetingService {
 
   createMeeting(dto: CreateMeetingDTO, socket: Socket) {
     const meeting = this.meetings.get(dto.meetingName);
-    if (meeting) throw new BadRequestException('Meeting with this name exists');
+    if (meeting)
+      throw new WsException({
+        code: 2,
+        message: 'Meeting with this name exists',
+      });
     const meetingOwner = new MeetingParticipant(
       uuid(),
       MeetingRole.OWNER,
@@ -55,6 +63,7 @@ class MeetingService {
     this.meetings.set(dto.meetingName, newMeeting);
     this.connectParticipantToMeeting(meetingOwner, newMeeting, socket);
     return {
+      meetingName: dto.meetingName,
       participant: meetingOwner,
       jitsiName: newMeeting.jitsiName,
     };
@@ -64,13 +73,13 @@ class MeetingService {
     const meeting = this.getMeeting(dto.meetingName);
     if (dto.ownerId) {
       if (dto.ownerId !== meeting.owner.id)
-        throw new BadRequestException('Invalid ownerId');
+        throw new WsException({ code: 3, message: 'Invalid ownerId' });
 
       this.connectParticipantToMeeting(meeting.owner, meeting, socket);
       return { participant: meeting.owner, jitsiName: meeting.jitsiName };
     }
     if (meeting.password && meeting.password !== dto.password)
-      throw new UnauthorizedException('Invalid password');
+      throw new WsException({ code: 4, message: 'Invalid password' });
     const participant = new MeetingParticipant(
       uuid(),
       MeetingRole.PARTICIPANT,
@@ -78,7 +87,11 @@ class MeetingService {
       dto.email,
     );
     this.connectParticipantToMeeting(participant, meeting, socket);
-    return { participant, jitsiName: meeting.jitsiName };
+    return {
+      meetingName: meeting.name,
+      participant,
+      jitsiName: meeting.jitsiName,
+    };
   }
 
   cleanupConnection(meeting: Meeting, participantId: string) {
@@ -92,7 +105,7 @@ class MeetingService {
   broadcast(dto: BroadcastDTO) {
     const meeting = this.getMeeting(dto.meetingName);
     if (!meeting.containsParticipant(dto.participantId))
-      throw new BadRequestException('Invalid participantId');
+      throw new WsException({ code: 5, message: 'Invalid participantId' });
     const participant = meeting.participants.find(
       (x) => x.id === dto.participantId,
     );

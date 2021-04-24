@@ -3,12 +3,13 @@ import { MeetingParticipant } from "./MeetingParticipant";
 interface JoinMeetingDTO {
     meetingName: string;
     name: string;
-    email: string;
+    email?: string;
     password?: string;
     ownerId?: string;
 }
 
 interface JoinMeetingRespDTO {
+    meetingName: string;
     participant: MeetingParticipant;
     jitsiName: string;
 }
@@ -26,9 +27,14 @@ interface BroadcastRespDTO {
 
 interface CreateMeetingDTO {
     meetingName: string;
-    password?: string;
     name: string;
-    email: string;
+    password?: string;
+    email?: string;
 }
 
-export type { CreateMeetingDTO, JoinMeetingDTO, JoinMeetingRespDTO, BroadcastDTO, BroadcastRespDTO };
+interface WsMeetingException {
+    code: number,
+    message: string;
+}
+
+export type { CreateMeetingDTO, JoinMeetingDTO, JoinMeetingRespDTO, BroadcastDTO, BroadcastRespDTO, WsMeetingException };

@@ -5,7 +5,7 @@ class MeetingParticipant {
     public readonly id: string,
     public role: MeetingRole,
     public name: string,
-    public readonly email: string,
+    public email?: string,
   ) {}
 }
 

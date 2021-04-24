@@ -7,6 +7,7 @@ import Chatbox, { SingleComment } from "../components/chatbox/Chatbox";
 import { useMeetingEvents } from "../events/Meeting";
 import EnterMeeting from "../components/enterMeeting/EnterMeeting";
 import { JitsiFrame } from "../components/jitsi/JitsiFrame";
+import ActionsParticipantWrapper from "../components/actions/ActionsParticipantWrapper";
 
 const comments: SingleComment[] = [
   {
@@ -36,14 +37,23 @@ const Meeting = () => {
         {!participant ? (
           <EnterMeeting />
         ) : (
-          <>
-            <JitsiFrame />
-            <Timer timeInSeconds={120} />
-            Hello
-            <Actions />
-            <NotificationWrapper />
-            <Chatbox comments={comments} />
-          </>
+          participant.role === "owner" 
+          ?
+            <>
+              <JitsiFrame />
+              <Timer timeInSeconds={120} />
+              <Actions />
+              <NotificationWrapper />
+              <Chatbox comments={comments} />
+            </>
+          :
+            <>
+              <JitsiFrame />
+              <Timer timeInSeconds={120} />
+              <ActionsParticipantWrapper />
+              <NotificationWrapper />
+              <Chatbox comments={comments} />
+            </>
         )}
       </Route>
       <Redirect to={`/404/${path}`} />

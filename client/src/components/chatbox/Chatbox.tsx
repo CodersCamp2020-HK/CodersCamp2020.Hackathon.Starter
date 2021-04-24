@@ -73,13 +73,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-interface SingleCommentProps {
+export interface SingleComment {
     name: string;
     time: string;
     textMessage: string;
 }
 
-const Chatbox = (comments: SingleCommentProps[]) => {
+type ChatboxProps = {
+    comments: SingleComment[];
+}
+
+const Chatbox = ({ comments }: ChatboxProps) => {
     const classes = useStyles();
     return (
         <div className={classes.mainWrapper}>
@@ -87,7 +91,7 @@ const Chatbox = (comments: SingleCommentProps[]) => {
                 <div className={classes.typographyWrapper}>
                     <Typography className={classes.typographyHeader} variant="body1">Zapis spotkania</Typography>
                 </div>
-                {comments.map(({ time, name, textMessage }) => {
+                {comments.map(({ time, name, textMessage }) => 
                     <div className={classes.singleCommentWrapper}>
                         <div className={classes.singleComment}>
                             <div>{time}</div>
@@ -98,7 +102,7 @@ const Chatbox = (comments: SingleCommentProps[]) => {
                             {textMessage}
                         </div>
                     </div>
-                }})
+                )}
                 <Button className={classes.firstButton} variant="outlined" size="medium" color="primary">WYGENERUJ RAPORT PDF</Button>
             </div>
             <TextField className={classes.textField} variant="outlined" color="primary" id="x" label="Wpisz swój komentarz" size="medium" />

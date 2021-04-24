@@ -5,6 +5,25 @@ import Timer from "../components/common/timer/Timer";
 import NotificationWrapper from "../components/notifications/NotificationWrapper";
 import Nav from "../components/nav/Nav";
 import { DemoEvents } from "../events/DemoEvents";
+import Chatbox, { SingleComment } from "../components/chatbox/Chatbox";
+
+const comments: SingleComment[] = [
+  {
+    name: 'Mateusz',
+    textMessage: 'Elo',
+    time: '12:52'
+  },
+  {
+    name: 'Mateusz',
+    textMessage: 'EloELo',
+    time: '12:53'
+  },
+  {
+    name: 'Mateusz',
+    textMessage: 'EloEloElo',
+    time: '12:54'
+  },
+]
 
 const Meeting = () => {
   const { path } = useRouteMatch();
@@ -18,6 +37,7 @@ const Meeting = () => {
         Hello
         <Actions />
         <NotificationWrapper />
+        <Chatbox comments={comments} />
       </Route>
       <Redirect to={`/404${path}`} />
     </Switch>

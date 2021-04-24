@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: '#FFF',
     minHeight: "100%"
   },
+  circle: {
+    border: "5px solid primary"
+  }
 }));
 const Page404 = () => {
   const styles = useStyles();
@@ -24,8 +27,13 @@ const Page404 = () => {
     <Grid container direction="column" justify="center" alignItems="center">
         <Card className={styles.photo}>
             <Typography className={styles.text} variant="h3" >
-                This is not a page ... 404
+                This is not a page
             </Typography>
+            <Card className={styles.circle}>
+            <Typography className={styles.text} variant="h1" >
+                404
+            </Typography>
+              </Card>
         </Card>
     </Grid>
   );

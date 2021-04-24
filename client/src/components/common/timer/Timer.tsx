@@ -80,7 +80,7 @@ export default function LinearDeterminate({ timeInSeconds }: TimerProps) {
                 if (countProgress === 1 && time >= 1) {
                     return oldProgress === 100
                         ? 0
-                        : oldProgress + 100 / (1 * 10);
+                        : oldProgress + 100 / (15 * 60);
                 }
                 if (time >= 1) {
                     return oldProgress === 100
@@ -119,7 +119,7 @@ export default function LinearDeterminate({ timeInSeconds }: TimerProps) {
                 color="secondary"
                 size="large"
                 onClick={() => {
-                    setTime(() => 1 * 10);
+                    setTime(() => 15 * 60);
                     setProgress(0);
                     setCountProgress(1);
                 }}

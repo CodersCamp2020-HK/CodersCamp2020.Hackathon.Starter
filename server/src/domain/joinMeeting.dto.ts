@@ -8,6 +8,8 @@ class JoinMeetingDTO {
   // @IsEmail()
   email: string;
 
+  password?: string;
+
   ownerId?: string;
 }
 

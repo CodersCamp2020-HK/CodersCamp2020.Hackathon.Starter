@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JoinMeetingDTO } from '../domain/joinMeeting.dto';
 import { Socket } from 'socket.io';
 import { Meeting } from '../domain/meeting';
@@ -41,7 +45,13 @@ class MeetingService {
       dto.name,
       dto.email,
     );
-    const newMeeting = new Meeting(dto.meetingName, uuid(), meetingOwner, []);
+    const newMeeting = new Meeting(
+      dto.meetingName,
+      uuid(),
+      meetingOwner,
+      [],
+      dto.password,
+    );
     this.meetings.set(dto.meetingName, newMeeting);
     this.connectParticipantToMeeting(meetingOwner, newMeeting, socket);
     return {
@@ -59,6 +69,8 @@ class MeetingService {
       this.connectParticipantToMeeting(meeting.owner, meeting, socket);
       return { participant: meeting.owner, jitsiName: meeting.jitsiName };
     }
+    if (meeting.password && meeting.password !== dto.password)
+      throw new UnauthorizedException('Invalid password');
     const participant = new MeetingParticipant(
       uuid(),
       MeetingRole.PARTICIPANT,

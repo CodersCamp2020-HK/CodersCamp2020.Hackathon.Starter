@@ -4,6 +4,7 @@ interface JoinMeetingDTO {
     meetingName: string;
     name: string;
     email: string;
+    password?: string;
     ownerId?: string;
 }
 

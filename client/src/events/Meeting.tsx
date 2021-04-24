@@ -11,10 +11,10 @@ import {
   BroadcastRespDTO,
   JoinMeetingDTO,
   JoinMeetingRespDTO,
+  CreateMeetingDTO,
 } from "./Meeting.dto";
 import { MeetingParticipant } from "./MeetingParticipant";
 import { JitsiMeetExternalAPI } from "jitsi-meet";
-import { CreateMeetingDTO } from "../api";
 
 type BroadcastHandler = (resp: BroadcastRespDTO) => void;
 

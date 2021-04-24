@@ -8,7 +8,8 @@ import { RestfulProvider } from "restful-react";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { DarkTheme } from "./themes/DarkTheme";
 import { LightTheme } from "./themes/LightTheme";
-import { MeetingEventsProvider, useMeetingEvents } from "./events/Meeting";
+import { MeetingEventsProvider } from "./events/Meeting";
+import { DemoEvents } from "./events/DemoEvents";
 
 const isProductionEnv = process.env.NODE_ENV === "production";
 const devApiUrl = "http://localhost:8000";
@@ -27,32 +28,7 @@ export const AppContext = React.createContext<IAppContext>(null!);
 
 const StorageThemeKey = "darkTheme";
 
-function DemoEvents() {
-  const { emitMeetingEvents } = useMeetingEvents();
-  return (
-    <button
-      onClick={() => {
-        emitMeetingEvents();
-      }}
-    >
-      Click
-    </button>
-  );
-}
-
 function App() {
-  useEffect(() => {
-    const domain = "meet.jit.si";
-    const options = {
-      roomName: "PickAnAppropriateMeetingNameHere",
-      width: 700,
-      height: 700,
-      parentNode: document.querySelector("#meet"),
-    };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const api = new JitsiMeetExternalAPI(domain, options);
-  }, []);
-
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const [darkTheme, setDarkTheme] = useState<boolean>(() => {
@@ -83,8 +59,6 @@ function App() {
             <div className="App">
               <Navbar />
               <Toolbar />
-              <span id="meet"></span>
-              Hello
               <DemoEvents />
             </div>
           </AppContext.Provider>

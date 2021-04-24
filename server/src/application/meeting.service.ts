@@ -61,12 +61,18 @@ class MeetingService {
     const meeting = this.getMeeting(dto.meetingName);
     if (!meeting.containsParticipant(dto.participantId))
       throw new BadRequestException('Invalid participantId');
-    const participantIds = meeting.participantsWithout(dto.participantId);
+    const participant = meeting.participants.find(
+      (x) => x.id === dto.participantId,
+    );
+    const participantIds = meeting.participants.map((x) => x.id);
     for (const id of participantIds) {
       const socket = this.sockets.get(id);
       if (socket) {
         if (socket.connected) {
-          socket.emit('broadcast', dto.message);
+          socket.emit('broadcast', {
+            from: participant.name,
+            payload: dto.payload,
+          });
         }
       }
     }

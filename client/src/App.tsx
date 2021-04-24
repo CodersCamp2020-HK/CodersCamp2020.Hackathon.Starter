@@ -12,7 +12,6 @@ import Home from "./pages/Home";
 import Unauth from "./pages/Unauth";
 import NotFound from "./pages/404";
 import Meeting from "./pages/Meeting";
-import { DemoEvents } from "./events/DemoEvents";
 
 const isProductionEnv = process.env.NODE_ENV === "production";
 const devApiUrl = "http://localhost:8000";
@@ -60,7 +59,6 @@ function App() {
             value={{ darkTheme, toggleTheme, hamburger, setHamburger }}
           >
             <Router>
-              <DemoEvents />
               <Switch>
                 <Route path="/unauth">
                   <Unauth />

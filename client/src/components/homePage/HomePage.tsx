@@ -66,7 +66,7 @@ const HomePage = () => {
         size="medium"
         color="primary"
         required
-        rules={{ required: "Enter your name" }}
+        rules={{ required: "Enter your name", maxLength: { value: 20, message: 'Name can\'t be longer than 20 characters'} }}
         FormHelperTextProps={{ className: styles.helperText }}
       />
       <Button type="submit" variant="contained" size="medium" color="primary">

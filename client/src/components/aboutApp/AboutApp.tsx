@@ -123,6 +123,9 @@ const AboutApp = () => {
             For meeting organizer
         </Typography>
         <img className={styles.image} alt='placeholder' src='https://via.placeholder.com/468x60' />
+        <Typography variant='body1'>
+            All the actions described below are signaled in the meeting window. It changes to the corresponding image.
+        </Typography>
         <Typography variant='h6'>
             Work-out /10m
         </Typography>
@@ -147,6 +150,12 @@ const AboutApp = () => {
          <Typography variant='body1'>
              He can also play music :) Everyone loves music!
          </Typography>
+         <Typography variant="h5">
+            Choose a theme
+        </Typography>
+        <Typography variant="body1">
+            If you like the dark view or you are on the light side :), you can switch the theme with the button. 
+        </Typography>
       </Container>
     </PerfectScrollbar>
   );

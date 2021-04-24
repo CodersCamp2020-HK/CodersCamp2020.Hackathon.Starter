@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Button, makeStyles, Typography } from "@material-ui/core";
-import TextInput from "../inputs/textInput/TextInput";
-import { useForm } from "react-hook-form";
-import { useMeetingEvents } from "../../events/Meeting";
-import { useHistory } from "react-router-dom";
-import { WsMeetingException } from "../../events/Meeting.dto";
-import Aside from "../aside/Aside";
+import React, { useEffect, useState } from 'react';
+import { Button, makeStyles, Typography } from '@material-ui/core';
+import TextInput from '../inputs/textInput/TextInput';
+import { useForm } from 'react-hook-form';
+import { useMeetingEvents } from '../../events/Meeting';
+import { useHistory } from 'react-router-dom';
+import { WsMeetingException } from '../../events/Meeting.dto';
+import Aside from '../aside/Aside';
 // import classes from "*.module.css";
 
 type HomePageInputs = {
@@ -19,9 +19,8 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    // minHeight: 'calc(100vh - 60px)',
-    justifyContent: "center",
-    height: '80vh',
+    minHeight: 'calc(100vh - 72px)',
+    justifyContent: 'center',
   },
   textInput: {
     position: 'relative',
@@ -30,7 +29,7 @@ const useStyles = makeStyles({
     borderRadius: 19,
     '& fieldset': {
       borderRadius: 19,
-    }
+    },
   },
   helperText: {
     position: 'absolute',
@@ -124,12 +123,12 @@ const HomePage = () => {
       <TextInput
         className={styles.textInput}
         control={control}
-        id="meetingName"
-        name="meetingName"
-        label="Name of the meeting?"
-        variant="outlined"
-        size="medium"
-        color="primary"
+        id='meetingName'
+        name='meetingName'
+        label='Name of the meeting?'
+        variant='outlined'
+        size='medium'
+        color='primary'
         required
         rules={{
           required: 'Enter meeting name',
@@ -140,7 +139,12 @@ const HomePage = () => {
         }}
         FormHelperTextProps={{ className: styles.helperText }}
       />
-      <Button className={styles.button} type="submit" variant="contained" size="medium" color="primary">
+      <Button
+        className={styles.button}
+        type='submit'
+        variant='contained'
+        size='medium'
+        color='primary'>
         Create meeting
       </Button>
       {errorMsg && (

@@ -36,9 +36,9 @@ const StorageThemeKey = 'darkTheme';
 
 type Iframe = 'yt' | 'music' | 'quiz' | 'cafe' | 'video';
 const useStyles = makeStyles(() => ({
-  basic: {
-    minHeight: 'calc(100% - 60px)',
-  },
+  // basic: {
+  //   height: '100vh',
+  // },
 }));
 
 function App() {
@@ -80,7 +80,7 @@ function App() {
             <MyContainer>
               <>
                 <Nav />
-                <Container className={classes.basic} maxWidth='lg'>
+                <Container maxWidth='lg'>
                   <Router>
                     <Switch>
                       <Route path='/unauth'>

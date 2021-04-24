@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   nav: {
     display: 'flex',
-    padding: '0.5rem',
+    padding: '6px',
   },
   freeSpace: {
     flex: 1,
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   logo: {
     alignSelf: 'center',
     flex: 1,
-  }
+  },
 });
 
 const Nav = () => {

@@ -28,6 +28,8 @@ Zachęcamy do odwiedzenia profili członków zespołu, w celu zapoznania się z 
 
 Wersja demonstracyjna aplikacji jest dostępna [TUTAJ](https://coders-camp-hackathon.herokuapp.com/).
 
+Prezentacja działania aplikacji jest dostępna [TUTAJ](https://www.youtube.com/watch?v=m4y8OROe76g).
+
 Front-end aplikacji znajduje się tutaj: [TUTAJ](https://github.com/CodersCamp2020-HK/CodersCamp2020.Project.FullStack-Node-React/tree/master/src/presentation/web).
 
 Aplikacja została wykonana wg dostarczonych przez organizatorów CodersCamp wymagań.

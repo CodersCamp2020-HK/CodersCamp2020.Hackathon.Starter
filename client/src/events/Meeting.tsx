@@ -39,6 +39,7 @@ interface MeetingEventsProviderState {
   readonly unregisterFromBroadcast: (fn: BroadcastHandler) => void;
   readonly registerToException: (fn: ExceptionHandler) => void;
   readonly unregisterFromException: (fn: ExceptionHandler) => void;
+  readonly socket?: SocketIOClient.Socket;
 }
 
 const MeetingEventsContext = React.createContext<
@@ -171,6 +172,7 @@ function MeetingEventsProvider({
   return (
     <MeetingEventsContext.Provider
       value={{
+        socket,
         emitJoinMeeting,
         emitJoinMeetingAsOwner,
         jitsiName,

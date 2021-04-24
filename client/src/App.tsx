@@ -9,7 +9,6 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { DarkTheme } from './themes/DarkTheme';
 import { LightTheme } from './themes/LightTheme';
 import { EventsProvider, useEvents } from './events/Events';
-import Timer from './components/common/timer/Timer';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -82,7 +81,6 @@ function App() {
             <div className='App'>
               <Navbar />
               <Toolbar />
-              <Timer timeInSeconds={5} />
               <span id='meet'></span>
               Hello
               <DemoEvents />

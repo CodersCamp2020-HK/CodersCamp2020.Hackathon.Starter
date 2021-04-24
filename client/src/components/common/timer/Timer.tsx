@@ -93,7 +93,7 @@ export default function LinearDeterminate({ timeInSeconds }: TimerProps) {
         return () => {
             clearInterval(timer);
         };
-    }, [time]);
+    }, [time, countProgress, timeInSeconds]);
 
     return (
         <div className={classes.contentWrapper}>

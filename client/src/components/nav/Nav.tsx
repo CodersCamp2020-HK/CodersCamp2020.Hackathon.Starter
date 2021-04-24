@@ -15,7 +15,6 @@ const useStyles = makeStyles({
 });
 
 const Nav = () => {
-  const { toggleTheme } = useContext(AppContext);
   const classes = useStyles();
   return (
     <nav className={classes.nav}>

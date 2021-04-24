@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppContext } from '../../App';
 
 const useStyles = makeStyles((theme) => ({
   btnWrapper: {
@@ -31,7 +30,6 @@ interface Props {
 }
 const BtnWrapper: React.FC<Props> = ({ children, name, time }) => {
   const classes = useStyles();
-  const { setIframe, iframe } = useContext(AppContext);
   return (
     <div className={classes.btnWrapper}>
       <p className={classes.name}>{name}</p>

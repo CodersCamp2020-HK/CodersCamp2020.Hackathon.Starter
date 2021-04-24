@@ -1,13 +1,22 @@
 import React from 'react';
-import { Route, useRouteMatch } from 'react-router-dom';
+import { Route, useRouteMatch, Redirect, Switch } from 'react-router-dom';
+import Actions from '../components/actions/Actions';
+import Timer from '../components/common/timer/Timer';
+import NotificationWrapper from '../components/notifications/NotificationWrapper';
 
-const Home = () => {
+const Meeting = () => {
     const { path } = useRouteMatch();
     return (
-        <Route exact path={`${path}/meeting/:name`}>
-            <div>ELO MEETING </div>
-        </Route>
+        <Switch>
+            <Route exact path={`${path}/:name`}>
+                <Timer timeInSeconds={120} />
+                <span id='meet'></span>
+                <Actions />
+                <NotificationWrapper />
+            </Route>
+            <Redirect to={`/404${path}`} />
+        </Switch>
     );
 };
 
-export default Home;
+export default Meeting;

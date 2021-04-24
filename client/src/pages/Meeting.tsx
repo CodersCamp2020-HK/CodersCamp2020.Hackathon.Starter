@@ -11,6 +11,7 @@ import ActionsParticipantWrapper from '../components/actions/ActionsParticipantW
 import { Grid } from '@material-ui/core';
 import Chodakowska from '../components/chodakowska/Chodakowska';
 import { AppContext } from '../App';
+import Chess from '../components/chess/Chess';
 
 const comments: SingleComment[] = [
   {
@@ -45,6 +46,7 @@ const Meeting = () => {
             <Grid style={{ position: 'relative' }} item xs={7}>
               <JitsiFrame />
               {iframe === 'yt' && <Chodakowska />}
+              {iframe === 'quiz' && <Chess />}
               <Timer timeInSeconds={120} />
               <Actions />
             </Grid>

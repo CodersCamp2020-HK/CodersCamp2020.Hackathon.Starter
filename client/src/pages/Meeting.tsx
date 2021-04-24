@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, useRouteMatch, Redirect, Switch } from 'react-router-dom';
 import Actions from '../components/actions/Actions';
 import Timer from '../components/common/timer/Timer';
@@ -9,6 +9,8 @@ import EnterMeeting from '../components/enterMeeting/EnterMeeting';
 import { JitsiFrame } from '../components/jitsi/JitsiFrame';
 import ActionsParticipantWrapper from '../components/actions/ActionsParticipantWrapper';
 import { Grid } from '@material-ui/core';
+import Chodakowska from '../components/chodakowska/Chodakowska';
+import { AppContext } from '../App';
 
 const comments: SingleComment[] = [
   {
@@ -31,6 +33,7 @@ const comments: SingleComment[] = [
 const Meeting = () => {
   const { path } = useRouteMatch();
   const { participant } = useMeetingEvents();
+  const { iframe } = useContext(AppContext);
 
   return (
     <Switch>
@@ -39,8 +42,9 @@ const Meeting = () => {
           <EnterMeeting />
         ) : participant.role === 'owner' ? (
           <Grid container spacing={2}>
-            <Grid item xs={7}>
+            <Grid style={{ position: 'relative' }} item xs={7}>
               <JitsiFrame />
+              {iframe === 'yt' && <Chodakowska />}
               <Timer timeInSeconds={120} />
               <Actions />
             </Grid>

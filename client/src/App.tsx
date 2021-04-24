@@ -1,7 +1,6 @@
 import { Toolbar } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Navbar from './components/navbar/Navbar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { RestfulProvider } from 'restful-react';
@@ -14,6 +13,7 @@ import Home from './pages/Home';
 import Unauth from './pages/Unauth';
 import NotFound from './pages/404';
 import Meeting from './pages/Meeting';
+import Nav from './components/nav/Nav';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -84,27 +84,27 @@ function App() {
           <AppContext.Provider
             value={{ darkTheme, toggleTheme, hamburger, setHamburger }}>
             <div className='App'>
-              <Navbar />
+              <Nav />
               <Toolbar />
               <span id='meet'></span>
               Hello
               <DemoEvents />
             </div>
             <Router>
-                <Switch>
-                    <Route path="/unauth">
-                        <Unauth />
-                    </Route>
-                    <Route path="/meeting">
-                        <Meeting />
-                    </Route>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route path="*">
-                        <NotFound />
-                    </Route>
-                </Switch>
+              <Switch>
+                <Route path='/unauth'>
+                  <Unauth />
+                </Route>
+                <Route path='/meeting'>
+                  <Meeting />
+                </Route>
+                <Route exact path='/'>
+                  <Home />
+                </Route>
+                <Route path='*'>
+                  <NotFound />
+                </Route>
+              </Switch>
             </Router>
           </AppContext.Provider>
         </ThemeProvider>

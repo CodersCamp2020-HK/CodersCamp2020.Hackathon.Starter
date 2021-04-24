@@ -13,6 +13,7 @@ import {
   JoinMeetingRespDTO,
   CreateMeetingDTO,
   WsMeetingException,
+  InitialSate,
 } from "./Meeting.dto";
 import { MeetingParticipant } from "./MeetingParticipant";
 import { JitsiMeetExternalAPI } from "jitsi-meet";
@@ -40,6 +41,7 @@ interface MeetingEventsProviderState {
   readonly registerToException: (fn: ExceptionHandler) => void;
   readonly unregisterFromException: (fn: ExceptionHandler) => void;
   readonly socket?: SocketIOClient.Socket;
+  readonly initialState?: InitialSate;
 }
 
 const MeetingEventsContext = React.createContext<
@@ -76,7 +78,9 @@ function MeetingEventsProvider({
   const [jitsiApi, setJitsiApi] = useState<JitsiMeetExternalAPI | undefined>(
     undefined
   );
-
+  const [initialState, setInitialState] = useState<InitialSate | undefined>(
+    undefined
+  );
   useEffect(() => {
     const socket = socketIOClient(endpoint);
     socket.on("connect", function () {
@@ -97,6 +101,7 @@ function MeetingEventsProvider({
       setMeetingName(resp.meetingName);
       setParticipant(resp.participant);
       setJitsiName(resp.jitsiName);
+      setInitialState(resp.initialState);
     });
 
     socket.on("broadcast", function (resp: BroadcastRespDTO) {
@@ -187,6 +192,7 @@ function MeetingEventsProvider({
         emitCreateMeeting,
         registerToException,
         unregisterFromException,
+        initialState,
       }}
     >
       {children}

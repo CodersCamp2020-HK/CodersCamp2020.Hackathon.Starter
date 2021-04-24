@@ -106,6 +106,7 @@ class MeetingService {
       meetingName: dto.meetingName,
       participant: meetingOwner,
       jitsiName: newMeeting.jitsiName,
+      initialSate: undefined,
     };
   }
 
@@ -131,6 +132,10 @@ class MeetingService {
       meetingName: meeting.name,
       participant,
       jitsiName: meeting.jitsiName,
+      initialState: {
+        informationNotifications: meeting.meetingState.notifications,
+        currentTimeEvent: meeting.meetingState.currentAction,
+      },
     };
   }
 

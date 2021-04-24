@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     border: `2px solid ${theme.palette.secondary.main}`,
   },
+  name: {
+    color: theme.palette.primary.main,
+  },
+  time: {
+    color: theme.palette.primary.main,
+  },
 }));
 
 interface Props {
@@ -26,8 +32,8 @@ const BtnWrapper: React.FC<Props> = ({ children, name, time }) => {
   const classes = useStyles();
   return (
     <div className={classes.btnWrapper}>
-      <p>{name}</p>
-      <p>{`${time} min`}</p>
+      <p className={classes.name}>{name}</p>
+      <p className={classes.time}>{`${time} min`}</p>
       <IconButton
         className={classes.iconButton}
         onClick={() => console.log('kawa')}>

@@ -1,7 +1,8 @@
 import React from 'react';
+import Page404 from '../components/page_404/Page404';
 
 const NotFound = () => {
-    return <div>ELO 404</div>
+    return <Page404 />
 };
 
 export default NotFound;

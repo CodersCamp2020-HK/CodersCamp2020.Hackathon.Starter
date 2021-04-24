@@ -11,15 +11,21 @@ import {
   BroadcastRespDTO,
   JoinMeetingDTO,
   JoinMeetingRespDTO,
+  CreateMeetingDTO,
+  WsMeetingException,
 } from "./Meeting.dto";
 import { MeetingParticipant } from "./MeetingParticipant";
 import { JitsiMeetExternalAPI } from "jitsi-meet";
 
 type BroadcastHandler = (resp: BroadcastRespDTO) => void;
+type ExceptionHandler = (error: WsMeetingException) => void;
 
 interface MeetingEventsProviderState {
+  readonly emitCreateMeeting: (req: CreateMeetingDTO) => void;
   readonly emitJoinMeeting: (req: JoinMeetingDTO) => void;
-  readonly emitJoinMeetingAsOwner: (req: JoinMeetingDTO) => void;
+  readonly emitJoinMeetingAsOwner: (
+    req: JoinMeetingDTO & { ownerID: string }
+  ) => void;
   readonly emitBroadcastMessage: (payload: string) => void;
   readonly jitsiName?: string;
   readonly participant?: MeetingParticipant;
@@ -31,6 +37,8 @@ interface MeetingEventsProviderState {
   readonly setJitsiApi: (api: JitsiMeetExternalAPI) => void;
   readonly reqisterToBroadcast: (fn: BroadcastHandler) => void;
   readonly unregisterFromBroadcast: (fn: BroadcastHandler) => void;
+  readonly registerToException: (fn: ExceptionHandler) => void;
+  readonly unregisterFromException: (fn: ExceptionHandler) => void;
 }
 
 const MeetingEventsContext = React.createContext<
@@ -53,7 +61,8 @@ function MeetingEventsProvider({
   children,
   endpoint,
 }: React.PropsWithChildren<MeetingEventsProviderProps>) {
-  const hooks = useMemo<BroadcastHandler[]>(() => [], []);
+  const broadcastHooks = useMemo<BroadcastHandler[]>(() => [], []);
+  const errorHooks = useMemo<ExceptionHandler[]>(() => [], []);
   const [socket, setSocket] = useState<SocketIOClient.Socket | undefined>(
     undefined
   );
@@ -75,6 +84,7 @@ function MeetingEventsProvider({
     });
     socket.on("exception", function (data: any) {
       console.log("exception", data);
+      errorHooks.forEach((x) => catchOmitErrors(() => x(data)));
     });
     socket.on("disconnect", function () {
       console.log("Disconnected");
@@ -83,20 +93,20 @@ function MeetingEventsProvider({
 
     socket.on("connected", function (resp: JoinMeetingRespDTO) {
       console.log("Recived [connected] ", resp);
+      setMeetingName(resp.meetingName);
       setParticipant(resp.participant);
       setJitsiName(resp.jitsiName);
     });
 
     socket.on("broadcast", function (resp: BroadcastRespDTO) {
       console.log("Recived [broadcast] ", resp);
-      console.log(hooks);
-      hooks.forEach((x) => catchOmitErrors(() => x(resp)));
+      broadcastHooks.forEach((x) => catchOmitErrors(() => x(resp)));
     });
 
     return () => {
       socket.disconnect();
     };
-  }, [endpoint, hooks]);
+  }, [endpoint, broadcastHooks, errorHooks]);
 
   const emitJoinMeeting = (req: JoinMeetingDTO) => {
     console.log("Send [joinMeeting]", req);
@@ -106,6 +116,11 @@ function MeetingEventsProvider({
   const emitJoinMeetingAsOwner = (req: JoinMeetingDTO) => {
     console.log("Send [joinMeeting]", req);
     socket?.emit("joinMeeting", req);
+  };
+
+  const emitCreateMeeting = (req: CreateMeetingDTO) => {
+    console.log("Send [createMeeting]", req);
+    socket?.emit("createMeeting", req);
   };
 
   const emitBroadcastMessage = (payload: string) => {
@@ -126,19 +141,31 @@ function MeetingEventsProvider({
 
   const reqisterToBroadcast = useCallback(
     (fn: BroadcastHandler) => {
-      console.log("new elem");
-      hooks.push(fn);
-      console.log(hooks);
+      broadcastHooks.push(fn);
     },
-    [hooks]
+    [broadcastHooks]
   );
 
   const unregisterFromBroadcast = useCallback(
     (fn: BroadcastHandler) => {
-      const idx = hooks.findIndex((x) => x === fn);
-      if (idx) hooks.splice(idx);
+      const idx = broadcastHooks.findIndex((x) => x === fn);
+      if (idx) broadcastHooks.splice(idx);
     },
-    [hooks]
+    [broadcastHooks]
+  );
+
+  const registerToException = useCallback(
+    (fn: ExceptionHandler) => {
+      errorHooks.push(fn);
+    },
+    [errorHooks]
+  );
+  const unregisterFromException = useCallback(
+    (fn: ExceptionHandler) => {
+      const idx = errorHooks.findIndex((x) => x === fn);
+      if (idx) errorHooks.splice(idx);
+    },
+    [errorHooks]
   );
 
   return (
@@ -155,6 +182,9 @@ function MeetingEventsProvider({
         meetingName,
         reqisterToBroadcast,
         unregisterFromBroadcast,
+        emitCreateMeeting,
+        registerToException,
+        unregisterFromException,
       }}
     >
       {children}

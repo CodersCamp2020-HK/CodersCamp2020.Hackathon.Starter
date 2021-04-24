@@ -36,8 +36,6 @@
   "dependencies": {
     "concurrently": "^6.0.2",
     "nodemon": "^2.0.7",
-    "react-tsparticles": "^1.26.4",
-    "shx": "^0.3.3",
-    "tsparticles": "^1.26.3"
+    "shx": "^0.3.3"
   }
 }

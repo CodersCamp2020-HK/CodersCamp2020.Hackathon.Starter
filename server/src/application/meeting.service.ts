@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { JoinMeetingDTO } from '../domain/joinMeeting.dto';
 import { Socket } from 'socket.io';
 import { Meeting } from '../domain/meeting';
@@ -44,6 +44,7 @@ class MeetingService {
     if (dto.ownerId) {
       if (dto.ownerId !== meeting.owner.id)
         throw new BadRequestException('Invalid ownerId');
+      this.sockets.set(dto.ownerId, socket);
       return { participant: meeting.owner, jitsiName: meeting.jitsiName };
     }
     const participant = new MeetingParticipant(
@@ -61,12 +62,18 @@ class MeetingService {
     const meeting = this.getMeeting(dto.meetingName);
     if (!meeting.containsParticipant(dto.participantId))
       throw new BadRequestException('Invalid participantId');
-    const participantIds = meeting.participantsWithout(dto.participantId);
+    const participant = meeting.participants.find(
+      (x) => x.id === dto.participantId,
+    );
+    const participantIds = meeting.participants.map((x) => x.id);
     for (const id of participantIds) {
       const socket = this.sockets.get(id);
       if (socket) {
         if (socket.connected) {
-          socket.emit('broadcast', dto.message);
+          socket.emit('broadcast', {
+            from: participant.name,
+            payload: dto.payload,
+          });
         }
       }
     }

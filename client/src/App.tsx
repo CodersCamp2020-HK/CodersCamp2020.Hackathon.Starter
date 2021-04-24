@@ -1,7 +1,6 @@
 import { Toolbar } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Navbar from './components/navbar/Navbar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { RestfulProvider } from 'restful-react';

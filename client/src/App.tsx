@@ -1,4 +1,3 @@
-import { Toolbar } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -7,13 +6,12 @@ import { RestfulProvider } from 'restful-react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { DarkTheme } from './themes/DarkTheme';
 import { LightTheme } from './themes/LightTheme';
-import { MeetingEventsProvider, useMeetingEvents } from './events/Meeting';
+import { MeetingEventsProvider } from './events/Meeting';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Unauth from './pages/Unauth';
 import NotFound from './pages/404';
 import Meeting from './pages/Meeting';
-import Nav from './components/nav/Nav';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -32,30 +30,7 @@ export const AppContext = React.createContext<IAppContext>(null!);
 
 const StorageThemeKey = 'darkTheme';
 
-function DemoEvents() {
-  const { emitMeetingEvents } = useMeetingEvents();
-  return (
-    <button
-      onClick={() => {
-        emitMeetingEvents();
-      }}>
-      Click
-    </button>
-  );
-}
-
 function App() {
-  useEffect(() => {
-    const domain = 'meet.jit.si';
-    const options = {
-      roomName: 'PickAnAppropriateMeetingNameHere',
-      width: 700,
-      height: 700,
-      parentNode: document.querySelector('#meet'),
-    };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const api = new JitsiMeetExternalAPI(domain, options);
-  }, []);
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -83,13 +58,6 @@ function App() {
         <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
           <AppContext.Provider
             value={{ darkTheme, toggleTheme, hamburger, setHamburger }}>
-            <div className='App'>
-              <Nav />
-              <Toolbar />
-              <span id='meet'></span>
-              Hello
-              <DemoEvents />
-            </div>
             <Router>
               <Switch>
                 <Route path='/unauth'>

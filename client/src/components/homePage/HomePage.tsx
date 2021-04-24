@@ -2,6 +2,7 @@ import React from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import TextInput from "../inputs/textInput/TextInput";
 import { useForm } from "react-hook-form";
+import Aside from "../aside/Aside";
 
 type HomePageInputs = {
   name: string;
@@ -39,6 +40,7 @@ const HomePage = () => {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
+      <Aside />
       <Typography variant="h5">Ile minut będzie trwało spotkanie?</Typography>
       <TextInput
         className={styles.textInput}

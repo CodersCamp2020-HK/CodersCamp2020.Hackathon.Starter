@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Button } from '@material-ui/core';
+import About from '../about/About';
 
 const drawerWidth = '40vw';
 
@@ -138,24 +139,25 @@ function PersistentDrawer() {
                 className={classes.buttonR}
                 startIcon={<ChevronLeftIcon />}
             >
-                O nas
+              About us
             </Button>
           </IconButton>
         </Toolbar>
         <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={openRight}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={openRight}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
       >
         <div className={classes.drawerHeader2}>
           <IconButton onClick={handleDrawerCloseR}>
             {theme.direction === 'ltr' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
+        <About />
         </Drawer>
     </div>
   );

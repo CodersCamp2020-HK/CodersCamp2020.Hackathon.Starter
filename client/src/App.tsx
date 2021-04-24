@@ -1,4 +1,3 @@
-import { Toolbar } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -14,6 +13,7 @@ import Unauth from './pages/Unauth';
 import NotFound from './pages/404';
 import Meeting from './pages/Meeting';
 import Nav from './components/nav/Nav';
+import { Container } from '@material-ui/core';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -85,27 +85,25 @@ function App() {
             value={{ darkTheme, toggleTheme, hamburger, setHamburger }}>
             <div className='App'>
               <Nav />
-              <Toolbar />
-              <span id='meet'></span>
-              Hello
-              <DemoEvents />
+              <Container maxWidth='lg'>
+                <Router>
+                  <Switch>
+                    <Route path='/unauth'>
+                      <Unauth />
+                    </Route>
+                    <Route path='/meeting'>
+                      <Meeting />
+                    </Route>
+                    <Route exact path='/'>
+                      <Home />
+                    </Route>
+                    <Route path='*'>
+                      <NotFound />
+                    </Route>
+                  </Switch>
+                </Router>
+              </Container>
             </div>
-            <Router>
-              <Switch>
-                <Route path='/unauth'>
-                  <Unauth />
-                </Route>
-                <Route path='/meeting'>
-                  <Meeting />
-                </Route>
-                <Route exact path='/'>
-                  <Home />
-                </Route>
-                <Route path='*'>
-                  <NotFound />
-                </Route>
-              </Switch>
-            </Router>
           </AppContext.Provider>
         </ThemeProvider>
       </RestfulProvider>

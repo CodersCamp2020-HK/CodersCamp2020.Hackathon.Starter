@@ -1,23 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 
-interface EventsProviderState {
-  readonly emitEvents: () => void;
+interface MeetingEventsProviderState {
+  readonly emitMeetingEvents: () => void;
   readonly emitIdentity: () => void;
 }
 
-const EventsContext = React.createContext<EventsProviderState | undefined>(
-  undefined
-);
+const MeetingEventsContext = React.createContext<
+  MeetingEventsProviderState | undefined
+>(undefined);
 
-interface EventsProviderProps {
+interface MeetingEventsProviderProps {
   endpoint: string;
 }
 
-function EventsProvider({
+function MeetingEventsProvider({
   children,
   endpoint,
-}: React.PropsWithChildren<EventsProviderProps>) {
+}: React.PropsWithChildren<MeetingEventsProviderProps>) {
   const [socket, setSocket] = useState<SocketIOClient.Socket | undefined>(
     undefined
   );
@@ -28,8 +28,8 @@ function EventsProvider({
       console.log("Connected");
       setSocket(socket);
     });
-    socket.on("events2", function (data: any) {
-      console.log("events2", data);
+    socket.on("Meetingevents2", function (data: any) {
+      console.log("Meetingevents2", data);
     });
     socket.on("exception", function (data: any) {
       console.log("event", data);
@@ -43,10 +43,10 @@ function EventsProvider({
     };
   }, [endpoint]);
 
-  const emitEvents = () => {
+  const emitMeetingEvents = () => {
     socket?.emit(
-      "events",
-      JSON.stringify({ eventData: "data" }),
+      "joinMeeting",
+      { name: "name", email: "email" },
       (data: any) => {
         console.log(data);
       }
@@ -59,20 +59,22 @@ function EventsProvider({
     });
   };
   return (
-    <EventsContext.Provider value={{ emitEvents, emitIdentity }}>
+    <MeetingEventsContext.Provider value={{ emitMeetingEvents, emitIdentity }}>
       {children}
-    </EventsContext.Provider>
+    </MeetingEventsContext.Provider>
   );
 }
 
-function useEvents() {
+function useMeetingEvents() {
   return (
-    useContext(EventsContext) ??
+    useContext(MeetingEventsContext) ??
     (() => {
-      throw new Error("useEvents must be used within a EventsProvider");
+      throw new Error(
+        "useMeetingEvents must be used within a MeetingEventsProvider"
+      );
     })()
   );
 }
 
-export { EventsProvider, useEvents };
-export type { EventsProviderProps };
+export { MeetingEventsProvider, useMeetingEvents };
+export type { MeetingEventsProviderProps };

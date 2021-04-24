@@ -1,7 +1,5 @@
-import { Toolbar } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Navbar from "./components/navbar/Navbar";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import { RestfulProvider } from "restful-react";
@@ -9,6 +7,11 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { DarkTheme } from "./themes/DarkTheme";
 import { LightTheme } from "./themes/LightTheme";
 import { MeetingEventsProvider } from "./events/Meeting";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home";
+import Unauth from "./pages/Unauth";
+import NotFound from "./pages/404";
+import Meeting from "./pages/Meeting";
 import { DemoEvents } from "./events/DemoEvents";
 
 const isProductionEnv = process.env.NODE_ENV === "production";
@@ -56,11 +59,23 @@ function App() {
           <AppContext.Provider
             value={{ darkTheme, toggleTheme, hamburger, setHamburger }}
           >
-            <div className="App">
-              <Navbar />
-              <Toolbar />
+            <Router>
+              <Switch>
+                <Route path="/unauth">
+                  <Unauth />
+                </Route>
+                <Route path="/meeting">
+                  <Meeting />
+                </Route>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route path="*">
+                  <NotFound />
+                </Route>
+              </Switch>
               <DemoEvents />
-            </div>
+            </Router>
           </AppContext.Provider>
         </ThemeProvider>
       </RestfulProvider>

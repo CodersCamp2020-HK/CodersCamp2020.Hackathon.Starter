@@ -10,8 +10,7 @@ import {
   Slide,
   Theme,
   Tooltip,
-  Typography,
-  useMediaQuery,
+  Typography
 } from "@material-ui/core";
 import { GitHub } from "@material-ui/icons";
 import React from "react";
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#3f3f3f",
   },
   projectInfo: {
     display: "flex",
@@ -108,7 +106,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const About = () => {
-  const mobile = useMediaQuery("(max-width:700px)");
   const styles = useStyles();
   return (
     <Container maxWidth="md" className={styles.container}>
@@ -166,7 +163,7 @@ const About = () => {
         <Typography variant="h5" className={styles.title}>
           Uczestnicy
         </Typography>
-        <div className={mobile ? styles.peopleMobile : styles.people}>
+        <div className={styles.peopleMobile}>
           {project.contributors.map((person, index) => (
             <Slide
               key={index}
@@ -177,7 +174,7 @@ const About = () => {
               unmountOnExit
             >
               <Paper
-                className={mobile ? styles.personCardMobile : styles.personCard}
+                className={styles.personCardMobile}
               >
                 <Typography
                   color="primary"

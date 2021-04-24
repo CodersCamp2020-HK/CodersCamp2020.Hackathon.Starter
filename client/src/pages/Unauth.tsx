@@ -1,13 +1,16 @@
 import React from 'react';
-import { Route, useRouteMatch } from 'react-router-dom';
+import { Route, useRouteMatch, Switch, Redirect } from 'react-router-dom';
 
-const Home = () => {
+const Unauth = () => {
     const { path } = useRouteMatch();
     return (
-        <Route exact path={`${path}/unauth`}>
-            <div>ELO UNAUTH</div>
-        </Route>
+        <Switch>
+            <Route exact path={`${path}`}>
+                <div>ELO UNAUTH</div>
+            </Route>
+            <Redirect to={`/404/${path}`} />
+        </Switch>
     );
 };
 
-export default Home;
+export default Unauth;

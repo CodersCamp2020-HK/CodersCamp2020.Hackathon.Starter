@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import { useMeetingEvents } from "../../events/Meeting";
+import { useEffect } from 'react';
+import { useMeetingEvents } from '../../events/Meeting';
 
 function JitsiFrame() {
   const { jitsiName, setJitsiApi } = useMeetingEvents();
   useEffect(() => {
     if (jitsiName) {
-      const domain = "meet.jit.si";
+      const domain = 'meet.jit.si';
       const options = {
         roomName: jitsiName,
-        width: 400,
-        height: 400,
-        parentNode: document.querySelector("#meet"),
+        width: '100%',
+        height: 700,
+        parentNode: document.querySelector('#meet'),
       };
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       setJitsiApi(new JitsiMeetExternalAPI(domain, options));
@@ -18,7 +18,7 @@ function JitsiFrame() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jitsiName]);
 
-  return <div id="meet"></div>;
+  return <div id='meet'></div>;
 }
 
 export { JitsiFrame };

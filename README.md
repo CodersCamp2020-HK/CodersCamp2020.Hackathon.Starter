@@ -81,7 +81,7 @@ Aby uruchomić aplikację na lokalnej maszynie, wykonaj następujące kroki:
 1. Zainstaluj zależności za pomocą komendy: `npm ci`
 2. Wystartuj serwer developerski `npm run dev`
 
-Aplikacja będzie dostępna pod adresem [localhost:8080/](http://localhost:8080)
+Aplikacja będzie dostępna pod adresem [localhost:8080/](http://localhost:8000)
 
 Kod produkcyjny aplikacji umieszczamy w katalogu `web`.
 

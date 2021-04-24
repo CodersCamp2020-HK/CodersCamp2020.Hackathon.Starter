@@ -113,12 +113,40 @@ const AboutApp = () => {
         <Typography variant='body1'>
             During the brainstorming session, participants can express their position (consent or against ) by clicking on a thumb button.
         </Typography>
-
-
+        <Typography variant='h5'>
+            Notifications
+        </Typography>
+        <Typography variant='body1'>
+            All the actions described above are signaled in this field. An appropriate icon is displayed along with the date and name of the participant.
+        </Typography>
         <Typography variant='h5'>
             For meeting organizer
         </Typography>
         <img className={styles.image} alt='placeholder' src='https://via.placeholder.com/468x60' />
+        <Typography variant='h6'>
+            Work-out /10m
+        </Typography>
+        <Typography variant='body1'>
+            When working remotely, you shouldn't forget about exercise and oxygenate the brain! By choosing this option, the organizer can encourage participants to a little effort :)
+        </Typography>
+        <Typography variant='h6'>
+            Coffee break /10m
+        </Typography>
+        <Typography>
+            The organizer may request a lunch break so that the participants fill their stomachs :) A hungry person is easier to distract. 
+        </Typography>
+        <Typography variant='h6'>
+            Quiz /10m
+        </Typography>
+        <Typography variant='body1'>
+            The organizer can make a quiz to relax the atmosphere. 
+        </Typography>
+        <Typography variant='h6'>
+            Play music /10m
+        </Typography>
+         <Typography variant='body1'>
+             He can also play music :) Everyone loves music!
+         </Typography>
       </Container>
     </PerfectScrollbar>
   );

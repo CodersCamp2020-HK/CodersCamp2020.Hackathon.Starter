@@ -1,11 +1,13 @@
-import React from 'react';
-import { Route, useRouteMatch, Redirect, Switch } from 'react-router-dom';
-import Actions from '../components/actions/Actions';
-import Timer from '../components/common/timer/Timer';
-import NotificationWrapper from '../components/notifications/NotificationWrapper';
-import { DemoEvents } from '../events/DemoEvents';
-import Chatbox, { SingleComment } from '../components/chatbox/Chatbox';
-import { Grid } from '@material-ui/core';
+import React from "react";
+import { Route, useRouteMatch, Redirect, Switch } from "react-router-dom";
+import Actions from "../components/actions/Actions";
+import Timer from "../components/common/timer/Timer";
+import NotificationWrapper from "../components/notifications/NotificationWrapper";
+import Nav from "../components/nav/Nav";
+import { DemoEvents } from "../events/DemoEvents";
+import Chatbox, { SingleComment } from "../components/chatbox/Chatbox";
+import { useMeetingEvents } from "../events/Meeting";
+import EnterMeeting from "../components/enterMeeting/EnterMeeting";
 
 const comments: SingleComment[] = [
   {
@@ -27,23 +29,25 @@ const comments: SingleComment[] = [
 
 const Meeting = () => {
   const { path } = useRouteMatch();
+  const { participant } = useMeetingEvents();
 
   return (
     <Switch>
       <Route exact path={`${path}/:name`}>
-        <DemoEvents />
-        <Grid container spacing={2}>
-          <Grid item xs={7}>
+        {!participant
+          ? 
+            <EnterMeeting />
+          :
+          <>
+            <Nav />
+            <DemoEvents />
             <Timer timeInSeconds={120} />
+              Hello
             <Actions />
-          </Grid>
-          <Grid item xs={2}>
             <NotificationWrapper />
-          </Grid>
-          <Grid item xs={3}>
             <Chatbox comments={comments} />
-          </Grid>
-        </Grid>
+          </>
+        }
       </Route>
       <Redirect to={`/404${path}`} />
     </Switch>

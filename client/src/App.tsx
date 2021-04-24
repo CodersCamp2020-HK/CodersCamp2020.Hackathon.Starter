@@ -60,6 +60,7 @@ function App() {
             value={{ darkTheme, toggleTheme, hamburger, setHamburger }}
           >
             <Router>
+              <DemoEvents />
               <Switch>
                 <Route path="/unauth">
                   <Unauth />
@@ -74,7 +75,6 @@ function App() {
                   <NotFound />
                 </Route>
               </Switch>
-              <DemoEvents />
             </Router>
           </AppContext.Provider>
         </ThemeProvider>

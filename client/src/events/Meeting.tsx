@@ -2,7 +2,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useRef,
+  useMemo,
   useState,
 } from "react";
 import socketIOClient from "socket.io-client";
@@ -53,6 +53,7 @@ function MeetingEventsProvider({
   children,
   endpoint,
 }: React.PropsWithChildren<MeetingEventsProviderProps>) {
+  const hooks = useMemo<BroadcastHandler[]>(() => [], []);
   const [socket, setSocket] = useState<SocketIOClient.Socket | undefined>(
     undefined
   );
@@ -66,14 +67,11 @@ function MeetingEventsProvider({
     undefined
   );
 
-  const hooks = useRef<BroadcastHandler[]>([]);
-
   useEffect(() => {
     const socket = socketIOClient(endpoint);
     socket.on("connect", function () {
       console.log("Connected");
       setSocket(socket);
-      hooks.current = [];
     });
     socket.on("exception", function (data: any) {
       console.log("exception", data);
@@ -81,33 +79,32 @@ function MeetingEventsProvider({
     socket.on("disconnect", function () {
       console.log("Disconnected");
       setSocket(undefined);
-      hooks.current = [];
     });
 
     socket.on("connected", function (resp: JoinMeetingRespDTO) {
-      console.log(`Recived [connected] ${resp}`);
+      console.log("Recived [connected] ", resp);
       setParticipant(resp.participant);
       setJitsiName(resp.jitsiName);
     });
 
     socket.on("broadcast", function (resp: BroadcastRespDTO) {
-      console.log(`Recived [broadcast] ${resp}`);
-      hooks.current.forEach((x) => catchOmitErrors(() => x(resp)));
+      console.log("Recived [broadcast] ", resp);
+      console.log(hooks);
+      hooks.forEach((x) => catchOmitErrors(() => x(resp)));
     });
 
     return () => {
       socket.disconnect();
-      hooks.current = [];
     };
-  }, [endpoint]);
+  }, [endpoint, hooks]);
 
   const emitJoinMeeting = (req: JoinMeetingDTO) => {
-    console.log(`Send [joinMeeting] ${req}`);
+    console.log("Send [joinMeeting]", req);
     socket?.emit("joinMeeting", req);
   };
 
   const emitJoinMeetingAsOwner = (req: JoinMeetingDTO) => {
-    console.log(`Send [joinMeeting] ${req}`);
+    console.log("Send [joinMeeting]", req);
     socket?.emit("joinMeeting", req);
   };
 
@@ -123,21 +120,23 @@ function MeetingEventsProvider({
       participantId: participant?.id,
       payload,
     };
-    console.log(`Send [broadcast] ${req}`);
+    console.log("Send [broadcast] ", req);
     socket?.emit("broadcast", req);
   };
 
   const reqisterToBroadcast = useCallback(
     (fn: BroadcastHandler) => {
-      hooks.current.push(fn);
+      console.log("new elem");
+      hooks.push(fn);
+      console.log(hooks);
     },
     [hooks]
   );
 
   const unregisterFromBroadcast = useCallback(
     (fn: BroadcastHandler) => {
-      const idx = hooks.current.findIndex((x) => x === fn);
-      if (idx) hooks.current.splice(idx);
+      const idx = hooks.findIndex((x) => x === fn);
+      if (idx) hooks.splice(idx);
     },
     [hooks]
   );

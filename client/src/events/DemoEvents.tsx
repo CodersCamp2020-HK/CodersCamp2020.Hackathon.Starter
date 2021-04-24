@@ -21,10 +21,11 @@ function DemoEvents() {
 
   useEffect(() => {
     const fn = (resp: BroadcastRespDTO) => {
-      console.log(resp);
+      console.log("DEMOEVENT", resp);
       setMessages((prev) => [...prev, resp]);
     };
     reqisterToBroadcast(fn);
+    console.log("Registered To broadcast");
     return () => unregisterFromBroadcast(fn);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

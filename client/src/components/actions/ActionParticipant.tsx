@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 const ActionsParticipant = () => {
   const classes = useStyles();
   return (
-
     <div className={classes.action}>
       <BtnWrapper name='Abreak'>
         <LocalCafeIcon className={classes.icon} />

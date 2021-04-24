@@ -91,7 +91,7 @@ const HomePage = () => {
         control={control}
         id='numberOfMins'
         name='numberOfMins'
-        label='Your name'
+        label='How long the meeting will take?'
         variant='outlined'
         size='medium'
         color='primary'
@@ -107,7 +107,7 @@ const HomePage = () => {
         control={control}
         id='name'
         name='name'
-        label='Name of meeting'
+        label='Your name'
         variant='outlined'
         size='medium'
         color='primary'
@@ -124,9 +124,9 @@ const HomePage = () => {
       <TextInput
         className={styles.textInput}
         control={control}
-        id="numberOfMins"
-        name="numberOfMins"
-        label="How long the meeting will take?"
+        id="meetingName"
+        name="meetingName"
+        label="Name of the meeting?"
         variant="outlined"
         size="medium"
         color="primary"

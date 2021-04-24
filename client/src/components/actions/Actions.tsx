@@ -4,7 +4,7 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import BtnWrapper from './BtnWrapper';
+import BtnWrapper from './BtnWrapperIframe';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: {
@@ -25,16 +25,16 @@ const Actions = () => {
   const classes = useStyles();
   return (
     <div className={classes.action}>
-      <BtnWrapper name='Przerwa na kawe' time='10'>
+      <BtnWrapper name='cafe' time='10'>
         <LocalCafeIcon className={classes.icon} />
       </BtnWrapper>
-      <BtnWrapper name='Ćwiczenia' time='10'>
+      <BtnWrapper name='yt' time='10'>
         <FitnessCenterIcon className={classes.icon} />
       </BtnWrapper>
-      <BtnWrapper name='Przerwa na kawe' time='10'>
+      <BtnWrapper name='quiz' time='10'>
         <AssignmentTurnedInIcon className={classes.icon} />
       </BtnWrapper>
-      <BtnWrapper name='Przerwa na kawe' time='10'>
+      <BtnWrapper name='music' time='10'>
         <MusicNoteIcon className={classes.icon} />
       </BtnWrapper>
     </div>

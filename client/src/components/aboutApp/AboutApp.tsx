@@ -74,13 +74,16 @@ const AboutApp = () => {
         </Typography>
         <img className={styles.image} alt='placeholder' src='https://via.placeholder.com/468x60' />
         <Typography variant='body1'>
-            Each user has a preview of the time allocated to the meeting, how much time is left to the end, it is visualized in the form of a moving slider.
+            Each participant has a preview of the time allocated to the meeting, how much time is left to the end, it is visualized in the form of a moving slider.
         </Typography>
         <Typography variant='h5'>
             Record of the meeting 
         </Typography>
         <Typography variant='body1'>
-           Description
+            Participants can post comments during the meeting. This field shows all comments written by them (along with the date of sending and them name).
+        </Typography>
+        <Typography variant='body1'>
+            All comments can be generated as a report to a PDF file for later review.
         </Typography>
         <Typography variant='h5'>
             For participant
@@ -96,19 +99,19 @@ const AboutApp = () => {
             I don't understand :(
         </Typography>
         <Typography variant='body1'>
-        If the participant does not understand the issue, he can click this button to inform the organizer for a more detailed explanation.
+            If the participant does not understand the issue, he can click this button to inform the organizer for a more detailed explanation.
         </Typography>
         <Typography variant='h6'>
             Change the topic?
         </Typography>
         <Typography variant='body1'>
-        If the participant thinks that the topic has been properly explained, he can inform other participants that he wants to change the topic 
+            If the participant thinks that the topic has been properly explained, he can inform other participants that he wants to change the topic.
         </Typography>
         <Typography variant='h6'>
             Make sense / I don't agree
         </Typography>
         <Typography variant='body1'>
-            During the brainstorming session, users can express their position (consent or against ) by clicking on a thumb button 
+            During the brainstorming session, participants can express their position (consent or against ) by clicking on a thumb button.
         </Typography>
 
 

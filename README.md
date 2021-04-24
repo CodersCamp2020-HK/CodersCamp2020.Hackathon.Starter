@@ -28,6 +28,8 @@ Zachęcamy do odwiedzenia profili członków zespołu, w celu zapoznania się z 
 
 Wersja demonstracyjna aplikacji jest dostępna [TUTAJ](https://coders-camp-hackathon.herokuapp.com/).
 
+Prezentacja działania aplikacji jest dostępna [TUTAJ](https://www.youtube.com/watch?v=m4y8OROe76g).
+
 Front-end aplikacji znajduje się tutaj: [TUTAJ](https://github.com/CodersCamp2020-HK/CodersCamp2020.Project.FullStack-Node-React/tree/master/src/presentation/web).
 
 Aplikacja została wykonana wg dostarczonych przez organizatorów CodersCamp wymagań.
@@ -39,7 +41,7 @@ Tematem przewodnim było przygotowanie przez uczestników aplikacje usprawniają
 
 Aplikacja została wykonana wg dostarczonych przez organizatorów CodersCamp wymagań.
 
-Zespół projektowy zdecydował się na stworzenie aplikacji dostarczającącej dodatkowe funkcjonalności do codziennych spotkań dla zespołów pracujący online. Dużym jej atutem jest konieczność określenie z góry czasu trwania spotkania. Motywuje to organizatora do rozsądnego zaplanowania spotkania, a uczestnikom zapewnia komfort, ponieważ wiedzą ile czasu spędzą na spotkaniu. Dodatkowo aplikacja dostarcza możliwość intuicyjnej komunikacji pomiędzy prowadzącym a słuchaczami w postaci rekatywnych icon. MeetByte to doskonałe połączenie profesjonalnych spotkań zdalnych z elementami rozrywki. Pozwoli to na przełamanie rutyny codziennych meetingów. 
+Zespół projektowy zdecydował się na stworzenie aplikacji dostarczającącej dodatkowe funkcjonalności do codziennych spotkań dla zespołów pracujący online. Dużym jej atutem jest konieczność określenie z góry czasu trwania spotkania. Motywuje to organizatora do rozsądnego zaplanowania spotkania, a uczestnikom zapewnia komfort, ponieważ wiedzą ile czasu spędzą na spotkaniu. Dodatkowo aplikacja dostarcza możliwość intuicyjnej komunikacji pomiędzy prowadzącym a słuchaczami w postaci reaktywnych icon. MeetByte to doskonałe połączenie profesjonalnych spotkań zdalnych z elementami rozrywki. Pozwoli to na przełamanie rutyny codziennych meetingów. 
 
 ### Działanie aplikacji
 

@@ -1,4 +1,4 @@
-import React, from 'react';
+import React from 'react';
 import { Button } from '@material-ui/core';
 import { ReactComponent as Logo } from '../common/logo.svg';
 import ThemeMode from './ThemeMode';

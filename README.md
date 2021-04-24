@@ -41,7 +41,7 @@ Tematem przewodnim było przygotowanie przez uczestników aplikacje usprawniają
 
 Aplikacja została wykonana wg dostarczonych przez organizatorów CodersCamp wymagań.
 
-Zespół projektowy zdecydował się na stworzenie aplikacji dostarczającącej dodatkowe funkcjonalności do codziennych spotkań dla zespołów pracujący online. Dużym jej atutem jest konieczność określenie z góry czasu trwania spotkania. Motywuje to organizatora do rozsądnego zaplanowania spotkania, a uczestnikom zapewnia komfort, ponieważ wiedzą ile czasu spędzą na spotkaniu. Dodatkowo aplikacja dostarcza możliwość intuicyjnej komunikacji pomiędzy prowadzącym a słuchaczami w postaci rekatywnych icon. MeetByte to doskonałe połączenie profesjonalnych spotkań zdalnych z elementami rozrywki. Pozwoli to na przełamanie rutyny codziennych meetingów. 
+Zespół projektowy zdecydował się na stworzenie aplikacji dostarczającącej dodatkowe funkcjonalności do codziennych spotkań dla zespołów pracujący online. Dużym jej atutem jest konieczność określenie z góry czasu trwania spotkania. Motywuje to organizatora do rozsądnego zaplanowania spotkania, a uczestnikom zapewnia komfort, ponieważ wiedzą ile czasu spędzą na spotkaniu. Dodatkowo aplikacja dostarcza możliwość intuicyjnej komunikacji pomiędzy prowadzącym a słuchaczami w postaci reaktywnych icon. MeetByte to doskonałe połączenie profesjonalnych spotkań zdalnych z elementami rozrywki. Pozwoli to na przełamanie rutyny codziennych meetingów. 
 
 ### Działanie aplikacji
 

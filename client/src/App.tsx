@@ -37,7 +37,7 @@ const StorageThemeKey = 'darkTheme';
 type Iframe = 'yt' | 'music' | 'quiz' | 'cafe' | 'video';
 const useStyles = makeStyles(() => ({
   basic: {
-    height: '100vh',
+    minHeight: 'calc(100% - 60px)',
   },
 }));
 

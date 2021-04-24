@@ -92,7 +92,7 @@ const HomePage = () => {
         control={control}
         id='numberOfMins'
         name='numberOfMins'
-        label='Number of minutes'
+        label='Your name'
         variant='outlined'
         size='medium'
         color='primary'
@@ -108,7 +108,7 @@ const HomePage = () => {
         control={control}
         id='name'
         name='name'
-        label='Your name'
+        label='Name of meeting'
         variant='outlined'
         size='medium'
         color='primary'
@@ -142,7 +142,7 @@ const HomePage = () => {
         FormHelperTextProps={{ className: styles.helperText }}
       />
       <Button className={styles.button} type="submit" variant="contained" size="medium" color="primary">
-        Utwórz spotkanie
+        Create meeting
       </Button>
       {errorMsg && (
         <Typography color='error' variant='h5'>

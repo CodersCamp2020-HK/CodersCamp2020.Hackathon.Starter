@@ -1,8 +1,9 @@
 # CodersCamp2020.Hackathon.Starter
 
-# Coders Camp 2020 | Projekt Zespołowy | TypeScript
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/56504859/115958721-cfd38780-a508-11eb-8c79-b3f33ccb42bb.png" alt="image" />
+</p>
 
-![CyperpunkChessLogo](https://user-images.githubusercontent.com/56504859/107998538-ab799d00-6fe5-11eb-836b-cc4d7ff870c4.PNG)
 
 ## Zespół projektowy
 
@@ -25,7 +26,11 @@ Zachęcamy do odwiedzenia profili członków zespołu, w celu zapoznania się z 
 
 ### Demo
 
-Wersja demonstracyjna aplikacji jest dostępna [TUTAJ](WRZUĆ_LINKA).
+Wersja demonstracyjna aplikacji jest dostępna [TUTAJ](https://coders-camp-hackathon.herokuapp.com/).
+
+Front-end aplikacji znajduje się tutaj: [TUTAJ](https://github.com/CodersCamp2020-HK/CodersCamp2020.Project.FullStack-Node-React/tree/master/src/presentation/web).
+
+Aplikacja została wykonana wg dostarczonych przez organizatorów CodersCamp wymagań.
 
 ### Cel projektu
 
@@ -34,56 +39,96 @@ Tematem przewodnim było przygotowanie przez uczestników aplikacje usprawniają
 
 Aplikacja została wykonana wg dostarczonych przez organizatorów CodersCamp wymagań.
 
+Zespół projektowy zdecydował się na stworzenie aplikacji umożliwiającej rozmowy dla zespołów online. Dużym atutem aplikacji jest zapewnienie rozrywki dla użytkownika oraz dodanie funkcjonalności brakujących w obecnych komunikatorach umożliwiających konferencje. Nasza aplikacja umożliwia przełamanie rutyny codziennych.
+
 ### Działanie aplikacji
+
+#### Główne funkcjonalności
+
+- Umożliwienie kontaktu wielu użytkowników za pomocą linku
+- Możliwość rozmowy glosowej
+- Możliwość wideorozmowy
+- Minutnik odliczający koniec spotkania
+- Możliwość poproszenia o przerwe w trakcie spotkania
+- Możliwość wykonania treningu fitness w trakcie spotkania
+- Możliwość zrobienia własnych notatek w trakcie spotkania i wyeksportowanie ich w formacie PDF
 
 #### Menu Główne
 
+Utowrzony został szablon graficzny aplikacji w programie Figma. 
 
+[Link do Figmy](https://www.figma.com/file/uyo1LnXStVzBgkc0gnczkT/Hackaton?node-id=7756%3A27877)
 
-##### Zasady gry
+## Wymagania funkcjonalne (szczegółowo):
 
+### Rozmowa użytkownika: 
 
+1. Użytkownik ma możliwość rozmowy glosowej
+2. Użytkownik ma możliwość wyciszenia mikrofonu
+3. Użytkownik ma możliwość wideorozmowy
+4. Użytkownik ma możliwość wyłączenie kamery
+5. Użytkownik ma możliwość poproszenie o przerwe w trakcie spotkania
+6. Użytkownik ma możliwość zaproponowania przerwy fitness
+7. Użytkownik ma możliwość udostępnienia sptokania za pośrednictwem linku
+8. Użytkownik ma możliwość przedłużenia spotkania o 15min
+9. Użytkownik ma możliwość wyboru długości spotkania na początku spotkania
+10. Użytkownik ma możliwość wybrania godziny spotkania z wyprzedeniem
+11. Użytkownik ma możliwość grania w gry w trakcie spotkania 
 
-##### Informacje
-
-
-
-#### Rozgrywka
-
-
-
-#### Sterowanie
-
-Aby wykonać ruch należy umieścić kursor na wybranej bierce. Następnie kliknać w celu wyświetlenia możliwych ruchów bierki. Na koniec wybrać jedno z podświetlonych pól, by przesunięcia bierki.
-
-<p align="center">
-  <img src="GIF" alt="gif" />
-</p>
-
-### Zmiany wprowadzone w wymaganiach
-
-Projekt został przygotowany w oparciu o projekt przygotowany przez naszego grafika. Szablon graficzny powstał w programie Figma.
-
-### Wykorzystywane technologie
+## Wykorzystywane technologie
 
 W trakcie developmentu wykorzystujemy:
 
--   Material Ui
--   React
--   TypeScript
--   CSS & SCSS, do stylowania aplikacji
--   HTML, do definiowania struktury aplikacji   
+-   Docker
+-   Heroku
+-   TypeORM
+-   GitHub workflow
+-   React JS
+-   Restful React
+-   React Hook Form
+-   Material UI
+-   Figma
+
+
+### Przykładowa funkcjonalność bazy danych aplikacji
+
+![apiheroku](https://user-images.githubusercontent.com/56504859/112295862-9f43c800-8c94-11eb-94a5-1d25bc7a737d.gif)
 
 ### Uruchomienie projektu
 
 Aby uruchomić aplikację na lokalnej maszynie, wykonaj następujące kroki:
 
 1. Zainstaluj zależności za pomocą komendy: `npm ci`
-2. Wystartuj serwer developerski `npm run dev`
+2. Postaw build aplikacji: `npm run build`
+3. Uruchom kontenery z bazą danych oraz narzędziem pgAdmin: `docker-compose up`
+4. Wystartuj serwer developerski `npm run start`
 
-Aplikacja będzie dostępna pod adresem [localhost:8080/](http://localhost:8000)
+Aplikacja będzie dostępna pod adresem [localhost:3000/](http://localhost:3000).
+Kod produkcyjny aplikacji umieszczamy w katalogu `build`.
 
-Kod produkcyjny aplikacji umieszczamy w katalogu `web`.
+### Uruchomienie testów
+
+Aby uruchomić testy aplikacji, wykonaj następujące kroki:
+
+1. Zainstaluj zależności za pomocą komendy: `npm ci` (jeśli nie zrobiłeś już tego wcześniej).
+2. Uruchom wszystkie testy, wykonując komendę: `npm run test`.
+
+Dostępne są także testy tylko dla serwera `npm run test:server` oraz dla testów po stronie klienckiej `npm run test:client`.
+
+
+
+#### Sterowanie
+
+<p align="center">
+  <img src="GIF" alt="gif" />
+</p>
+
+
+
+
+### Zmiany wprowadzone w wymaganiach
+
+Projekt został przygotowany w oparciu o projekt przygotowany przez naszego grafika. Szablon graficzny powstał w programie Figma.
 
 ### Organizacja pracy
 

@@ -8,6 +8,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Button } from '@material-ui/core';
 import About from '../about/About';
+import AboutApp from '../aboutApp/AboutApp';
 
 const drawerWidth = '40vw';
 
@@ -123,6 +124,7 @@ function PersistentDrawer() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
+        <AboutApp />
         </Drawer>
         
         <Toolbar>

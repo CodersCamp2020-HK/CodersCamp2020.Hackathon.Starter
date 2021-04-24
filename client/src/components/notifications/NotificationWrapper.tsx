@@ -1,16 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Notification from './Notifications';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   notificationWrapper: {
-    border: `1px solid ${theme.palette.secondary.main}`,
+    border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 15,
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     textAlign: 'center',
+    maxHeight: 742,
   },
   title: {
-    borderBottom: `1px solid ${theme.palette.secondary.main}`,
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    padding: 12,
   },
 }));
 
@@ -39,7 +42,9 @@ const NotificationWrapper = () => {
 
   return (
     <div className={classes.notificationWrapper}>
-      <div className={classes.title}>Powiadomienia</div>
+      <Typography variant='body1' color='primary' className={classes.title}>
+        Powiadomienia
+      </Typography>
       {test.map((item) => (
         <Notification name={item.name} iconName={item.iconName as IconName} />
       ))}

@@ -3,12 +3,18 @@ import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import BtnWrapper from './BtnWrapper';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   action: {
     display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+    border: `1px solid ${theme.palette.primary.main}`,
+    padding: 20,
+    borderRadius: 15,
   },
   icon: {
     color: theme.palette.secondary.main,

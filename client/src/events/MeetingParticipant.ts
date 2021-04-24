@@ -7,7 +7,7 @@ interface MeetingParticipant {
     readonly id: string;
     role: MeetingRole;
     name: string;
-    readonly email: string;
+    email?: string;
 }
 
 export type { MeetingParticipant, MeetingRole };

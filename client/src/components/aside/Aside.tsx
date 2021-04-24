@@ -3,15 +3,12 @@ import clsx from 'clsx';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import StarIcon from '@material-ui/icons/Star';
-import InfoIcon from '@material-ui/icons/Info';
+import { Button } from '@material-ui/core';
 
-
-const drawerWidth = 240;
+const drawerWidth = '40vw';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,6 +19,24 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
       color: "black",
     },
+    buttonL: {
+        rotate: '-90deg',
+        width: '30vh',
+        justify: 'center',
+        position: 'fixed',
+        top: '50vh',
+        left: '-13vh',
+        borderRadius: '0 0 15px 15px',
+      },
+    buttonR: {
+        rotate: '90deg',
+        width: '30vh',
+        justify: 'center',
+        position: 'fixed',
+        top: '50vh',
+        right: '-13vh',
+        borderRadius: '0 0 15px 15px',
+      },
     hide: {
       display: 'none',
     },
@@ -83,7 +98,14 @@ function PersistentDrawer() {
             edge="start"
             className={clsx(classes.menuButton, openLeft && classes.hide)}
           >
-            <StarIcon />
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.buttonL}
+                endIcon={<ChevronRightIcon />}
+            >
+                O aplikacji
+            </Button>
           </IconButton>
         </Toolbar>
         <Drawer
@@ -110,7 +132,14 @@ function PersistentDrawer() {
             edge="end"
             className={clsx(classes.menuButton, openRight && classes.hide)}
           >
-            <InfoIcon />
+             <Button
+                variant="contained"
+                color="primary"
+                className={classes.buttonR}
+                startIcon={<ChevronLeftIcon />}
+            >
+                O nas
+            </Button>
           </IconButton>
         </Toolbar>
         <Drawer

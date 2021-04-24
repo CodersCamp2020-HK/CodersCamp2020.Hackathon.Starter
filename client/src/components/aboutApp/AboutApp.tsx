@@ -6,11 +6,43 @@ const useStyles = makeStyles({
   container: {
     height: "100vh",
   },
+  scrollbarLight: {
+    "& ::-webkit-scrollbar": {
+      width: 12,
+      backgroundColor: " #F5F5F5",
+    },
+
+    "& .ps__rail-y:hover > .ps__thumb-y, .ps__rail-y:focus > .ps__thumb-y, .ps__rail-y.ps--clicking .ps__thumb-y": {
+      backgroundColor: "red",
+    },
+
+    "& .ps__thumb-y": {
+      borderRadius: 10,
+      boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.1)",
+      backgroundColor: "red",
+    },
+  },
+  scrollbarDark: {
+    "& ::-webkit-scrollbar": {
+      width: 12,
+      backgroundColor: " #F5F5F5",
+    },
+    //Po najechaniu/klikniecu paska scrollowania
+    "& .ps__rail-y:hover > .ps__thumb-y, .ps__rail-y:focus > .ps__thumb-y, .ps__rail-y.ps--clicking .ps__thumb-y": {
+      backgroundColor: "red",
+    },
+    //Zwykły
+    "& .ps__thumb-y": {
+      borderRadius: 10,
+      boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.1)",
+      backgroundColor: "red",
+    },
+  },
 });
 const AboutApp = () => {
   const styles = useStyles();
   return (
-    <PerfectScrollbar>
+    <PerfectScrollbar className={styles.scrollbarLight}>
       <Container className={styles.container}>
         <Typography variant="body1">
           Reprehenderit mollit laboris ea eiusmod Lorem commodo aute cupidatat

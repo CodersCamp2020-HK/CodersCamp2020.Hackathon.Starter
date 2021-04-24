@@ -6,7 +6,7 @@ import { useMeetingEvents } from "../../events/Meeting";
 import { useHistory } from "react-router-dom";
 import { WsMeetingException } from "../../events/Meeting.dto";
 import Aside from "../aside/Aside";
-import classes from "*.module.css";
+// import classes from "*.module.css";
 
 type HomePageInputs = {
   meetingName: string;
@@ -45,7 +45,6 @@ const useStyles = makeStyles({
 });
 
 const HomePage = () => {
-  const classes = useStyles();
   const history = useHistory();
   const {
     meetingName,

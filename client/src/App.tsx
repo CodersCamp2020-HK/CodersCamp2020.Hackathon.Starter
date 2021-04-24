@@ -9,6 +9,11 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { DarkTheme } from './themes/DarkTheme';
 import { LightTheme } from './themes/LightTheme';
 import { MeetingEventsProvider, useMeetingEvents } from './events/Meeting';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import Unauth from './pages/Unauth';
+import NotFound from './pages/404';
+import Meeting from './pages/Meeting';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -85,6 +90,22 @@ function App() {
               Hello
               <DemoEvents />
             </div>
+            <Router>
+                <Switch>
+                    <Route path="/unauth">
+                        <Unauth />
+                    </Route>
+                    <Route path="/meeting">
+                        <Meeting />
+                    </Route>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                    <Route path="*">
+                        <NotFound />
+                    </Route>
+                </Switch>
+            </Router>
           </AppContext.Provider>
         </ThemeProvider>
       </RestfulProvider>

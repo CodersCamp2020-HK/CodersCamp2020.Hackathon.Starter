@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Button, makeStyles, Typography } from '@material-ui/core';
-import TextInput from '../inputs/textInput/TextInput';
-import { useForm } from 'react-hook-form';
-import { useMeetingEvents } from '../../events/Meeting';
-import { useHistory } from 'react-router-dom';
-import { WsMeetingException } from '../../events/Meeting.dto';
-import Aside from '../aside/Aside';
+import React, { useEffect, useState } from "react";
+import { Button, makeStyles, Typography } from "@material-ui/core";
+import TextInput from "../inputs/textInput/TextInput";
+import { useForm } from "react-hook-form";
+import { useMeetingEvents } from "../../events/Meeting";
+import { useHistory } from "react-router-dom";
+import { WsMeetingException } from "../../events/Meeting.dto";
+import Aside from "../aside/Aside";
+// import classes from "*.module.css";
 
 type HomePageInputs = {
   meetingName: string;
@@ -18,12 +19,18 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 'calc(100vh - 60px)',
+    // minHeight: 'calc(100vh - 60px)',
+    justifyContent: "center",
+    height: '80vh',
   },
   textInput: {
     position: 'relative',
     paddingBottom: 35,
+    width: '25rem',
+    borderRadius: 19,
+    '& fieldset': {
+      borderRadius: 19,
+    }
   },
   helperText: {
     position: 'absolute',
@@ -32,10 +39,12 @@ const useStyles = makeStyles({
   titile: {
     marginBottom: 20,
   },
+  button: {
+    width: '25rem',
+  },
 });
 
 const HomePage = () => {
-  const classes = useStyles();
   const history = useHistory();
   const {
     meetingName,
@@ -77,15 +86,12 @@ const HomePage = () => {
       noValidate
       onSubmit={handleSubmit(onSubmit)}>
       <Aside />
-      <Typography className={classes.titile} variant='h5'>
-        Ile minut będzie trwało spotkanie?
-      </Typography>
       <TextInput
         className={styles.textInput}
         control={control}
         id='numberOfMins'
         name='numberOfMins'
-        label='Number of minutes'
+        label='Your name'
         variant='outlined'
         size='medium'
         color='primary'
@@ -101,7 +107,7 @@ const HomePage = () => {
         control={control}
         id='name'
         name='name'
-        label='Your name'
+        label='Name of meeting'
         variant='outlined'
         size='medium'
         color='primary'
@@ -118,12 +124,12 @@ const HomePage = () => {
       <TextInput
         className={styles.textInput}
         control={control}
-        id='meetingName'
-        name='meetingName'
-        label='Meeting name'
-        variant='outlined'
-        size='medium'
-        color='primary'
+        id="numberOfMins"
+        name="numberOfMins"
+        label="How long the meeting will take?"
+        variant="outlined"
+        size="medium"
+        color="primary"
         required
         rules={{
           required: 'Enter meeting name',
@@ -134,9 +140,8 @@ const HomePage = () => {
         }}
         FormHelperTextProps={{ className: styles.helperText }}
       />
-
-      <Button type='submit' variant='contained' size='medium' color='primary'>
-        Utwórz spotkanie
+      <Button className={styles.button} type="submit" variant="contained" size="medium" color="primary">
+        Create meeting
       </Button>
       {errorMsg && (
         <Typography color='error' variant='h5'>

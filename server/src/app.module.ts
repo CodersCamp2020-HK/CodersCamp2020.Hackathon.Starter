@@ -10,7 +10,7 @@ import { BcryptService } from './infrastructure/auth/bcrypt.service';
 import * as Services from './application';
 import * as RestControllers from './presentation/rest';
 import { EmailService } from './infrastructure/email/email.service';
-import { EventsGateway } from './presentation/ws/events.gateway';
+import { MeetingGateway } from './presentation/ws/meeting.gateway';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { EventsGateway } from './presentation/ws/events.gateway';
     ...Object.values(Services),
     BcryptService,
     EmailService,
-    EventsGateway,
+    MeetingGateway,
   ],
 })
 export class AppModule {}

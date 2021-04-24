@@ -4,8 +4,8 @@ const LightTheme = responsiveFontSizes(
   createMuiTheme({
     typography: {
       allVariants: {
-        color: "#007769"
-      }
+        color: "#007769",
+      },
     },
     palette: {
       type: "light",
@@ -22,7 +22,7 @@ const LightTheme = responsiveFontSizes(
         contrastText: "#ffffff",
       },
       background: {
-        default: '#F1F1F1',
+        default: "#F1F1F1",
       },
     },
     overrides: {
@@ -37,9 +37,13 @@ const LightTheme = responsiveFontSizes(
           borderRadius: 21,
         },
       },
-    }
+      MuiTooltip: {
+        tooltip: {
+          backgroundColor: "#e5e4e2",
+        },
+      },
+    },
   })
 );
-
 
 export { LightTheme };

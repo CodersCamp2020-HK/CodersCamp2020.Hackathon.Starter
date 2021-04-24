@@ -80,8 +80,8 @@ interface AddAction {
 }
 
 interface ShowAction {
-  type: 'show actions';
-  payload: Action[];
+    type: 'show actions',
+    payload: Action[];
 }
 
-export {};
+export {}

@@ -1,12 +1,12 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Button } from '@material-ui/core';
+import clsx from 'clsx';
+import React from 'react';
 import About from '../about/About';
 import AboutApp from '../aboutApp/AboutApp';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "black",
     },
     buttonL: {
-        rotate: '-90deg',
+        transform: 'rotate(-90deg)',
         width: '30vh',
         justify: 'center',
         position: 'fixed',
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
         borderRadius: '0 0 15px 15px',
       },
     buttonR: {
-        rotate: '90deg',
+        transform: 'rotate(90deg)',
         width: '30vh',
         justify: 'center',
         position: 'fixed',

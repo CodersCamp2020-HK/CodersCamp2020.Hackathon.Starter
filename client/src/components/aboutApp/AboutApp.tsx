@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: '100%',
       height: 'auto',
   },
+  list: {
+    listStyleType: 'circle',
+    listStylePosition: 'inside'
+  },
   scrollbarLight: {
     "& ::-webkit-scrollbar": {
       width: 12,
@@ -59,7 +63,7 @@ const AboutApp = () => {
         MeetByte application is a breakthrough in the work of remote teams !!!
         </Typography>
         <Typography variant="body1">
-            <ul>
+            <ul className={styles.list}>
                 <li>Improves the management of meetings</li>
                 <li>Improves communication between meeting participants </li>
                 <li>It makes meetings not a boring necessity, and becomes an opportunity for integration, exchange of ideas and quick problem solving</li>

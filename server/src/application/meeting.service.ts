@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JoinMeetingDTO } from '../domain/joinMeeting.dto';
 import { Socket } from 'socket.io';
 import { Meeting } from '../domain/meeting';
@@ -20,7 +24,19 @@ class MeetingService {
     return meeting;
   }
 
-  createMeeting(dto: CreateMeetingDTO) {
+  private connectParticipantToMeeting(
+    participant: MeetingParticipant,
+    meeting: Meeting,
+    socket: Socket,
+  ) {
+    meeting.addParticipant(participant);
+    this.sockets.set(participant.id, socket);
+    socket.on('disconnect', () => {
+      this.cleanupConnection(meeting, participant.id);
+    });
+  }
+
+  createMeeting(dto: CreateMeetingDTO, socket: Socket) {
     const meeting = this.meetings.get(dto.meetingName);
     if (meeting) throw new BadRequestException('Meeting with this name exists');
     const meetingOwner = new MeetingParticipant(
@@ -29,13 +45,18 @@ class MeetingService {
       dto.name,
       dto.email,
     );
-    const newMeeting = new Meeting(dto.meetingName, uuid(), meetingOwner, [
+    const newMeeting = new Meeting(
+      dto.meetingName,
+      uuid(),
       meetingOwner,
-    ]);
+      [],
+      dto.password,
+    );
     this.meetings.set(dto.meetingName, newMeeting);
+    this.connectParticipantToMeeting(meetingOwner, newMeeting, socket);
     return {
-      ownerId: meetingOwner.id,
-      meetingName: newMeeting.name,
+      participant: meetingOwner,
+      jitsiName: newMeeting.jitsiName,
     };
   }
 
@@ -44,23 +65,19 @@ class MeetingService {
     if (dto.ownerId) {
       if (dto.ownerId !== meeting.owner.id)
         throw new BadRequestException('Invalid ownerId');
-      this.sockets.set(dto.ownerId, socket);
-      socket.on('disconnect', () => {
-        this.cleanupConnection(meeting, dto.ownerId);
-      });
+
+      this.connectParticipantToMeeting(meeting.owner, meeting, socket);
       return { participant: meeting.owner, jitsiName: meeting.jitsiName };
     }
+    if (meeting.password && meeting.password !== dto.password)
+      throw new UnauthorizedException('Invalid password');
     const participant = new MeetingParticipant(
       uuid(),
       MeetingRole.PARTICIPANT,
       dto.name,
       dto.email,
     );
-    meeting.addParticipant(participant);
-    this.sockets.set(participant.id, socket);
-    socket.on('disconnect', () => {
-      this.cleanupConnection(meeting, participant.id);
-    });
+    this.connectParticipantToMeeting(participant, meeting, socket);
     return { participant, jitsiName: meeting.jitsiName };
   }
 
@@ -82,14 +99,11 @@ class MeetingService {
     const participantIds = meeting.participants.map((x) => x.id);
     for (const id of participantIds) {
       const socket = this.sockets.get(id);
-      if (socket) {
-        if (socket.connected) {
-          socket.emit('broadcast', {
-            from: participant.name,
-            payload: dto.payload,
-          });
-        } else {
-        }
+      if (socket && socket.connected) {
+        socket.emit('broadcast', {
+          from: participant.name,
+          payload: dto.payload,
+        });
       }
     }
   }

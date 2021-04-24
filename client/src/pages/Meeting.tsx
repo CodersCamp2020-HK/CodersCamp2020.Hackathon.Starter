@@ -3,9 +3,27 @@ import { Route, useRouteMatch, Redirect, Switch } from 'react-router-dom';
 import Actions from '../components/actions/Actions';
 import Timer from '../components/common/timer/Timer';
 import NotificationWrapper from '../components/notifications/NotificationWrapper';
-import { Grid } from '@material-ui/core';
+import Nav from '../components/nav/Nav';
+import { DemoEvents } from '../events/DemoEvents';
+import Chatbox, { SingleComment } from '../components/chatbox/Chatbox';
 
-import { JitsiFrame } from '../components/jitsi/JitsiFrame';
+const comments: SingleComment[] = [
+  {
+    name: 'Mateusz',
+    textMessage: 'Elo',
+    time: '12:52',
+  },
+  {
+    name: 'Mateusz',
+    textMessage: 'EloELo',
+    time: '12:53',
+  },
+  {
+    name: 'Mateusz',
+    textMessage: 'EloEloElo',
+    time: '12:54',
+  },
+];
 
 const Meeting = () => {
   const { path } = useRouteMatch();
@@ -13,19 +31,13 @@ const Meeting = () => {
   return (
     <Switch>
       <Route exact path={`${path}/:name`}>
-        <Grid container spacing={2}>
-          <Grid item xs={7}>
-            <Timer timeInSeconds={120} />
-
-            <JitsiFrame />
-
-            <Actions />
-          </Grid>
-          <Grid item xs={2}>
-            <NotificationWrapper />
-          </Grid>
-        </Grid>
-        <Grid item xs={3}></Grid>
+        <Nav />
+        <DemoEvents />
+        <Timer timeInSeconds={120} />
+        Hello
+        <Actions />
+        <NotificationWrapper />
+        <Chatbox comments={comments} />
       </Route>
       <Redirect to={`/404${path}`} />
     </Switch>

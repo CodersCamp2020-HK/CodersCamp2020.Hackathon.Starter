@@ -4,9 +4,9 @@ interface JoinMeetingDTO {
     meetingName: string;
     name: string;
     email: string;
+    password?: string;
     ownerId?: string;
 }
-
 
 interface JoinMeetingRespDTO {
     participant: MeetingParticipant;
@@ -19,11 +19,16 @@ interface BroadcastDTO {
     payload: string;
 }
 
-
 interface BroadcastRespDTO {
     from: string;
     payload: string;
 }
 
+interface CreateMeetingDTO {
+    meetingName: string;
+    password?: string;
+    name: string;
+    email: string;
+}
 
-export type { JoinMeetingDTO, JoinMeetingRespDTO, BroadcastDTO, BroadcastRespDTO };
+export type { CreateMeetingDTO, JoinMeetingDTO, JoinMeetingRespDTO, BroadcastDTO, BroadcastRespDTO };

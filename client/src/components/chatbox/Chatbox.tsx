@@ -1,7 +1,8 @@
+import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import { Button, Typography } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import React from 'react';
+import { useMeetingState } from '../../events/MeetingState';
 
 const useStyles = makeStyles((theme: Theme) => ({
   mainWrapper: {
@@ -82,7 +83,9 @@ type ChatboxProps = {
 };
 
 const Chatbox = ({ comments }: ChatboxProps) => {
+  const { notes, addNote } = useMeetingState();
   const classes = useStyles();
+  const [state, setState] = useState('');
   return (
     <div className={classes.mainWrapper}>
       <div className={classes.upperWrapper}>
@@ -91,14 +94,14 @@ const Chatbox = ({ comments }: ChatboxProps) => {
             Zapis spotkania
           </Typography>
         </div>
-        {comments.map(({ time, name, textMessage }) => (
+        {notes.map(({ time, description }) => (
           <div className={classes.singleCommentWrapper}>
             <div className={classes.singleComment}>
-              <div>{time}</div>
+              <div>{time.toLocaleString()}</div>
               <div className={classes.freeSpace}></div>
-              <div>{name}</div>
+              <div>{'Me'}</div>
             </div>
-            <div className={classes.commentTextBackground}>{textMessage}</div>
+            <div className={classes.commentTextBackground}>{description}</div>
           </div>
         ))}
         <Button
@@ -110,6 +113,8 @@ const Chatbox = ({ comments }: ChatboxProps) => {
         </Button>
       </div>
       <TextField
+        onChange={(e) => setState(e.target.value)}
+        value={state}
         className={classes.textField}
         variant='outlined'
         color='primary'
@@ -118,6 +123,7 @@ const Chatbox = ({ comments }: ChatboxProps) => {
         size='medium'
       />
       <Button
+        onClick={() => addNote({ description: state, time: new Date() })}
         className={classes.secondButton}
         variant='outlined'
         size='medium'

@@ -6,6 +6,7 @@ import NotificationWrapper from '../components/notifications/NotificationWrapper
 import Nav from '../components/nav/Nav';
 import { DemoEvents } from '../events/DemoEvents';
 import Chatbox, { SingleComment } from '../components/chatbox/Chatbox';
+import { Grid } from '@material-ui/core';
 
 const comments: SingleComment[] = [
   {
@@ -31,13 +32,19 @@ const Meeting = () => {
   return (
     <Switch>
       <Route exact path={`${path}/:name`}>
-        <Nav />
         <DemoEvents />
-        <Timer timeInSeconds={120} />
-        Hello
-        <Actions />
-        <NotificationWrapper />
-        <Chatbox comments={comments} />
+        <Grid container spacing={2}>
+          <Grid item xs={7}>
+            <Timer timeInSeconds={120} />
+            <Actions />
+          </Grid>
+          <Grid item xs={2}>
+            <NotificationWrapper />
+          </Grid>
+          <Grid item xs={3}>
+            <Chatbox comments={comments} />
+          </Grid>
+        </Grid>
       </Route>
       <Redirect to={`/404${path}`} />
     </Switch>

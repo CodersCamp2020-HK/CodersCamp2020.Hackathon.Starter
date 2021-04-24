@@ -10,11 +10,13 @@ type TimerProps = {
 const useStyles = makeStyles((theme) => ({
     linearProgress: {
         height: 15,
-        "& .MuiLinearProgress-barColorPrimary": {
-            backgroundColor: (time) =>
+        borderRadius: 20,
+        "& .MuiLinearProgress-barColorSecondary": {
+            borderRadius: 20,
+            backgroundColor: ({ time }: { time: number, countProgress: number }) =>
                 time <= 0
                     ? theme.palette.error.main
-                    : theme.palette.primary.main,
+                    : theme.palette.secondary.main,
         },
     },
     textWrapper: {
@@ -31,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         alignItems: "center",
     },
+    button: {
+        width: 150,
+        visibility: ({ time, countProgress }: { time: number, countProgress: number }) =>
+            time <= 0 && countProgress === 0 ? "visible" : "hidden",
+        borderRadius: 20
+    }
 }));
 
 export const convertSeconds = (sec: number) => {
@@ -48,7 +56,7 @@ export default function LinearDeterminate({ timeInSeconds }: TimerProps) {
     const [time, setTime] = useState(timeInSeconds);
     const [totalTime, setTotalTime] = useState(0);
     const [countProgress, setCountProgress] = useState(0);
-    const classes = useStyles(time);
+    const classes = useStyles({ time, countProgress });
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -90,17 +98,16 @@ export default function LinearDeterminate({ timeInSeconds }: TimerProps) {
                 </div>
                 <LinearProgress
                     className={classes.linearProgress}
-                    color="primary"
+                    color="secondary"
                     variant="determinate"
                     value={progress}
                 />
             </div>
             <Button
+                className={classes.button}
                 variant="contained"
-                style={{
-                    visibility:
-                        time <= 0 && countProgress === 0 ? "visible" : "hidden",
-                }}
+                color="secondary"
+                size="large"
                 onClick={() => {
                     setTime(() => 1 * 10);
                     setProgress(0);

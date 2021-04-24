@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(3),
     textAlign: "center",
     textTransform: "uppercase",
-    color: '#FFF',
+    color: theme.palette.primary.light,
     minHeight: "100%"
   }
 }));

@@ -3,7 +3,6 @@ import { Route, useRouteMatch, Redirect, Switch } from "react-router-dom";
 import Actions from "../components/actions/Actions";
 import Timer from "../components/common/timer/Timer";
 import NotificationWrapper from "../components/notifications/NotificationWrapper";
-import Nav from "../components/nav/Nav";
 import Chatbox, { SingleComment } from "../components/chatbox/Chatbox";
 import { useMeetingEvents } from "../events/Meeting";
 import EnterMeeting from "../components/enterMeeting/EnterMeeting";
@@ -38,7 +37,6 @@ const Meeting = () => {
           <EnterMeeting />
         ) : (
           <>
-            <Nav />
             <JitsiFrame />
             <Timer timeInSeconds={120} />
             Hello

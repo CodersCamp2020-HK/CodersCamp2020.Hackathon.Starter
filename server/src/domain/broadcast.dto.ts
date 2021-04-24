@@ -1,7 +1,7 @@
 class BroadcastDTO {
   readonly meetingName: string;
   readonly participantId: string;
-  readonly message: string;
+  readonly payload: string;
 }
 
 export { BroadcastDTO };

@@ -4,7 +4,7 @@ class CreateMeetingDTO {
   @ApiProperty()
   meetingName: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   password?: string;
 
   @ApiProperty()

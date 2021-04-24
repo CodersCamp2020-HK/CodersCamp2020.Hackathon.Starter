@@ -12,8 +12,9 @@ import Home from './pages/Home';
 import Unauth from './pages/Unauth';
 import NotFound from './pages/404';
 import Meeting from './pages/Meeting';
-import Nav from './components/nav/Nav';
+import { DemoEvents } from './events/DemoEvents';
 import { Container } from '@material-ui/core';
+import Nav from './components/nav/Nav';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -62,6 +63,7 @@ function App() {
             <div className='App'>
               <Nav />
               <Container maxWidth='lg'>
+                <DemoEvents />
                 <Router>
                   <Switch>
                     <Route path='/unauth'>

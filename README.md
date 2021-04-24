@@ -39,7 +39,7 @@ Tematem przewodnim było przygotowanie przez uczestników aplikacje usprawniają
 
 Aplikacja została wykonana wg dostarczonych przez organizatorów CodersCamp wymagań.
 
-Zespół projektowy zdecydował się na stworzenie aplikacji umożliwiającej rozmowy dla zespołów online. Dużym atutem aplikacji jest zapewnienie rozrywki dla użytkownika oraz dodanie funkcjonalności brakujących w obecnych komunikatorach umożliwiających konferencje. Nasza aplikacja umożliwia przełamanie rutyny codziennych.
+Zespół projektowy zdecydował się na stworzenie aplikacji dostarczającącej dodatkowe funkcjonalności do codziennych spotkań dla zespołów pracujący online. Dużym jej atutem jest konieczność określenie z góry czasu trwania spotkania. Motywuje to organizatora do rozsądnego zaplanowania spotkania, a uczestnikom zapewnia komfort, ponieważ wiedzą ile czasu spędzą na spotkaniu. Dodatkowo aplikacja dostarcza możliwość intuicyjnej komunikacji pomiędzy prowadzącym a słuchaczami w postaci rekatywnych icon. MeetByte to doskonałe połączenie profesjonalnych spotkań zdalnych z elementami rozrywki. Pozwoli to na przełamanie rutyny codziennych meetingów. 
 
 ### Działanie aplikacji
 
@@ -49,6 +49,7 @@ Zespół projektowy zdecydował się na stworzenie aplikacji umożliwiającej ro
 - Możliwość rozmowy glosowej
 - Możliwość wideorozmowy
 - Minutnik odliczający koniec spotkania
+- Możliwość intuicyjnej komunikacji uczestnikow z prowadzącym
 - Możliwość poproszenia o przerwe w trakcie spotkania
 - Możliwość wykonania treningu fitness w trakcie spotkania
 - Możliwość zrobienia własnych notatek w trakcie spotkania i wyeksportowanie ich w formacie PDF
@@ -75,6 +76,7 @@ Utowrzony został szablon graficzny aplikacji w programie Figma.
 10. Użytkownik ma możliwość wybrania godziny spotkania z wyprzedeniem
 11. Użytkownik ma możliwość grania w gry w trakcie spotkania 
 12. Użytkownik ma możliwość aktynwego przerywnika w trakcie spotkania w celu podnienie koncentracji rozmówców.
+13. Użytkownik ma możliwość poprosić o klaryfikację nie przywając prowadzącemu
 
 ## Wykorzystywane technologie
 
@@ -90,48 +92,11 @@ W trakcie developmentu wykorzystujemy:
 -   Material UI
 -   Figma
 
-
-### Przykładowa funkcjonalność bazy danych aplikacji
-
-![apiheroku](https://user-images.githubusercontent.com/56504859/112295862-9f43c800-8c94-11eb-94a5-1d25bc7a737d.gif)
-
-### Uruchomienie projektu
-
-Aby uruchomić aplikację na lokalnej maszynie, wykonaj następujące kroki:
-
-1. Zainstaluj zależności za pomocą komendy: `npm ci`
-2. Postaw build aplikacji: `npm run build`
-3. Uruchom kontenery z bazą danych oraz narzędziem pgAdmin: `docker-compose up`
-4. Wystartuj serwer developerski `npm run start`
-
-Aplikacja będzie dostępna pod adresem [localhost:3000/](http://localhost:3000).
-Kod produkcyjny aplikacji umieszczamy w katalogu `build`.
-
-### Uruchomienie testów
-
-Aby uruchomić testy aplikacji, wykonaj następujące kroki:
-
-1. Zainstaluj zależności za pomocą komendy: `npm ci` (jeśli nie zrobiłeś już tego wcześniej).
-2. Uruchom wszystkie testy, wykonując komendę: `npm run test`.
-
-Dostępne są także testy tylko dla serwera `npm run test:server` oraz dla testów po stronie klienckiej `npm run test:client`.
-
-
-
-#### Sterowanie
-
-<p align="center">
-  <img src="GIF" alt="gif" />
-</p>
-
-
-
-
 ### Zmiany wprowadzone w wymaganiach
 
 Projekt został przygotowany w oparciu o projekt przygotowany przez naszego grafika. Szablon graficzny powstał w programie Figma.
 
 ### Organizacja pracy
 
-Praca zespołu była organizowana przy użyciu narzędzi dostarczanych przez GitHub.
-Zadania opisywaliśmy za pomocą GitHub Issues.
+Praca zespołu była organizowana przy użyciu narzędzi dostarczanych przez GitHub ora Miro.
+Zadania opisywaliśmy za pomocą GitHub Issues. 

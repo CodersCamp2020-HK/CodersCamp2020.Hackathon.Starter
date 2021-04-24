@@ -1,16 +1,22 @@
-import { Body, Controller, Post, Redirect, Res } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiOkResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { MeetingService } from '../../application/meeting.service';
 import { CreateMeetingDTO } from '../../domain/createMeeting.dto';
-import { Response as ExResponse } from 'express';
 import { ConfigService } from '@nestjs/config';
 import {
   GlobalConfig,
   GlobalConfigKey,
 } from '../../configuration/configs/global.config';
 
+class MeetingCreatedDTO {
+  @ApiProperty()
+  ownerId: string;
+
+  @ApiProperty()
+  url: string;
+}
 @ApiTags('Meeting')
-@Controller('meeting')
+@Controller('meetings')
 class MeetingController {
   private readonly url: string;
   constructor(
@@ -20,16 +26,13 @@ class MeetingController {
     this.url = configService.get<GlobalConfig>(GlobalConfigKey).http.url;
   }
 
-  @ApiOkResponse()
+  @ApiOkResponse({
+    type: MeetingCreatedDTO,
+  })
   @Post()
-  @Redirect()
-  async createMeeting(
-    @Body() dto: CreateMeetingDTO,
-    @Res({ passthrough: true }) resp: ExResponse,
-  ) {
+  async createMeeting(@Body() dto: CreateMeetingDTO) {
     const { ownerId, meetingName } = this.meetingService.createMeeting(dto);
-    resp.cookie('onwer_id', ownerId, { path: `/${meetingName}` });
-    return { url: `${this.url}/${meetingName}` };
+    return { ownerId, url: `${this.url}/meeting/${meetingName}` };
   }
 }
 

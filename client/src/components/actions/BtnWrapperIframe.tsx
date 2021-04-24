@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
-import { IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { AppContext } from '../../App';
+import React from "react";
+import { IconButton } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { useMeetingState } from "../../events/MeetingState";
+import { useMeetingEvents } from "../../events/Meeting";
 
 const useStyles = makeStyles((theme) => ({
   btnWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
   },
   icon: {
     color: theme.palette.secondary.main,
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-type Iframe = 'yt' | 'music' | 'quiz' | 'cafe' | 'video';
+type Iframe = "yt" | "music" | "quiz" | "cafe" | "video";
 interface Props {
   children: React.ReactNode;
   name: Iframe;
@@ -32,14 +33,32 @@ interface Props {
 }
 const BtnWrapperIframe: React.FC<Props> = ({ children, name, time }) => {
   const classes = useStyles();
-  const { setIframe } = useContext(AppContext);
+  const { meetingName, participant } = useMeetingEvents();
+  const { emitTimeEvent } = useMeetingState();
   return (
     <div className={classes.btnWrapper}>
       <p className={classes.name}>{name}</p>
       <p className={classes.time}>{`${time} min`}</p>
       <IconButton
         className={classes.iconButton}
-        onClick={() => setIframe(name)}>
+        onClick={() => {
+          emitTimeEvent({
+            interval: 30,
+            meetingName: meetingName as string,
+            participantId: participant?.id as string,
+            type:
+              name === "yt"
+                ? "workout"
+                : name === "music"
+                ? "play_music"
+                : name === "quiz"
+                ? "quiz"
+                : name === "cafe"
+                ? "break"
+                : "workout",
+          });
+        }}
+      >
         {children}
       </IconButton>
     </div>

@@ -1,7 +1,6 @@
 import { TextField } from '@material-ui/core';
 import { Button, Typography } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Palette } from '@material-ui/icons';
 import React from 'react'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -13,35 +12,65 @@ const useStyles = makeStyles((theme: Theme) => ({
         "& > *": {
             marginBottom: '2rem',
         },
-        // "& ."
     },
     upperWrapper: {
-        border: '1px solid theme.palette.secondary.main',
-        borderColor: theme.palette.secondary.main,
+        border: `2px solid ${theme.palette.primary.light}`,
+        backgroundColor: theme.palette.background.default,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-
-        // "& Button": {
-        //     justifyItem: 'center',
-        // }
+        borderRadius: 20,
     },
     typographyWrapper: {
-        borderColor: theme.palette.secondary.main,
+        borderBottom: `1px solid ${theme.palette.primary.light}`,
     },
     typographyHeader: {
-        color: theme.palette.secondary.dark,
+        padding: '1rem',
+        color: theme.palette.primary.light,
         textAlign: 'center',
     },
     singleCommentWrapper: {
-        paddingRight: '2rem',
+        padding: '2rem',
+    },
+    commentTextBackground: {
+        color: theme.palette.primary.light,
+        border: `1px solid ${theme.palette.primary.light}`,
+        borderRadius: 20,
+        padding: '1rem',
     },
     singleComment: {
+        color: theme.palette.primary.light,
         display: 'flex',
         justifyContent: 'space-between',
         width: '100%',
         marginBottom: '0.5rem',
     },
+    textField: {
+        backgroundColor: theme.palette.background.default,
+        borderRadius: 15,
+        '& fieldset': {
+            borderRadius: 15,
+        },
+    },
+    firstButton: {
+        marginTop: '1rem',
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
+        margin: '0 2rem 2rem 2rem',
+        '& :hover': {
+            color: theme.palette.primary.light,
+        }
+    },
+    secondButton: {
+        backgroundColor: theme.palette.secondary.main,
+        color: theme.palette.primary.contrastText,
+        '& :hover': {
+            color: theme.palette.secondary.light,
+        }
+    },
+    freeSpace: {
+        flex: 1,
+    }
 }));
 
 interface Props {
@@ -60,14 +89,18 @@ const Chatbox: React.FC<Props> = ({ name, time, textMessage }) => {
                 </div>
                 <div className={classes.singleCommentWrapper}>
                     <div className={classes.singleComment}>
-                        <span>{name}</span><span>{time}</span>
+                        <div>{time}</div>
+                        <div className={classes.freeSpace}></div>
+                        <div>{name}</div>
                     </div>
-                    <p>{textMessage}</p>
+                    <div className={classes.commentTextBackground}>
+                        {textMessage}
+                    </div>
                 </div>
-                <Button variant="outlined" size="medium" color="secondary">WYGENERUJ RAPORT PDF</Button>
+                <Button className={classes.firstButton} variant="outlined" size="medium" color="primary">WYGENERUJ RAPORT PDF</Button>
             </div>
-            <TextField variant="outlined" id="x" label="Komentarz" size="medium" color="secondary" />
-            <Button variant="outlined" size="medium" color="secondary">WYŚLIJ KOMENTARZ</Button>
+            <TextField className={classes.textField} variant="outlined" color="primary" id="x" label="Wpisz swój komentarz" size="medium" />
+            <Button className={classes.secondButton} variant="outlined" size="medium" color="secondary">WYŚLIJ KOMENTARZ</Button>
         </div>
     )
 }

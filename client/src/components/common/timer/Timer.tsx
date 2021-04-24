@@ -13,7 +13,12 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 20,
         "& .MuiLinearProgress-barColorSecondary": {
             borderRadius: 20,
-            backgroundColor: ({ time }: { time: number, countProgress: number }) =>
+            backgroundColor: ({
+                time,
+            }: {
+                time: number;
+                countProgress: number;
+            }) =>
                 time <= 0
                     ? theme.palette.error.main
                     : theme.palette.secondary.main,
@@ -35,10 +40,15 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         width: 150,
-        visibility: ({ time, countProgress }: { time: number, countProgress: number }) =>
-            time <= 0 && countProgress === 0 ? "visible" : "hidden",
-        borderRadius: 20
-    }
+        visibility: ({
+            time,
+            countProgress,
+        }: {
+            time: number;
+            countProgress: number;
+        }) => (time <= 0 && countProgress === 0 ? "visible" : "hidden"),
+        borderRadius: 20,
+    },
 }));
 
 export const convertSeconds = (sec: number) => {

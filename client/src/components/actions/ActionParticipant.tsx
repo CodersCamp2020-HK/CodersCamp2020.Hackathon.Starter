@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Actions = () => {
+const ActionsParticipant = () => {
   const classes = useStyles();
   return (
     <div className={classes.action}>
@@ -39,4 +39,4 @@ const Actions = () => {
   );
 };
 
-export default Actions;
+export default ActionsParticipant;

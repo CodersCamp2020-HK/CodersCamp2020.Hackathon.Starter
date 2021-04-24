@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { RestfulProvider } from 'restful-react';
@@ -15,6 +14,13 @@ import Meeting from './pages/Meeting';
 import { DemoEvents } from './events/DemoEvents';
 import { Container } from '@material-ui/core';
 import Nav from './components/nav/Nav';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  app: {
+    backgroundColor: theme.palette.background.default,
+  },
+}));
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 const devApiUrl = 'http://localhost:8000';
@@ -34,6 +40,7 @@ export const AppContext = React.createContext<IAppContext>(null!);
 const StorageThemeKey = 'darkTheme';
 
 function App() {
+  const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
   const [darkTheme, setDarkTheme] = useState<boolean>(() => {
@@ -60,7 +67,7 @@ function App() {
         <ThemeProvider theme={darkTheme ? DarkTheme : LightTheme}>
           <AppContext.Provider
             value={{ darkTheme, toggleTheme, hamburger, setHamburger }}>
-            <div className='App'>
+            <div className={classes.app}>
               <Nav />
               <Container maxWidth='lg'>
                 <DemoEvents />

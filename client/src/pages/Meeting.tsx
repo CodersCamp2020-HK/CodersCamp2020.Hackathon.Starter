@@ -3,8 +3,10 @@ import { Route, useRouteMatch, Redirect, Switch } from 'react-router-dom';
 import Actions from '../components/actions/Actions';
 import Timer from '../components/common/timer/Timer';
 import NotificationWrapper from '../components/notifications/NotificationWrapper';
-import { Grid, Toolbar } from '@material-ui/core';
-import Nav from '../components/nav/Nav';
+import { Grid } from '@material-ui/core';
+import Chatbox from '../components/chatbox/Chatbox';
+
+import { JitsiFrame } from '../components/jitsi/JitsiFrame';
 
 const Meeting = () => {
   const { path } = useRouteMatch();
@@ -16,7 +18,7 @@ const Meeting = () => {
           <Grid item xs={7}>
             <Timer timeInSeconds={120} />
 
-            <div id='meet'></div>
+            <JitsiFrame />
 
             <Actions />
           </Grid>

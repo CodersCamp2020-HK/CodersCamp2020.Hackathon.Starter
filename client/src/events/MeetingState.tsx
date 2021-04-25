@@ -43,10 +43,12 @@ function MeetingStateProvider({
     };
 
     const onTimeEventStart = (resp: TimeEvent) => {
+      console.log("[onTimeEventStart]", resp);
       setCurrentTimeEvent(resp.type);
     };
 
     const onTimeEventEnd = () => {
+      console.log("[onTimeEventEnd]");
       setCurrentTimeEvent(undefined);
     };
 

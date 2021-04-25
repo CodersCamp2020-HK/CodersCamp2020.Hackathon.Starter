@@ -9,6 +9,7 @@ type InformationAction = 'dont_understand'  // informacja
 interface InformationNotification {
     meetingName: string,
     participantId: string;
+    from: string;
     date: Date,
     type: InformationAction,
 }

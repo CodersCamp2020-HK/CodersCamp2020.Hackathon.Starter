@@ -10,6 +10,7 @@ type InformationAction =
 class InformationNotification {
   readonly meetingName: string;
   readonly participantId: string;
+  readonly from: string;
   readonly date: Date;
   readonly type: InformationAction;
 }

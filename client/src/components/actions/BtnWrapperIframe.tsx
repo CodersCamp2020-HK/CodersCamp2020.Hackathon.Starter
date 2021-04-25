@@ -34,13 +34,14 @@ interface Props {
 const BtnWrapperIframe: React.FC<Props> = ({ children, name, time }) => {
   const classes = useStyles();
   const { meetingName, participant } = useMeetingEvents();
-  const { emitTimeEvent } = useMeetingState();
+  const { emitTimeEvent, currentTimeEvent } = useMeetingState();
   return (
     <div className={classes.btnWrapper}>
       <p className={classes.name}>{name}</p>
       <p className={classes.time}>{`${time} min`}</p>
       <IconButton
         className={classes.iconButton}
+        disabled={currentTimeEvent !== undefined}
         onClick={() => {
           emitTimeEvent({
             interval: 30,

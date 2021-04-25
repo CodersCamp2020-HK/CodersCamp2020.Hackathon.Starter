@@ -28,19 +28,6 @@ class MeetingService {
     return meeting;
   }
 
-  private timeoutGuard<T>(store: Set<T>, id: T, time_s: number) {
-    if (store.has(id)) {
-      throw new WsException({
-        code: 11,
-        message: 'You reached time limit of concurrent notifications',
-      });
-    }
-    store.add(id);
-    setTimeout(() => {
-      store.delete(id);
-    }, time_s * 60 * 1000);
-  }
-
   private connectParticipantToMeeting(
     participant: MeetingParticipant,
     meeting: Meeting,
@@ -156,8 +143,7 @@ class MeetingService {
   }
 
   onInformationEvent(body: InformationNotification) {
-    const { participant, meeting } = this.getParticipantAndMeeting(body);
-    this.timeoutGuard(this.informationNotitificationLock, participant.id, 30);
+    const { meeting } = this.getParticipantAndMeeting(body);
     this.broadcastEvent('on_information_event', meeting, body);
   }
 

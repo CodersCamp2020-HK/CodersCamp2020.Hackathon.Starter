@@ -11,14 +11,21 @@ function JitsiFrame() {
         width: "100%",
         height: 700,
         parentNode: document.querySelector("#meet"),
+        configOverwrite: {
+          prejoinPageEnabled: false,
+          toolbarButtons: [],
+        },
+        userInfo: {
+          displayName: participant?.name,
+        },
       };
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const api = new JitsiMeetExternalAPI(domain, options);
-      api.executeCommand("displayName", participant?.name);
       setJitsiApi(api);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jitsiName]);
+  }, [jitsiName, participant]);
 
   return <div id="meet"></div>;
 }
